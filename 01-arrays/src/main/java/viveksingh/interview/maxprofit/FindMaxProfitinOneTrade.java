@@ -1,5 +1,5 @@
 /**
- * 
+ * Find maximum profit in give price array in a single trade
  */
 package viveksingh.interview.maxprofit;
 
