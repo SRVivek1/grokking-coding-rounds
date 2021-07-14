@@ -48,6 +48,9 @@ public class FindMaxProfitinOneTrade {
 	/**
 	 * Find max profit in a single trade.
 	 * 
+	 * Time Complexicity : O(n)
+	 * Space Complexicity : O(1)
+	 * 
 	 * @param prices
 	 * @return
 	 */

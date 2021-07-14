@@ -97,9 +97,6 @@ public class FindMaximumProfitSinglePass {
 				System.out.println("Sell : day - " + i + ", price - " + prices[i]);
 
 				maxProfit += prices[i] - prices[i - 1];
-				
-				// Enable if we can't make 2 trades on same day.
-				//i++;
 			}
 		}
 		return maxProfit;
