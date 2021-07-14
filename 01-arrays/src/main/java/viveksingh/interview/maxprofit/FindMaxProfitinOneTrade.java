@@ -9,9 +9,7 @@ package viveksingh.interview.maxprofit;
  */
 public class FindMaxProfitinOneTrade {
 
-	/**
-	 * @param args
-	 */
+
 	public static void main(String[] args) {
 
 		final int[] prices_input_1 = { 7, 1, 5, 3, 6, 4 };
@@ -46,6 +44,12 @@ public class FindMaxProfitinOneTrade {
 
 	}
 
+	/**
+	 * Find max profit in a single trade.
+	 * 
+	 * @param prices
+	 * @return
+	 */
 	private static int maxProfitInOneTrade(int[] prices) {
 		int maxProfit = 0;
 		int minTradeValue = prices[0];
