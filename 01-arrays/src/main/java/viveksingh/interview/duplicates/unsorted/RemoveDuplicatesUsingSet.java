@@ -16,6 +16,8 @@ package viveksingh.interview.duplicates.unsorted;
 
 import java.util.LinkedHashSet;
 
+import viveksingh.interview.utils.ArrayUtils;
+
 /**
  * @author vivek
  *
@@ -29,12 +31,11 @@ public class RemoveDuplicatesUsingSet {
 
 		int[] arr = {1, 2, 5, 1, 7, 2, 4, 2};
 		
+		ArrayUtils.printArray(arr, "Input array : ");
+		
 		Integer[] result = removeDuplicates(arr);
 		
-		// Print array
-		for (Integer i : result) {
-			System.out.print(i + ", ");
-		}
+		ArrayUtils.printArray(result, "Output array : ");
 	}
 
 	/**

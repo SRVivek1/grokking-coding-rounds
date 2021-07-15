@@ -35,7 +35,7 @@
  *  If all assertions pass, then your solution will be accepted.
  * 
  * 
- * Complexicity
+ * complexity
  * -----------------------
  * Time Complexity : O(n) 
  * Auxiliary Space : O(1)
@@ -72,7 +72,7 @@ public class RemoveDuplicates {
 
 	/**
 	 * Take all unique elements and put them in first position with space
-	 * complexicity of O(1).
+	 * complexity of O(1).
 	 * 
 	 * Expects : sorted array
 	 * 

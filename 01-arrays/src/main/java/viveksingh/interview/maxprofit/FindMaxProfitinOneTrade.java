@@ -4,6 +4,8 @@
  */
 package viveksingh.interview.maxprofit;
 
+import viveksingh.interview.utils.ArrayUtils;
+
 /**
  * @author vivek
  *
@@ -24,23 +26,23 @@ public class FindMaxProfitinOneTrade {
 		final int[] prices_input_3 = { 7, 6, 4, 3, 1 };
 
 		int maxProfit = maxProfitInOneTrade(prices_input_1);
-		printArray(prices_input_1);
+		ArrayUtils.printArray(prices_input_1);
 		System.out.println("Max profit : " + maxProfit + "\n");
 
 		maxProfit = maxProfitInOneTrade(prices_input_4);
-		printArray(prices_input_4);
+		ArrayUtils.printArray(prices_input_4);
 		System.out.println("Max profit : " + maxProfit + "\n");
 
 		maxProfit = maxProfitInOneTrade(prices_input_5);
-		printArray(prices_input_5);
+		ArrayUtils.printArray(prices_input_5);
 		System.out.println("Max profit : " + maxProfit + "\n");
 
 		maxProfit = maxProfitInOneTrade(prices_input_2);
-		printArray(prices_input_2);
+		ArrayUtils.printArray(prices_input_2);
 		System.out.println("Max profit : " + maxProfit + "\n");
 
 		maxProfit = maxProfitInOneTrade(prices_input_3);
-		printArray(prices_input_3);
+		ArrayUtils.printArray(prices_input_3);
 		System.out.println("Max profit : " + maxProfit + "\n");
 
 	}
@@ -48,8 +50,8 @@ public class FindMaxProfitinOneTrade {
 	/**
 	 * Find max profit in a single trade.
 	 * 
-	 * Time Complexicity : O(n)
-	 * Space Complexicity : O(1)
+	 * Time complexity : O(n)
+	 * Space complexity : O(1)
 	 * 
 	 * @param prices
 	 * @return
@@ -70,19 +72,5 @@ public class FindMaxProfitinOneTrade {
 		System.out.println("Sell price : " + (maxProfit + minTradeValue));
 		
 		return maxProfit;
-	}
-
-	/**
-	 * Print input array data.
-	 * 
-	 * @param prices_input_1
-	 */
-	private static void printArray(int[] arr) {
-
-		System.out.print("[");
-		for (int i : arr) {
-			System.out.print(i + ", ");
-		}
-		System.out.println("]");
 	}
 }

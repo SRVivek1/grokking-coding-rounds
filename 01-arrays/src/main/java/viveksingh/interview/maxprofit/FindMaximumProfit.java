@@ -30,6 +30,8 @@
  */
 package viveksingh.interview.maxprofit;
 
+import viveksingh.interview.utils.ArrayUtils;
+
 /**
  * @author vivek
  *
@@ -48,15 +50,15 @@ public class FindMaximumProfit {
 		final int[] prices_input_3 = { 7, 6, 4, 3, 1 };
 
 		int maxProfit = maxProfit(prices_input_1);
-		printArray(prices_input_1);
+		ArrayUtils.printArray(prices_input_1);
 		System.out.println("Max profit : " + maxProfit + "\n");
 		
 		maxProfit = maxProfit(prices_input_2);
-		printArray(prices_input_2);
+		ArrayUtils.printArray(prices_input_2);
 		System.out.println("Max profit : " + maxProfit + "\n");
 		
 		maxProfit = maxProfit(prices_input_3);
-		printArray(prices_input_3);
+		ArrayUtils.printArray(prices_input_3);
 		System.out.println("Max profit : " + maxProfit + "\n");
 	}
 
@@ -102,19 +104,5 @@ public class FindMaximumProfit {
 		}
 
 		return maxProfit;
-	}
-	
-	/**
-	 * Print input array data.
-	 * 
-	 * @param prices_input_1
-	 */
-	private static void printArray(int[] arr) {
-
-		System.out.print("[");
-		for(int i : arr) {
-			System.out.print(i + ", ");
-		}
-		System.out.println("]");
 	}
 }

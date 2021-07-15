@@ -30,6 +30,8 @@
  */
 package viveksingh.interview.maxprofit;
 
+import viveksingh.interview.utils.ArrayUtils;
+
 /**
  * @author vivek
  *
@@ -44,7 +46,7 @@ public class FindMaximumProfitSinglePass {
 		final int[] prices_input_1 = { 7, 1, 5, 3, 6, 4 };
 
 		final int[] prices_input_4 = { 7, 1, 5, 7, 6, 4 };
-		
+
 		final int[] prices_input_5 = { 7, 1, 5, 7, 3, 6, 4 };
 
 		final int[] prices_input_2 = { 1, 2, 3, 4, 5 };
@@ -52,23 +54,23 @@ public class FindMaximumProfitSinglePass {
 		final int[] prices_input_3 = { 7, 6, 4, 3, 1 };
 
 		int maxProfit = maxProfit(prices_input_1);
-		printArray(prices_input_1);
+		ArrayUtils.printArray(prices_input_1);
 		System.out.println("Max profit : " + maxProfit + "\n");
 
 		maxProfit = maxProfit(prices_input_4);
-		printArray(prices_input_4);
+		ArrayUtils.printArray(prices_input_4);
 		System.out.println("Max profit : " + maxProfit + "\n");
 
 		maxProfit = maxProfit(prices_input_5);
-		printArray(prices_input_5);
+		ArrayUtils.printArray(prices_input_5);
 		System.out.println("Max profit : " + maxProfit + "\n");
 
 		maxProfit = maxProfit(prices_input_2);
-		printArray(prices_input_2);
+		ArrayUtils.printArray(prices_input_2);
 		System.out.println("Max profit : " + maxProfit + "\n");
 
 		maxProfit = maxProfit(prices_input_3);
-		printArray(prices_input_3);
+		ArrayUtils.printArray(prices_input_3);
 		System.out.println("Max profit : " + maxProfit + "\n");
 
 	}
@@ -101,19 +103,4 @@ public class FindMaximumProfitSinglePass {
 		}
 		return maxProfit;
 	}
-
-	/**
-	 * Print input array data.
-	 * 
-	 * @param prices_input_1
-	 */
-	private static void printArray(int[] arr) {
-
-		System.out.print("[");
-		for (int i : arr) {
-			System.out.print(i + ", ");
-		}
-		System.out.println("]");
-	}
-
 }
