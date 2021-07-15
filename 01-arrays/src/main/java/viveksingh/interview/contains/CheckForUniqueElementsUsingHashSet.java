@@ -43,9 +43,8 @@ public class CheckForUniqueElementsUsingHashSet {
 
 		int[] arr = { 1, 2, 3, 1 };
 
-		
 		ArrayUtils.printArray(arr, "Input array : ");
-		
+
 		// Check if array has duplicate elements
 		Boolean result = containsDuplicate(arr);
 		System.out.println("Contains duplicates : " + result);
@@ -54,25 +53,24 @@ public class CheckForUniqueElementsUsingHashSet {
 	/**
 	 * Returns true if it has duplicate elements.
 	 * 
-	 * Space complexity : O(n)
-	 * Time complexity : O(n)
+	 * Space complexity : O(n) Time complexity : O(n)
 	 * 
-	 * Leet code:
-	 * ---------------
-	 * Runtime: 5 ms
-	 * Memory Usage: 44.x MB
+	 * Leet code: --------------- Runtime: 5 ms Memory Usage: 44.x MB
 	 * 
 	 * @param arr
 	 * @return
 	 */
 	private static Boolean containsDuplicate(int[] arr) {
 
+		if (arr.length == 0) {
+			return false;
+		}
 		final HashSet<Integer> data = new HashSet<>();
 
 		for (int i = 0; i < arr.length; i++) {
 			// Check if data exists
 			if (data.contains(arr[i])) {
-				System.out.println("Duplicate found : " + arr[i] + ", Index : " + i);
+				System.out.println("Duplicate found : " + arr[i] + ", Index : " + (i + 1));
 				return true;
 			}
 			// add data

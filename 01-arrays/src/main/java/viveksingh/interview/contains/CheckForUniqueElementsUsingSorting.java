@@ -65,12 +65,18 @@ public class CheckForUniqueElementsUsingSorting {
 	 */
 	private static Boolean containsDuplicate(int[] arr) {
 
+		if (arr.length == 0) {
+			return false;
+		}
+		
 		// Sort the array
 		Arrays.sort(arr);
+		ArrayUtils.printArray(arr, "Sorted Array : ");
 
 		// Check for duplicates
 		for (int i = 0; i < arr.length; i++) {
 			if (arr[i] == arr[i + 1]) {
+				System.out.println("Duplicate found : " + arr[i] + ", Index : " + (i + 1));
 				return true;
 			}
 		}

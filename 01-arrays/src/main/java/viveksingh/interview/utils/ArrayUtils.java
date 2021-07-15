@@ -35,7 +35,7 @@ public class ArrayUtils {
 	 */
 	public static void printArray(int[] arr, String message) {
 
-		System.out.println(message);
+		System.out.print(message + " ");
 		printArray(arr);
 	}
 
