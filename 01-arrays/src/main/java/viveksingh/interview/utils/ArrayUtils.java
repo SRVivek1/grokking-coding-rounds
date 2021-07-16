@@ -46,6 +46,11 @@ public class ArrayUtils {
 	 */
 	public static void printArray(int[] arr) {
 
+		if (arr == null || arr.length == 0) {
+			System.out.println("Null/Empty array.");
+			return;
+		}
+
 		System.out.print("[");
 		for (int i : arr) {
 			System.out.print(i + ", ");
