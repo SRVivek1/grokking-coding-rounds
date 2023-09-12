@@ -10,14 +10,6 @@ package viveksingh.java.interview.binarysearch;
 public class RecursiveBinarySearch {
 
 	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
 	 * Recursive binary search.
 	 * 
 	 * @param arr
@@ -44,7 +36,7 @@ public class RecursiveBinarySearch {
 				return recursiveBinarySearch(arr, target, (mid + 1), right);
 			}
 		}
-
+				
 		return -1;
 	}
 
