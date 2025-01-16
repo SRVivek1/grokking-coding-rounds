@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&ast;&ast;&lt;ins&gt;About &sol; Introduction&lt;&sol;ins&gt;&ast;&ast;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <center>
+<h1> Design Patterns </h1>
+</center>
+<h3 id="about--introduction"><strong><ins>About / Introduction</ins></strong></h3>
+<ul>
+<li>Design patterns are typical solutions to common problems in software design.</li>
+<li>Each pattern is like a blueprint that you can customize to solve a particular design problem in your code.</li>
+<li><strong>Benefits of patterns:</strong>
+<ul>
+<li>Patterns are a toolkit of solutions to common problems in software design.</li>
+<li>They define a common language that helps your team communicate more efficiently.</li>
+</ul>
+</li>
+<li><strong>Classification:</strong>
+<ul>
+<li>Design patterns differ by their complexity, level of detail and scale of applicability. In addition, they can be categorized by their intent and divided into three groups.</li>
+<li>The most basic and low-level patterns are often called idioms. They usually apply only to a single programming language.</li>
+<li>The most universal and high-level patterns are architectural patterns. Developers can implement these patterns in virtually any language. Unlike other patterns, they can be used to design the architecture of an entire application.</li>
+<li>All patterns can be categorized by their intent, or purpose. Here we'll discuss the three main groups of patterns:
+<ul>
+<li><strong>1. Creational:</strong>
+<ul>
+<li>The design patterns that deal with the creation of an object.</li>
+</ul>
+</li>
+<li><strong>2. Structural:</strong>
+<ul>
+<li>These design patterns deals with the class structure such as Inheritance and Composition.</li>
+</ul>
+</li>
+<li><strong>3. Behavioral:</strong>
+<ul>
+<li>These design patterns provide solution for the better interaction between objects.</li>
+<li>How to provide lose coupling, and flexibility to extend easily in future.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="design-patters"><strong><ins>Design Patters</ins></strong></h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Design Pattern</th>
+<th>Info</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Creational D.P.</strong></td>
+<td></td>
+<td>There are <strong>5</strong> design patterns in this category.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Singleton</em></td>
+<td>Restricts the initialization of a class to only one instance of the class per JVM.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Factory</em></td>
+<td>Takes out the responsibility of instantiating a object from the class to a Factory class.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Absstract Factory</em></td>
+<td>Allows us to create a Factory for factory classes.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Builder</em></td>
+<td>Creating an object step by step and a method to finally get the object instance.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Prototype</em></td>
+<td>Creating a new object instance from another similar instance and then modify according to our requirements.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Structural D.P.</strong></td>
+<td></td>
+<td>There are <strong>7</strong> design patterns defined in this category.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Adapter</em></td>
+<td>Provides an interface between two unrelated entities so that they can work together.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Composite</em></td>
+<td>Used when we have to implement a part-whole hierarchy. For example, a diagram made of other pieces such as circle, square, triangle, etc.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Proxy</em></td>
+<td>Provide a surrogate or placeholder for another object to control access to it.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Flyweight</em></td>
+<td>Caching and reusing object instances, used with immutable objects.</td>
+<td>Java String pool</td>
+</tr>
+<tr>
+<td></td>
+<td><em>Faced</em></td>
+<td>Creating a wrapper interfaces on top of existing interfaces to help client applications.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Bridge</em></td>
+<td>The bridge design pattern is used to decouple the interfaces from implementation and hiding the implementation details from the client program.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Decorator</em></td>
+<td>The decorator design pattern is used to modify the functionality of an object at runtime.</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Behavioral D.P.</strong></td>
+<td></td>
+<td>There are <strong>11</strong> design patterns defined in this category.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Template Method</em></td>
+<td>Used to create a template method stub and defer some of the steps of implementation to the subclasses.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Mediator</em></td>
+<td>Used to provide a centralized communication medium between different objects in a system.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Chain of Responsibility</em></td>
+<td>Used to achieve loose coupling in software design where a request from the client is passed to a chain of objects to process them.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Observer</em></td>
+<td>Get notified whenever there is any change in the state of an object.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Strategy</em></td>
+<td>Used when we have multiple algorithm for a specific task and client decides the actual implementation to be used at runtime.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Command</em></td>
+<td>Command Pattern is used to implement lose coupling in a request-response model.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>State</em></td>
+<td>State design pattern is used when an Object change it’s behavior based on it’s internal state.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Visitor</em></td>
+<td>Visitor pattern is used when we have to perform an operation on a group of similar kind of Objects.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Interpretor</em></td>
+<td>Defines a grammatical representation for a language and provides an interpreter to deal with this grammar.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Iterator</em></td>
+<td>Used to provide a standard way to traverse through a group of Objects.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Memento</em></td>
+<td>Used when we want to save the state of an object so that we can restore later on.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong><ins>References:</ins></strong>
+<ul>
+<li><a href="https://www.digitalocean.com/community/tutorials/gangs-of-four-gof-design-patterns">https://www.digitalocean.com/community/tutorials/gangs-of-four-gof-design-patterns</a></li>
+<li><a href="https://refactoring.guru/design-patterns">https://refactoring.guru/design-patterns</a></li>
+<li>[<a href="https://www.geeksforgeeks.org/software-design-patterns/">https://www.geeksforgeeks.org/software-design-patterns/</a>] (<a href="https://www.geeksforgeeks.org/software-design-patterns/">https://www.geeksforgeeks.org/software-design-patterns/</a>)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+
+            
+            
+        </body>
+        </html>
