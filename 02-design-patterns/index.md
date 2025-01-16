@@ -25,13 +25,14 @@
 
 | Category | Design Pattern | Info | Example |
 | -------- | -------------- | ---- | ------- |
-| **Creational D.P.** |     | There are **5** design patterns in this category. |  |
+| **Creational D.P.** |     | There are **5** design patterns in ***Creational Design Pattern*** category. |  |
 |          | *Singleton* | Restricts the initialization of a class to only one instance of the class per JVM. |  |
 |    | *Factory* | Takes out the responsibility of instantiating a object from the class to a Factory class. |  |
 |    | *Absstract Factory* | Allows us to create a Factory for factory classes. |  |
 |    | *Builder* | Creating an object step by step and a method to finally get the object instance. |  |
 |    | *Prototype* | Creating a new object instance from another similar instance and then modify according to our requirements. |  |
-| **Structural D.P.** |     |  There are **7** design patterns defined in this category. |  |
+|||||
+| **Structural D.P.** |     |  There are **7** design patterns defined in ***Structural Design Pattern*** category. |  |
 |    | *Adapter* | Provides an interface between two unrelated entities so that they can work together. |  |
 |    | *Composite* | Used when we have to implement a part-whole hierarchy. For example, a diagram made of other pieces such as circle, square, triangle, etc. |  |
 |    | *Proxy* | Provide a surrogate or placeholder for another object to control access to it. |  |
@@ -39,7 +40,8 @@
 |    | *Faced* | Creating a wrapper interfaces on top of existing interfaces to help client applications. |  |
 |    | *Bridge* | The bridge design pattern is used to decouple the interfaces from implementation and hiding the implementation details from the client program. |  |
 |    | *Decorator* | The decorator design pattern is used to modify the functionality of an object at runtime. |  |
-|  **Behavioral D.P.**  |  | There are **11** design patterns defined in this category. |  |
+|||||
+|  **Behavioral D.P.**  |  | There are **11** design patterns defined in ***Behavioral Design Pattern*** category. |  |
 |    | *Template Method* | Used to create a template method stub and defer some of the steps of implementation to the subclasses. |  |
 |    | *Mediator* | Used to provide a centralized communication medium between different objects in a system. |  |
 |    | *Chain of Responsibility* | Used to achieve loose coupling in software design where a request from the client is passed to a chain of objects to process them. |  |
