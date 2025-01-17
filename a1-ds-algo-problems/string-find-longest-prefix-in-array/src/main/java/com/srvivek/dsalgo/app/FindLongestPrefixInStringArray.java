@@ -63,3 +63,18 @@ public class FindLongestPrefixInStringArray {
 
     }
 }
+
+/**
+ *
+ * Execution:
+ * > Task :string-find-longest-prefix-in-array:FindLongestPrefixInStringArray.main()
+ * Input: [flow, flop, flight]
+ *  Output: fl
+ * Input: [flow, flop, flight, flower]
+ *  Output: fl
+ * Input: [flow, flop, flower]
+ *  Output: flo
+ * Input: [flow, flop, flight, descope, desire]
+ *  Output:
+ *
+ */
