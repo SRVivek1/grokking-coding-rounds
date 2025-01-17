@@ -1,4 +1,5 @@
 rootProject.name = 'a1-ds-algo-problems'
 include 'string-find-longest-prefix-in-array'
 include 'java8-streams'
+include 'string-reversal-interview-problems'
 

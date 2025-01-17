@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/java8-streams" />
             <option value="$PROJECT_DIR$/string-find-longest-prefix-in-array" />
+            <option value="$PROJECT_DIR$/string-reversal-interview-problems" />
           </set>
         </option>
       </GradleProjectSettings>
