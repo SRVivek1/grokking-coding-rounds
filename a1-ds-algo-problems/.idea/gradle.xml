@@ -9,6 +9,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/java8-streams" />
             <option value="$PROJECT_DIR$/string-find-longest-prefix-in-array" />
           </set>
         </option>
