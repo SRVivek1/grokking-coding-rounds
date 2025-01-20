@@ -1,3 +1,5 @@
+package com.srvivek.dsalgo.app.palindrome;
+
 public class CheckIfStringIsPalindrome {
 
     /**
@@ -18,6 +20,11 @@ public class CheckIfStringIsPalindrome {
         return res;
     }
 
+    /**
+     * Convert string to lower case and then check for palindrome.
+      * @param str
+     * @return
+     */
     public static String convertToLowerCase(String str) {
         StringBuilder res = new StringBuilder();
 
