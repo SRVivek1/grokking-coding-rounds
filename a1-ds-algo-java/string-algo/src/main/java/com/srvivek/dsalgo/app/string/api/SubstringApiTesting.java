@@ -1,6 +1,17 @@
 package com.srvivek.dsalgo.app.string.api;
 
 /**
+ * Substring
+ * -----------
+ *  A substring is a contiguous part of a string, i.e., a string inside another string.
+ *  In general, for an string of size n, there are n*(n+1)/2 non-empty substrings.
+ *  For example, Consider the string "geeks", There are 15 non-empty substrings
+ *  The subarrays are:
+ *   g, ge, gee, geek, geeks,
+ *   e, ee, eek, eeks,
+ *   e, ek, eks,
+ *   k, ks,
+ *   ks
  * Notes:
  *  --> substring() API:
  *      ---> Includes the given beginIndex character.
