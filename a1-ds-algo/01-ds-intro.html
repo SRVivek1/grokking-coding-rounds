@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Data Structucture and Algorithms</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="data-structucture-and-algorithms">Data Structucture and Algorithms</h1>
+<h2 id="introduction">Introduction</h2>
+<ul>
+<li><strong><ins>Data Structure</ins></strong>
+<ul>
+<li>They are essential ingredients for creating fast and powerful algorithms.</li>
+<li>They help to manage and organize data.</li>
+<li>They make code cleaner and easier to understand.</li>
+</ul>
+</li>
+<li><strong><ins>Abstract Data Types (ADT)</ins></strong>
+<ul>
+<li>ADT is an abstraction of data structure which provides only the interface to which a data structure must adhere to.</li>
+<li>The interface does no give any specific detail about how something should be implemented or in what programming language.</li>
+</ul>
+</li>
+<li><strong><ins>Pros &amp; Cons</ins></strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Abstraction (ADT)</th>
+<th>Implementation (DS)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>Dynamic Array <br/> Linked List</td>
+</tr>
+<tr>
+<td>Queue</td>
+<td>LinkedList Based Queue <br/> Array based queue <br/> Stack based queue</td>
+</tr>
+<tr>
+<td>Map</td>
+<td>Tree Map <br/> Hash map / Hash table</td>
+</tr>
+<tr>
+<td>Vehicle</td>
+<td>Golf Cart <br/> Bicycle <br/> Smart Car</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong><ins>Computational Complexity</ins></strong>
+<ul>
+<li>As programmers, we often find ourselves asking the same 2 questions over and over again:
+<ul>
+<li>How much time does this algorithm need to finish.</li>
+<li>How much space does this algorithm need for it's computation.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><ins>Big-O Notation</ins></strong>
+<ul>
+<li>It gives an <em>upper bound</em> of the complexity in the <em>worst case</em>, helping to quantify performance as the <em>input size becomes arbitrarily large</em>.</li>
+<li>Because we are always interested in the worst case scenario, that's why we ingnore lower terms and constants while calculating time complexity with Big-O.
+<ul>
+<li>E.g.
+<ul>
+<li>O (n + c) --&gt; O(n)</li>
+<li>O(nc)  --&gt; O(n), c &gt; 0</li>
+<li>7log(n)^3 + 15n^2 + 2n^3 + 8    --&gt; O(n^3) [Highest term]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Conidering <em>n</em> is the size of input, Complexities ordered in from smallest to largest.</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Time Complexity</th>
+<th>Big-O notation</th>
+<th>Time Complexity</th>
+<th>Big-O notation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Constatnt Time</td>
+<td>O(1)</td>
+<td>Quadric Time</td>
+<td>O(n^2) [order of n square]</td>
+</tr>
+<tr>
+<td>Logarithmic Time</td>
+<td>O(log(n))</td>
+<td>Cubic Time</td>
+<td>O(n^3) [order of n cube]</td>
+</tr>
+<tr>
+<td>Linear Time</td>
+<td>O(n)</td>
+<td>Exponenetial Time</td>
+<td>O(b^n) [Order of b to the power n, b &gt; 1]</td>
+</tr>
+<tr>
+<td>Linearithmic Time</td>
+<td>O(nlog(n))</td>
+<td>Factorial Time</td>
+<td>O(n!)</td>
+</tr>
+</tbody>
+</table>
+<br/>
+<ul>
+<li>Here's some example codes with different time complexities</li>
+</ul>
+<table>
+  <tr>
+    <th>Time Complexity</th>
+    <th>Example code</th>
+    <th>Time Complexity</th>
+    <th>Example code</th>
+  </tr>
+  <tr>
+    <th>Constatnt Time</th>
+    <td>
+      <div>
+        <img src="file:////home/srvivek/wrkspace/grokking-coding-rounds/a1-ds-algo/images/constant-time-complexity.png" height="60px" width="270px">
+      </div>
+    </td>
+    <th>Logrithmic Time</th>
+    <td>
+      <div>
+        <img src="file:////home/srvivek/wrkspace/grokking-coding-rounds/a1-ds-algo/images/logrithmic-time-complexity.png" height="180px" width="370px">
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <th>Linear Time</th>
+    <td>
+      <div>
+        <img src="file:////home/srvivek/wrkspace/grokking-coding-rounds/a1-ds-algo/images/linear-time-complexity.png" height="80px" width="240px">
+      </div>
+    </td>
+    <th>Quadric Time</th>
+    <td>
+      <div>
+        <img src="file:////home/srvivek/wrkspace/grokking-coding-rounds/a1-ds-algo/images/quadric-time-complexity.png" height="180px" width="350px">
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <th>Other classic T.C. examples</th>
+    <td>
+      <div>
+        <img src="file:////home/srvivek/wrkspace/grokking-coding-rounds/a1-ds-algo/images/other-classic-time-complexities.png" height="140px" width="350px">
+      </div>
+    </td>
+  </tr>
+</table> 
+<ul>
+<li><strong><ins>References:</ins></strong>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=RBSGKlAvoiM">https://www.youtube.com/watch?v=RBSGKlAvoiM</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<hr>
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+            
+            
+        </body>
+        </html>
