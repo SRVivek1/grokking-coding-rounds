@@ -57,28 +57,48 @@
           - Convert it to lowercase.
           - Remove non-alphanumeric characters. (If asked in problem to ignore numeric characters)
     2. Use either the two-pointer or reverse-and-compare approach.
+       1. Check above for implementation.
   - **Soution in Java:**
-    ```java
-            /**
-             * Convert string to lower case and then check for palindrome.
-              * @param str
-            * @return
-            */
-            public static String convertToLowerCase(String str) {
-                StringBuilder res = new StringBuilder();
+    - *Normalize string by changing all chars to lower-case*
+      ```java
+              /**
+               * Convert string to lower case and then check for palindrome.
+                * @param str
+              * @return
+              */
+              public static String convertToLowerCase(String str) {
+                  StringBuilder res = new StringBuilder();
 
-                for (char c : str.toCharArray()) {
+                  for (char c : str.toCharArray()) {
 
-                    // if upper case convert to lowercase
-                    if (c >= 'A' && c <= 'Z') {
-                        res.append((char) (c + ('a' - 'A')));
-                    } else {
-                        res.append(c);
+                      // if upper case convert to lowercase
+                      if (c >= 'A' && c <= 'Z') {
+                          res.append((char) (c + ('a' - 'A')));
+                      } else {
+                          res.append(c);
+                      }
+                  }
+                  return res.toString();
+              }
+      ```
+    - Remove non-alphabet chars from string
+      ```java
+              /**
+               * Remove non alphabet chars from string.
+               */
+              public static final String removeSpecialCharacters(String str) {
+                String s = str;
+                for (int i = 0; i < s.length(); i++) {
+                    char c = s.charAt(i);
+                    // If not an alphabet
+                    if (c < 'A' || c > 'Z' && c < 'a' || c > 'z') {
+                        s = s.substring(0, i) + s.substring(i + 1);
+                        i--;
                     }
                 }
-                return res.toString();
+                return s;
             }
-    ```
+      ```
 - **<ins>References:</ins>**
   - [https://www.javatpoint.com/java-ascii-table](https://www.javatpoint.com/java-ascii-table)
   - [https://www.geeksforgeeks.org/string-palindrome/](https://www.geeksforgeeks.org/string-palindrome/)

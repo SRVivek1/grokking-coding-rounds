@@ -214,25 +214,68 @@
 </ul>
 <h3 id="approach-3-ignoring-case-spaces-and-special-characters"><em>Approach 3: Ignoring Case, Spaces, and Special Characters</em></h3>
 <ul>
-<li>
-<p>For more realistic cases (e.g., sentences like &quot;A man, a plan, a canal, Panama&quot;), ignore non-alphanumeric characters and consider case insensitivity.</p>
-</li>
-<li>
-<p><strong>Steps:</strong></p>
+<li>For more realistic cases (e.g., sentences like &quot;A man, a plan, a canal, Panama&quot;), ignore non-alphanumeric characters and consider case insensitivity.</li>
+<li><strong>Steps:</strong>
 <ol>
 <li>Normalize the string:
 <ul>
 <li>Convert it to lowercase.</li>
-<li>Remove non-alphanumeric characters.</li>
+<li>Remove non-alphanumeric characters. (If asked in problem to ignore numeric characters)</li>
 </ul>
 </li>
-<li>Use either the two-pointer or reverse-and-compare approach.</li>
+<li>Use either the two-pointer or reverse-and-compare approach.
+<ol>
+<li>Check above for implementation.</li>
 </ol>
 </li>
-<li>
-<p><strong><ins>References:</ins></strong></p>
+</ol>
+</li>
+<li><strong>Soution in Java:</strong>
+<ul>
+<li><em>Normalize string by changing all chars to lower-case</em><pre><code class="language-java">        <span class="hljs-comment">/**
+         * Convert string to lower case and then check for palindrome.
+          * <span class="hljs-doctag">@param</span> str
+        * <span class="hljs-doctag">@return</span>
+        */</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">convertToLowerCase</span><span class="hljs-params">(String str)</span> {
+            <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();
+
+            <span class="hljs-keyword">for</span> (<span class="hljs-type">char</span> c : str.toCharArray()) {
+
+                <span class="hljs-comment">// if upper case convert to lowercase</span>
+                <span class="hljs-keyword">if</span> (c &gt;= <span class="hljs-string">&#x27;A&#x27;</span> &amp;&amp; c &lt;= <span class="hljs-string">&#x27;Z&#x27;</span>) {
+                    res.append((<span class="hljs-type">char</span>) (c + (<span class="hljs-string">&#x27;a&#x27;</span> - <span class="hljs-string">&#x27;A&#x27;</span>)));
+                } <span class="hljs-keyword">else</span> {
+                    res.append(c);
+                }
+            }
+            <span class="hljs-keyword">return</span> res.toString();
+        }
+</code></pre>
+</li>
+<li>Remove non-alphabet chars from string<pre><code class="language-java">        <span class="hljs-comment">/**
+         * Remove non alphabet chars from string.
+         */</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String <span class="hljs-title function_">removeSpecialCharacters</span><span class="hljs-params">(String str)</span> {
+          <span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> str;
+          <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; s.length(); i++) {
+              <span class="hljs-type">char</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> s.charAt(i);
+              <span class="hljs-comment">// If not an alphabet</span>
+              <span class="hljs-keyword">if</span> (c &lt; <span class="hljs-string">&#x27;A&#x27;</span> || c &gt; <span class="hljs-string">&#x27;Z&#x27;</span> &amp;&amp; c &lt; <span class="hljs-string">&#x27;a&#x27;</span> || c &gt; <span class="hljs-string">&#x27;z&#x27;</span>) {
+                  s = s.substring(<span class="hljs-number">0</span>, i) + s.substring(i + <span class="hljs-number">1</span>);
+                  i--;
+              }
+          }
+          <span class="hljs-keyword">return</span> s;
+      }
+</code></pre>
+</li>
+</ul>
+</li>
+<li><strong><ins>References:</ins></strong>
 <ul>
 <li><a href="https://www.javatpoint.com/java-ascii-table">https://www.javatpoint.com/java-ascii-table</a></li>
+<li><a href="https://www.geeksforgeeks.org/string-palindrome/">https://www.geeksforgeeks.org/string-palindrome/</a></li>
 </ul>
 </li>
 </ul>
