@@ -41,8 +41,18 @@ public class SubstringApiTesting {
         System.out.printf("Input: %s %n--> s.substring(2, 6): %s %n", s, res);
         System.out.println("------------------------------");
 
+        // T3 : Create a sub string from given start and end indexes
+        // from index '0'  to '0'--> ""
+        res = s.substring(0, 0);
+        System.out.printf("Input: %s %n--> s.substring(0, 0): %s %n", s, res);
+        System.out.println("------------------------------");
 
+        // T3 : Create a sub string from given start and end indexes
+        // from index '4'  to '2'-->
+        // Error: java.lang.StringIndexOutOfBoundsException: begin 4, end 2, length 23
+        // res = s.substring(4, 2);
+        // System.out.printf("Input: %s %n--> s.substring(4, 2): %s %n", s, res);
+        // System.out.println("------------------------------");
 
     }
-
 }

@@ -12,6 +12,7 @@ public class StringRemoveSpecialCharacters {
         String s = str;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
+            // If not an alphabet
             if (c < 'A' || c > 'Z' && c < 'a' || c > 'z') {
                 s = s.substring(0, i) + s.substring(i + 1);
                 i--;
