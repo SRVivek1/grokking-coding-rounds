@@ -38,7 +38,18 @@
 
 
 - **Implementation:**
-  - Check below link for Custom Implementation of Dynamic Array.
+  - ***Step-1:***
+    - Create Following variables:
+      - An array to store data
+      - A variable to store array capacity
+      - A variable to store count (length) of elements.
+  - ***Step-2:***
+    - While adding elements check if *lenght + 1* is greater than capicity.
+    - Create a new Array and copy all elements then add new elements.
+  - ***Step-3:***
+    - Implement other methods accordingly.
+  
+  - Check below link for complete implementation of Custom Dynamic Array.
     - [DynamicArray.java](https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/arrays/dynamic/DynamicArray.java)
 
 - **<ins>References:</ins>**
