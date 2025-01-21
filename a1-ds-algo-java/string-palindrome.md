@@ -1,5 +1,7 @@
 # String palindrome
 ## 1. Plindrome check (Case sensitive)
+### Project Ref: [string-algo-palindrome](https://github.com/SRVivek1/grokking-coding-rounds/tree/main/a1-ds-algo-java/string-algo/src/main/java/com/srvivek/dsalgo/app/palindrome)
+
 - **<ins>About / Introduction</ins>**
   - A string is said to be palindrome, if it remains the same on reading from both ends. 
   - It means that when we reverse a given string, it should be the same as the original string. 
