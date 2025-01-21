@@ -1,3 +1,9 @@
 Freecodecamp-youtube
 ---------------------
  --> https://www.youtube.com/watch?v=RBSGKlAvoiM
+
+Github
+--------
+    --> Arrays:
+        --> https://github.com/williamfiset/DEPRECATED-data-structures [Deprecated]
+        --> https://github.com/williamfiset/Algorithms
