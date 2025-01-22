@@ -50,7 +50,7 @@
     - Implement other methods accordingly.
   
   - Check below link for complete implementation of Custom Dynamic Array.
-    - [DynamicArray.java](https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/arrays/dynamic/DynamicArray.java)
+    - [DynamicArray.java](https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/dynamicarrays/DynamicArray.java)
 
 - **<ins>References:</ins>**
   - [https://www.youtube.com/watch?v=RBSGKlAvoiM](https://www.youtube.com/watch?v=RBSGKlAvoiM)

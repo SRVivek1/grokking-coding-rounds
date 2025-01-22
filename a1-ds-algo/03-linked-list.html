@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Linked List DataStructure</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="linked-list-datastructure">Linked List DataStructure</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<ul>
+<li>
+<p><strong><ins>Data Structure</ins></strong></p>
+<ul>
+<li>A linked-list is a sequential list of nodes (linear data structure) that hold data and a poiner, which point to other nodes. It doesn't require <em>contiguos</em> memory allocation as array, instead each node will have a seperate memory allocaion and connected via pointer.
+<ul>
+<li>Last Node points to <em>null</em>.</li>
+</ul>
+</li>
+<li>It mainly allows efficient insertion and deletion operations compared to arrays.</li>
+<li>Like arrays, it is also used to implement other data structures like stack, queue and deque.</li>
+<li><strong>Terminology:</strong>
+<ul>
+<li><em>Head:</em> The first node in the linked list.</li>
+<li><em>Tail:</em> The last node in the linked list.</li>
+<li><em>Pointer:</em> Reference to other node.</li>
+<li><em>Node:</em> An object containing data and pointer(s).</li>
+</ul>
+</li>
+<li><strong>Types:</strong>
+<ul>
+<li>Singly Linked List (SLL)
+<ul>
+<li>Has 2 pointers <em>Head</em> &amp; <em>Tail</em> for quick additions / removals.</li>
+<li>Each node hold pointer only to it's next node.</li>
+<li><strong>Pros:</strong>
+<ul>
+<li>Simpler implementation</li>
+<li>Uses less memory</li>
+</ul>
+</li>
+<li><strong>Cons:</strong>
+<ul>
+<li>Can't access previous elements easily.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Double Linked List (DLL)
+<ul>
+<li>Has 2 pointers <em>Head</em> &amp; <em>Tail</em> for quick additions / removals.</li>
+<li>Each node holds pointer to previous as well as next nodes.</li>
+<li><strong>Pros:</strong>
+<ul>
+<li>Easy backward traversal.</li>
+</ul>
+</li>
+<li><strong>Cons:</strong>
+<ul>
+<li>Requires 2x memory than Singly linked list.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Circular Linked List (CLL)
+<ul>
+<li>Singly Circular Linked List</li>
+<li>Doubly Circular Linked List</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Use Cases:</strong>
+<ul>
+<li><em>Dynamic Data Structures:</em>
+<ul>
+<li>Frequently changing size, e.g., list, stacks, queues.</li>
+<li>Greate for creating <em>Circular Lists</em>.
+<ul>
+<li>These are used to model repeating event cycles such as RoundRobin ordering.</li>
+</ul>
+</li>
+<li>HashTable seperate chaining, to deal with hashing collision of keys.</li>
+</ul>
+</li>
+<li><em>Efficient Insertions/Deletions:</em>
+<ul>
+<li>For example, undo functionality in text editors.</li>
+<li>Can easily model real wrorld objects such as Trains.</li>
+</ul>
+</li>
+<li><em>Memory Allocation:</em>
+<ul>
+<li>Used in operating systems for memory management.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Advantages:</strong>
+<ul>
+<li><em>Dynamic Size:</em>
+<ul>
+<li>Unlike arrays, linked lists can grow or shrink dynamically without the need for resizing.</li>
+</ul>
+</li>
+<li><em>Efficient Insertions/Deletions:</em>
+<ul>
+<li>Adding or removing elements (e.g., at the beginning, middle, or end) is more efficient compared to arrays, as no shifting of elements is required.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Disadvantages:</strong>
+<ul>
+<li><em>Memory Overhead:</em>
+<ul>
+<li>Each node requires extra memory for the pointer(s).</li>
+</ul>
+</li>
+<li><em>Sequential Access:</em>
+<ul>
+<li>Accessing an element requires traversal from the head (no direct indexing like arrays).</li>
+</ul>
+</li>
+<li><em>Complexity:</em>
+<ul>
+<li>Compared to arrays, linked lists are more complex to implement and debug.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Time Complexility</strong></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Singly LL</th>
+<th>Doubly LL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Insert (head)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Insert (Tail)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Remove (head)</td>
+<td>O(1)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Remove (Tail)</td>
+<td>O(n)</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Remove (middle)</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong>Implementation: Doubly Linked List</strong></p>
+<ul>
+<li><em><strong>Step-1:</strong></em>
+<ul>
+<li>Create a Node class to hold data and hold reference of previous and next nodes.</li>
+</ul>
+</li>
+<li><em><strong>Step-2:</strong></em>
+<ul>
+<li>Create DoublyLinkedList class.
+<ul>
+<li>Initialize 3 variable.<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DoublyLinkedList</span>&lt;T&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Iterable</span>&lt;T&gt; {
+
+        <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">size</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">private</span> Node&lt;T&gt; head = <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">private</span> Node&lt;T&gt; tail = <span class="hljs-literal">null</span>;
+
+        <span class="hljs-comment">// Node class as inner class</span>
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Node</span>&lt;T&gt; {
+            <span class="hljs-keyword">private</span> T data;
+            <span class="hljs-keyword">private</span> Node&lt;T&gt; prev, next;
+
+            <span class="hljs-keyword">public</span> <span class="hljs-title function_">Node</span><span class="hljs-params">(T data, Node&lt;T&gt; prev, Node&lt;T&gt; next)</span>{
+                <span class="hljs-built_in">this</span>.data = data;
+                <span class="hljs-built_in">this</span>.prev = prev;
+                <span class="hljs-built_in">this</span>.next = next;
+            }
+
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> {
+                <span class="hljs-keyword">return</span> data.toString();
+            }
+        }
+
+        <span class="hljs-comment">// other API methods</span>
+    }
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Check below link for Custom Implementation of Dynamic Array.
+<ul>
+<li><a href="https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/arrays/dynamic/DynamicArray.java">DynamicArray.java</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><ins>References:</ins></strong></p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=RBSGKlAvoiM">https://www.youtube.com/watch?v=RBSGKlAvoiM</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<hr>
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+            
+            
+        </body>
+        </html>
