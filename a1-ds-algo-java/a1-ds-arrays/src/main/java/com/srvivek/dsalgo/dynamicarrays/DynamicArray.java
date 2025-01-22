@@ -1,4 +1,4 @@
-package com.srvivek.dsalgo.arrays.dynamic;
+package com.srvivek.dsalgo.dynamicarrays;
 
 import java.util.Arrays;
 import java.util.Iterator;
