@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Stack DataStructure</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="stack-datastructure">Stack DataStructure</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<ul>
+<li>
+<p><strong><ins>Data Structure</ins></strong></p>
+<ul>
+<li>A Stack is a one-ended linear data structure which models a real world stack by haing two primary operations, namely <em><strong>push</strong></em> and <em><strong>pop</strong></em>.
+<ul>
+<li><em><strong>push:</strong></em>
+<ul>
+<li>Adds new element/data at <em>top</em> of the stack.</li>
+</ul>
+</li>
+<li><em><strong>pop:</strong></em>
+<ul>
+<li>Removes top element/data from the stack.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>It can follow a particular order in which the operations are performed.
+<ul>
+<li><em><strong>LIFO(Last In First Out):</strong></em>
+<ul>
+<li>LIFO implies that the element that is inserted last, comes out first.</li>
+<li><strong>Java Stack <em>(java.util.Stack)</em> implementation</strong> follows LIFO order.</li>
+</ul>
+</li>
+<li><em><strong>FILO(First In Last Out):</strong></em>
+<ul>
+<li>FILO implies that the element that is inserted first, comes out last.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Terminology:</strong>
+<ul>
+<li><em>Top:</em> Points to the top element in the Stack.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Use case:</strong></p>
+<ul>
+<li>Used by <em>undo</em> mechanishm in <em>Text Editors</em>.</li>
+<li>Used by compiler syntax checking for matching brackets and braces.</li>
+<li>Used behind the scense to support <em>recursion</em> y keeping track of previous function calls.</li>
+<li>Can be used to do a <em>Depth First Search</em> on graphs.</li>
+<li>Can be used to model a <em>Pile of Books or Plates</em> or even games like <em>Tower of Hanoi</em>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Time Complexility</strong></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>T.C.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Push</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Pop</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Peek</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Search</td>
+<td>O(n)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong>Problem: Check if braces and brackets are properly closed in given String</strong></p>
+<ul>
+<li><strong>Approach:</strong>
+<ul>
+<li><em>Step-1:</em>
+<ul>
+<li>Loop through all the chars in string.</li>
+</ul>
+</li>
+<li><em>Step-2:</em>
+<ul>
+<li>If the character is blank/whitespaces only, ignore</li>
+<li>Read next character from String.</li>
+</ul>
+</li>
+<li><em>Step-3:</em>
+<ul>
+<li>If the character is opening bracket add it in stack.</li>
+</ul>
+</li>
+<li><em>Step-4:</em>
+<ul>
+<li>Get closing bracket for the given opening bracket.</li>
+</ul>
+</li>
+<li><em>Step-5:</em>
+<ul>
+<li>If the stack is empty or the next element is not the matching opening bracket.</li>
+<li>return false, indicating <em>Invalid pairs</em>.</li>
+</ul>
+</li>
+<li><strong>Source code:</strong> <a href="https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/stack/problems/FindMatchingBracketsInString.java">FindMatchingBracketsInString.java</a></li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">hasMatchingBraces</span><span class="hljs-params">(String s)</span> {
+      Stack&lt;Character&gt; stack = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stack</span>&lt;&gt;();
+
+      <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; s.length(); i++) {
+          <span class="hljs-type">char</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> s.charAt(i);
+
+          <span class="hljs-keyword">if</span> (Character.toString(c).isBlank()) {
+              <span class="hljs-keyword">continue</span>;
+          }
+
+          <span class="hljs-comment">// is left/opening bracket</span>
+          <span class="hljs-keyword">if</span> (isOpeningBracket(c)) {
+              stack.push(c);
+              <span class="hljs-keyword">continue</span>;
+          }
+
+          <span class="hljs-type">char</span> <span class="hljs-variable">rev</span> <span class="hljs-operator">=</span> getOpeningdBracket(c);
+          <span class="hljs-keyword">if</span> (stack.isEmpty() || stack.pop() != rev) {
+              System.out.println(<span class="hljs-string">&quot;Missing opening brackets for - &quot;</span> + rev);
+              <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+          }
+      }
+
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li>
+<p>Stacks can often implemented using Arrays, Singly Linked List or Doubly Linked List.</p>
+</li>
+<li>
+<p><strong>Arrays Implementation:</strong></p>
+<ul>
+<li><em><strong>Step-1:</strong></em>
+<ul>
+<li>Initalize following 3 properties.
+<ul>
+<li><strong>data[]:</strong>
+<ul>
+<li><code>private T[] data;</code>
+<ul>
+<li><em>Hold data of defined type T.</em></li>
+</ul>
+</li>
+<li><code>private static int initialCapacity = 1 &lt;&lt; 3;  // default capacity 2^3 = 8</code>
+<ul>
+<li><em>Represents initial and current capacity of stack.</em></li>
+</ul>
+</li>
+<li><code>private int top = -1;</code>
+<ul>
+<li><em>Hold the index of most recent object added in the stack.</em></li>
+<li><em><code>top</code> is sent to <code>-1</code>, When stack is empty.</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em><strong>Step-2:</strong></em>
+<ul>
+<li>Provide APIs for operations.
+<ul>
+<li><em>push(T)</em>
+<ul>
+<li>Add data to stack.</li>
+<li>Check if array is full double the array capacity.</li>
+<li><code>initialCapacity = initialCapacity &lt;&lt; 1;</code></li>
+<li><code>data = Arrays.copyOf(data, initialCapacity);</code></li>
+</ul>
+</li>
+<li><em>pop()</em>
+<ul>
+<li>Remove and return the top element from stack.</li>
+</ul>
+</li>
+<li><em>peak()</em>
+<ul>
+<li>Return the top element from stack.</li>
+</ul>
+</li>
+<li><em>size()</em></li>
+<li><em>isEmpty()</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Check below link for Custom Implementation of Dynamic Array.</p>
+<ul>
+<li><strong>Interface</strong>: [Stack.java]  (<a href="https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/stack/Stack.java">https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/stack/Stack.java</a>)</li>
+</ul>
+<pre><code class="language-java">      <span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Stack</span>&lt;T&gt; {
+
+          <span class="hljs-comment">// Add element on top</span>
+          <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">push</span><span class="hljs-params">(T elem)</span>;
+
+          <span class="hljs-comment">// Returns the last inserted element.</span>
+          <span class="hljs-keyword">public</span> T <span class="hljs-title function_">pop</span><span class="hljs-params">()</span>;
+
+          <span class="hljs-comment">// Returns the last inserted element.</span>
+          <span class="hljs-keyword">public</span> T <span class="hljs-title function_">peek</span><span class="hljs-params">()</span>;
+
+          <span class="hljs-comment">// Returns the no. of elements present in the stack.</span>
+          <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span>;
+
+          <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isEmpty</span><span class="hljs-params">()</span>;
+      }    
+</code></pre>
+<ul>
+<li><strong>Implementation:</strong> <a href="https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/stack/ArrayStack.java">ArrayStack.java</a></li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ArrayStack</span>&lt;T&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Stack</span>&lt;T&gt; {
+
+      <span class="hljs-keyword">private</span> T[] data;
+
+      <span class="hljs-comment">// Initial capacity 16</span>
+      <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-variable">initialCapacity</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">3</span>;
+
+      <span class="hljs-comment">// Points to the most recent object pushed.</span>
+      <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">top</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span>;
+
+      <span class="hljs-keyword">public</span> <span class="hljs-title function_">ArrayStack</span><span class="hljs-params">()</span> {
+          <span class="hljs-built_in">this</span>(initialCapacity);
+      }
+
+      <span class="hljs-meta">@SuppressWarnings(&quot;unchecked&quot;)</span>
+      <span class="hljs-keyword">public</span> <span class="hljs-title function_">ArrayStack</span><span class="hljs-params">(<span class="hljs-type">int</span> capacity)</span> {
+          initialCapacity = capacity;
+          data = (T[]) <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[initialCapacity];
+      }
+
+      <span class="hljs-comment">// Other API implementation</span>
+    }
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><ins>References:</ins></strong></p>
+<ul>
+<li><a href="https://youtu.be/RBSGKlAvoiM?t=3570">https://youtu.be/RBSGKlAvoiM?t=3570</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<hr>
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+            
+            
+        </body>
+        </html>
