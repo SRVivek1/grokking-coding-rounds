@@ -1,11 +1,8 @@
 package com.srvivek.dsalgo.queue;
 
-import java.util.Arrays;
-
 public class ArrayQueue<T> implements Queue<T> {
 
-    private T[] arr;
-    private int size;
+    private final T[] arr;
     private int front;
     private int rear;
 
@@ -60,9 +57,9 @@ public class ArrayQueue<T> implements Queue<T> {
     /**
      * Return current index if it's less than array length, else return (index - length).
      *
-     * @param index
-     * @param length
-     * @return
+     * @param index index
+     * @param length array length
+     * @return effective Index
      */
     private int adjustIndex(int index, int length) {
         return index >= length ? index - length : index;
