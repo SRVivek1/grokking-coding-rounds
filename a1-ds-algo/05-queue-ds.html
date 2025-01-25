@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Queue DataStructure</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="queue-datastructure">Queue DataStructure</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<ul>
+<li><strong><ins>Data Structure</ins></strong>
+<ul>
+<li>A queue is a Abstract Data type or linear data structure that follows the <em>First In, First Out (FIFO)</em> principle.</li>
+<li>This means that the first element added to the queue is the first one to be removed, similar to a line of people waiting for their turn.</li>
+<li>It provides two primary operations <em>enqueue</em> and <em>dequeue</em>.
+<ul>
+<li><em><strong>enqueue:</strong></em>
+<ul>
+<li>Adding an element/data at <em>end</em> of the queue.</li>
+<li>Also called as offering / adding / pushing.</li>
+</ul>
+</li>
+<li><em><strong>dequeue:</strong></em>
+<ul>
+<li>Removing an element/data from the front of the queue.</li>
+<li>Also called as polling / removing / popping.</li>
+</ul>
+</li>
+<li><em><strong>peeking:</strong></em>
+<ul>
+<li>Get the element from front of the queue without removing it.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Types of Queues:</strong>
+<ul>
+<li><strong>Simple Queue:</strong>
+<ul>
+<li>A basic queue with FIFO behavior.</li>
+</ul>
+</li>
+<li><strong>Circular Queue:</strong>
+<ul>
+<li>The rear connects back to the front, making the queue circular.</li>
+<li>This avoids wasting space.</li>
+</ul>
+</li>
+<li><strong>Priority Queue:</strong>
+<ul>
+<li>Elements are dequeued based on their priority rather than their order in the queue.</li>
+</ul>
+</li>
+<li><strong>Double-Ended Queue (Deque):</strong>
+<ul>
+<li>Elements can be enqueue / added and dequeue / removed from both ends of the queue.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Terminology:</strong>
+<ul>
+<li><em>front:</em>
+<ul>
+<li>A pointer/reference pointing to the first element of the Queue.</li>
+</ul>
+</li>
+<li><em>rear:</em>
+<ul>
+<li>A pointer/reference pointing to the last element of the Queue.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Use case:</strong>
+<ul>
+<li><em>Task Scheduling:</em>
+<ul>
+<li>Used in CPU scheduling and disk scheduling.</li>
+</ul>
+</li>
+<li><em>Data Transfer:</em>
+<ul>
+<li>Buffers in data communication, like printers or keyboards.</li>
+</ul>
+</li>
+<li><em>Breadth-First Search (BFS):</em>
+<ul>
+<li>Used in graph traversal algorithms.</li>
+</ul>
+</li>
+<li><em>Waiting Lines:</em>
+<ul>
+<li>Simulation of real-world queues, like customer service systems.</li>
+</ul>
+</li>
+<li><em>LRU Cache Implementation:</em>
+<ul>
+<li>Finds and removes Least Recently Used (LRU) cached data.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Time Complexility</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>T.C.</th>
+<th>Operation</th>
+<th>T.C.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enqueue</td>
+<td>O(1)</td>
+<td>Contains</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Dequeue</td>
+<td>O(1)</td>
+<td>Removal</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Peeking</td>
+<td>O(1)</td>
+<td>IsEmpty</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Queue DS Implementation:</strong>
+<ul>
+<li>We can implement Queue using different data structures <em>Array, SinglyLinkedList</em> or <em>DoublyLinkedList</em></li>
+<li><strong>LinekdList Implementation</strong>
+<ul>
+<li>Using <code>java.util.LinkedList</code> to implement queue.</li>
+<li>Note: In Java colletions <strong>LinkedList</strong> is a <strong>Queue</strong> as it implements <code>Queue interface</code>.</li>
+<li><em><strong>Step-1:</strong></em>
+<ul>
+<li>Create a Queue interface and define the API methods.</li>
+<li>Create LinkedListQueue class and declare following properties.
+<ul>
+<li><em>java.util.LinkedList</em> object to hold the data.</li>
+<li>Initialize <em>size</em> property of <code>Integer</code> with <em>0</em>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em><strong>Step-2:</strong></em>
+<ul>
+<li>Use java LinkedList provided APIs to provide implementation to the Queue Interface APIs.</li>
+<li>Note:
+<ul>
+<li>Always add new objects in the beginning.</li>
+<li>Always read or remove objects from last/end.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Github link:</strong> <a href="https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/queue/Queue.java">Queue.java</a></li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Queue</span>&lt;T&gt; {
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">offer</span><span class="hljs-params">(T elem)</span>;
+
+        <span class="hljs-keyword">public</span> T <span class="hljs-title function_">poll</span><span class="hljs-params">()</span>;
+
+        <span class="hljs-keyword">public</span> T <span class="hljs-title function_">peak</span><span class="hljs-params">()</span>;
+
+        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span>;
+
+        <span class="hljs-keyword">public</span>  <span class="hljs-type">boolean</span> <span class="hljs-title function_">isEmpty</span><span class="hljs-params">()</span>;
+    }
+</code></pre>
+<ul>
+<li><strong>Github link:</strong> <a href="https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/queue/LinkedListQueue.java">LinkedListQueue.java</a></li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LinkedListQueue</span>&lt;T&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Queue</span>&lt;T&gt; {
+
+      <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> LinkedList&lt;T&gt; data;
+      <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> size;
+
+      <span class="hljs-keyword">public</span> <span class="hljs-title function_">LinkedListQueue</span><span class="hljs-params">()</span> {
+          data = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();
+          size = <span class="hljs-number">0</span>;
+      }
+
+      <span class="hljs-keyword">public</span> <span class="hljs-title function_">LinkedListQueue</span><span class="hljs-params">(T elem)</span> {
+          data = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();
+          offer(elem);
+      }
+
+
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">offer</span><span class="hljs-params">(T elem)</span> {
+          data.addFirst(elem);
+          size++;
+      }
+
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-keyword">public</span> T <span class="hljs-title function_">poll</span><span class="hljs-params">()</span> {
+          <span class="hljs-type">T</span> <span class="hljs-variable">elem</span> <span class="hljs-operator">=</span> data.getLast();
+          data.removeLast();
+          size--;
+          <span class="hljs-keyword">return</span> elem;
+      }
+
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-keyword">public</span> T <span class="hljs-title function_">peak</span><span class="hljs-params">()</span> {
+          <span class="hljs-keyword">return</span> data.getLast();
+      }
+
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span> {
+          <span class="hljs-keyword">return</span> size;
+      }
+
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isEmpty</span><span class="hljs-params">()</span> {
+          <span class="hljs-type">return</span> <span class="hljs-variable">size</span> <span class="hljs-operator">=</span>= <span class="hljs-number">0</span>;
+      }
+
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> {
+          <span class="hljs-keyword">return</span> data.toString();
+      }
+  }
+</code></pre>
+</li>
+<li><strong>Array Implementation</strong>
+<ul>
+<li>Using array to implement queue.</li>
+<li><em><strong>Step-1:</strong></em>
+<ul>
+<li>Create ArrayQueue class and declare following properties.
+<ul>
+<li><em>T[]</em> object to hold the data.</li>
+<li>Initialize <em>rear and front</em> properties of <code>Integer</code> with <em>0</em>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em><strong>Step-2:</strong></em>
+<ul>
+<li>Update rear and front pointers when an object is added or removed.</li>
+<li>Note:
+<ul>
+<li>Always add new objects in the end.</li>
+<li>Always read or remove objects from beginning.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Github link:</strong> <a href="https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/queue/ArrayQueue.java">ArrayQueue.java</a></li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ArrayQueue</span>&lt;T&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Queue</span>&lt;T&gt; {
+
+      <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> T[] arr;
+      <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> front;
+      <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> rear;
+
+      <span class="hljs-comment">// Initial capacity is 8</span>
+      <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-variable">initialCapacity</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">3</span>;
+
+      <span class="hljs-keyword">public</span> <span class="hljs-title function_">ArrayQueue</span><span class="hljs-params">()</span> {
+          <span class="hljs-built_in">this</span>(initialCapacity);
+      }
+
+      <span class="hljs-meta">@SuppressWarnings(&quot;unchecked&quot;)</span>
+      <span class="hljs-keyword">public</span> <span class="hljs-title function_">ArrayQueue</span><span class="hljs-params">(<span class="hljs-type">int</span> capacity)</span> {
+          initialCapacity = capacity;
+          arr = (T[]) <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[initialCapacity];
+          front = rear = <span class="hljs-number">0</span>;
+      }
+
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">offer</span><span class="hljs-params">(T elem)</span> {
+          <span class="hljs-keyword">if</span> (isFull()) {
+              <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;Queue is full.&quot;</span>);
+          }
+          arr[rear++] = elem;
+          rear = adjustIndex(rear, arr.length);
+      }
+
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-keyword">public</span> T <span class="hljs-title function_">poll</span><span class="hljs-params">()</span> {
+          <span class="hljs-keyword">if</span> (isEmpty()) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;Queue is empty.&quot;</span>);
+          }
+          front = adjustIndex(front, arr.length);
+          <span class="hljs-keyword">return</span> arr[front++];
+      }
+
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-keyword">public</span> T <span class="hljs-title function_">peak</span><span class="hljs-params">()</span> {
+          <span class="hljs-keyword">if</span> (isEmpty()) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;Queue is empty.&quot;</span>);
+          }
+          front = adjustIndex(front, arr.length);
+          <span class="hljs-keyword">return</span> arr[front];
+      }
+
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span> {
+          <span class="hljs-keyword">return</span> adjustIndex(rear + arr.length - front, arr.length);
+      }
+
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isEmpty</span><span class="hljs-params">()</span> {
+          <span class="hljs-type">return</span> <span class="hljs-variable">front</span> <span class="hljs-operator">=</span>= rear;
+      }
+
+      <span class="hljs-comment">/**
+       * Return current index if it&#x27;s less than array length, else return (index - length).
+      *
+      * <span class="hljs-doctag">@param</span> index index
+      * <span class="hljs-doctag">@param</span> length array length
+      * <span class="hljs-doctag">@return</span> effective Index
+      */</span>
+      <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">adjustIndex</span><span class="hljs-params">(<span class="hljs-type">int</span> index, <span class="hljs-type">int</span> length)</span> {
+          <span class="hljs-keyword">return</span> index &gt;= length ? index - length : index;
+      }
+
+      <span class="hljs-comment">/**
+       * Checks if Queue is full.
+      */</span>
+      <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isFull</span><span class="hljs-params">()</span> {
+          <span class="hljs-keyword">return</span> (front + arr.length - rear) % arr.length == <span class="hljs-number">1</span>;
+      }
+
+      <span class="hljs-meta">@Override</span>
+      <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> {
+          <span class="hljs-keyword">return</span> ... ;
+      }
+  }
+</code></pre>
+</li>
+</ul>
+</li>
+<li><strong>Problem: BFS (Breadth-First search) for a graph</strong>
+<ul>
+<li>Traverses a graph by visiting every <em>vertex</em> once and only once.</li>
+<li>To Begin the traversal we must provide/choose the starting <em>vertex</em>.</li>
+<li><strong>Graph Terms:</strong>
+<ul>
+<li><em>Vertices:</em>
+<ul>
+<li>Represents the number of nodes in the graph.</li>
+</ul>
+</li>
+<li><em>Edges:</em>
+<ul>
+<li>Represent the number of paths(Lines) connecting all the nodes.</li>
+</ul>
+</li>
+<li><strong>Note:</strong>
+<ul>
+<li>Two nodes are used to represent the vertex which connects them. Eg. [Node1, Node3]</li>
+<li>In an undirected graph the order of nodes doen't matter.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Approach/Sudo-code:</strong><pre><code class="language-java">    <span class="hljs-comment">//Let Q be a Queue</span>
+    Q.enqueue(starting_node)
+    starting_node.visited = <span class="hljs-literal">true</span>
+
+    <span class="hljs-keyword">while</span> Q is not empty <span class="hljs-type">Do</span>
+      <span class="hljs-variable">node</span> <span class="hljs-operator">=</span> Q.dequeue()
+      <span class="hljs-comment">// do business with node data</span>
+
+      <span class="hljs-keyword">for</span> neighbour in  <span class="hljs-title function_">neighbours</span><span class="hljs-params">(node)</span>:
+        <span class="hljs-keyword">if</span> neighour is not visited:
+          neighbour.visited = <span class="hljs-literal">true</span>
+          Q.enqueue(neighbour)
+</code></pre>
+<ul>
+<li><strong>Source code:</strong> <strong>Github link:</strong> <a href="https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/queue/problems/BreadthFirstSearchApp.java">BreadthFirstSearch.java</a></li>
+</ul>
+<pre><code class="language-java">        <span class="hljs-comment">/**
+        * Traverse all the connected nodes starting from given node in the graph.
+        *
+        * <span class="hljs-doctag">@param</span> adjacecyList
+        * <span class="hljs-doctag">@param</span> sourceNode
+        */</span>
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">breadFirstSearch</span><span class="hljs-params">(List&lt;List&lt;Integer&gt;&gt; adjacecyList, <span class="hljs-type">int</span> sourceNode)</span> {
+
+            <span class="hljs-keyword">final</span> <span class="hljs-type">boolean</span>[] visitTracker = <span class="hljs-keyword">new</span> <span class="hljs-title class_">boolean</span>[adjacecyList.size()];
+            <span class="hljs-keyword">final</span> Queue&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();
+
+            <span class="hljs-comment">// mark source as visited</span>
+            visitTracker[sourceNode] = <span class="hljs-literal">true</span>;
+
+            <span class="hljs-comment">// add current node in queue</span>
+            queue.add(sourceNode);
+
+            <span class="hljs-keyword">while</span> (!queue.isEmpty()) {
+                <span class="hljs-comment">// get the Node (int) from the queue</span>
+                <span class="hljs-type">Integer</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> queue.poll();
+                System.out.println(<span class="hljs-string">&quot;Node : &quot;</span> + t);
+
+                <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> node : adjacecyList.get(t)) {
+                    <span class="hljs-keyword">if</span>(!visitTracker[node]) {
+                        System.out.println(<span class="hljs-string">&quot;  Processing node : &quot;</span> + node);
+                        visitTracker[node] = <span class="hljs-literal">true</span>;
+                        System.out.println(<span class="hljs-string">&quot;  Visited: &quot;</span> + node);
+                        queue.add(node);
+                    } <span class="hljs-keyword">else</span> {
+                        System.out.println(<span class="hljs-string">&quot;  Skipping visited node : &quot;</span> + node);
+                    }
+                }
+                System.out.println(<span class="hljs-string">&quot;Queue : &quot;</span> + queue.toString());
+            }
+        }
+
+        <span class="hljs-comment">/**
+        * Add the edge link in the list.
+        *
+        * <span class="hljs-doctag">@param</span> adjacecyList
+        * <span class="hljs-doctag">@param</span> u
+        * <span class="hljs-doctag">@param</span> v
+        */</span>
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addEdge</span><span class="hljs-params">(List&lt;List&lt;Integer&gt;&gt; adjacecyList, <span class="hljs-type">int</span> u, <span class="hljs-type">int</span> v)</span> {
+            adjacecyList.get(u).add(v);
+
+            <span class="hljs-comment">// Undirected graph</span>
+            adjacecyList.get(v).add(u);
+        }
+</code></pre>
+</li>
+</ul>
+</li>
+<li><strong><ins>References:</ins></strong>
+<ul>
+<li><a href="https://youtu.be/RBSGKlAvoiM?t=3570">https://youtu.be/RBSGKlAvoiM?t=3570</a></li>
+<li>[BFS Queue / Graph Explanation] (<a href="https://www.youtube.com/watch?v=OsNklbh9gYI">https://www.youtube.com/watch?v=OsNklbh9gYI</a>)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<hr>
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+            
+            
+        </body>
+        </html>
