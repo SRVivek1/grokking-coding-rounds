@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Priority Queue &lpar;PQ&rpar; Data Structure and Heap</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="priority-queue-pq-data-structure-and-heap">Priority Queue (PQ) Data Structure and Heap</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<ul>
+<li>
+<p><strong><ins>PQ Data Structure</ins></strong></p>
+<ul>
+<li>A <em><strong>Priority Queue</strong></em> is an <em>Abastract Data Type (ADT)</em> that operates similar to a normal queue except that in priority queue <em>each element has a certain priority</em>.</li>
+<li>The <em>priority</em> of the elements in the priority queue determines the order in which the elements are removed from the queue.</li>
+<li><strong>Note:</strong>
+<ul>
+<li>Priority Queue only supports <em>comparable data</em>, meaning that the data inserted into the priority queue must be able to be ordered in someway - either from least to greatest or from greatest to least.</li>
+</ul>
+</li>
+<li>There are several ways to implement a priority queue, including using an array, linked list, heap, or binary search tree, binary heap being the most common method to implement.
+<ul>
+<li>The reason for using Binary Heap is, in binary heaps, we have easy access to the min (in min heap) or max (in max heap) and binary heap being a complete binary tree are easily implemented using arrays.</li>
+<li>Since we use arrays, we have cache friendliness advantage also.</li>
+</ul>
+</li>
+<li>It provides two primary operations <em>enqueue</em> and <em>dequeue</em>.
+<ul>
+<li><em><strong>enqueue:</strong></em>
+<ul>
+<li>Adding an element/data at <em>end</em> of the queue.</li>
+<li>Also called as offering / adding / pushing.</li>
+</ul>
+</li>
+<li><em><strong>dequeue:</strong></em>
+<ul>
+<li>Removing an element/data from the front of the queue.</li>
+<li>Also called as polling / removing / popping.</li>
+</ul>
+</li>
+<li><em><strong>peeking:</strong></em>
+<ul>
+<li>Get the element from front of the queue without removing it.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Types of Queues:</strong>
+<ul>
+<li><em>Min-Priority Queue:</em>
+<ul>
+<li>The element with the lowest priority (smallest value) is dequeued first.
+<ul>
+<li><strong>Example:</strong> A queue to determine the shortest path in Dijkstra’s algorithm.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em>Max-Priority Queue:</em>
+<ul>
+<li>The element with the highest priority (largest value) is dequeued first.
+<ul>
+<li><strong>Example:</strong> A task scheduler where higher priority tasks are executed first.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Terminology:</strong>
+<ul>
+<li><em>front:</em>
+<ul>
+<li>A pointer/reference pointing to the first element of the Queue.</li>
+</ul>
+</li>
+<li><em>rear:</em>
+<ul>
+<li>A pointer/reference pointing to the last element of the Queue.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Applications of PQs:</strong></p>
+<ul>
+<li>Used in certain implementations of <em>Dijkstra's Shortest path algorithm</em>.</li>
+<li>Anytime when we need to dynamically fetch <em>next best</em> or <em>next worst</em> element.</li>
+<li><em>Loseless data compression:</em> Used in <em>Huffman coding</em>, which is often used for loseless data compression.</li>
+<li>Best First Search (BFS) algorithms: Such as A* uses PQs continuously grap the next most promising node.</li>
+<li>Used by Minimun Spanning Tree (MST) algorithms.</li>
+</ul>
+</li>
+<li>
+<p><strong>Time Complexility</strong></p>
+<ul>
+<li><em><strong>PQ with Binary Heap:</strong></em></li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>T.C.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>polling</td>
+<td>O(log N)</td>
+</tr>
+<tr>
+<td>peeking</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>Adding</td>
+<td>O(log N)</td>
+</tr>
+<tr>
+<td>Naive Removing</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Advanced Removing with <br/> help from a Hash-table.</td>
+<td>O(log(n))</td>
+</tr>
+<tr>
+<td>Naive Contains</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>Contains check with <br/> help of Hash-table.</td>
+<td>O(1)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong>Priority Queue (PQ) DS Implementation:</strong></p>
+<ul>
+<li>PQs are usually implemented with <em><strong>heap data structure</strong></em> since they give us the best possible time complexity.</li>
+<li>Alternatively there are many other type of Heap DS we can use to implement <em>Priority Queue</em>, e.g. - Binary Heap, Fibonacci Heap, Binomial Heap, Pairing Heap.</li>
+<li><strong>Note:</strong>
+<ul>
+<li>A PQ is not a Heap but it's ADT to defines the behaviour a PQ should have.</li>
+<li>Since PQ are the Abstract Data types (ADT), hence <em>Heaps</em> are not the only way to implement PQs.</li>
+<li>As an example, we could use an <em>unsorted list</em> but this would not give us the best possible time complexity.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Java PriorityQueue demo:</strong></p>
+<ul>
+<li><a href="https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/queue/JavaPriorityQueueTestApp.java">JavaPriorityQueueTestApp.java</a></li>
+</ul>
+</li>
+<li>
+<p><strong>Problem: Change MinPQ into MaxPQ</strong></p>
+<ul>
+<li>
+<p>Often the standard library of most programming languages only provide a Min-PQ which sorts the smallest elements first but sometimes we need a Max-PQ.</p>
+</li>
+<li>
+<p><strong>Hint:</strong></p>
+<ul>
+<li>Since the elements in the priority queue are comparable, they implement some sort of <em>Comparable Inerface</em> which we can simply negate to achieve a Max PQ (Max Heap).</li>
+</ul>
+</li>
+<li>
+<p><strong>Approach 1: Using custom Comparable</strong></p>
+<ul>
+<li>
+<p>In MinPQ when data is inserted a comparision is done to decide the lowest between two to keep it on top which we can use a custom comparable to return the highest number in the comparision which will be kept on top.</p>
+</li>
+<li>
+<p><strong>Source code:</strong> <strong>Github link:</strong> <a href="https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/queue/problems/MinPQToMaxPQUsingComparable.java">MinPQToMaxPQUsingComparable.java</a></p>
+</li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-comment">/**
+      * Create Max priority queue using provided data.
+      *
+      * <span class="hljs-doctag">@param</span> data
+      * <span class="hljs-doctag">@return</span>
+      */</span>
+      <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Queue&lt;Integer&gt; <span class="hljs-title function_">constructMaxPQueue</span><span class="hljs-params">(<span class="hljs-type">int</span>[] data)</span> {
+          <span class="hljs-comment">/*
+          * Comparator returns a negative integer, zero, or a positive integer as the first argument
+          * is less than, equal to, or greater than the second.
+          */</span>
+          <span class="hljs-keyword">final</span> Queue&lt;Integer&gt; maxPQ = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Comparator</span>&lt;Integer&gt;() {
+
+              <span class="hljs-comment">/**
+               * {<span class="hljs-doctag">@inheritDoc</span>}
+              *
+              * Reverse the return value to get Max Priority Queue.
+              *
+              * arg1 &lt; arg2 ----&gt; 1 [Default / MinPQ will return 1]
+              * arg1 &lt; arg2 ----&gt; 0 [Default / MinPQ will return 0]
+              * arg1 &lt; arg2 ----&gt; -1 [Default / MinPQ will return -1]
+              *
+              * <span class="hljs-doctag">@param</span> arg1 the first object to be compared.
+              * <span class="hljs-doctag">@param</span> arg2 the second object to be compared.
+              * <span class="hljs-doctag">@return</span>
+              */</span>
+              <span class="hljs-meta">@Override</span>
+              <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compare</span><span class="hljs-params">(Integer arg1, Integer arg2)</span> {
+                  <span class="hljs-keyword">if</span> (arg1 &gt; arg2) {
+                      <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+                  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (arg1.equals(arg2)) {
+                      <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+                  } <span class="hljs-keyword">else</span> {
+                      <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+                  }
+              }
+          });
+
+          <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>(<span class="hljs-string">&quot;Input array: [&quot;</span>);
+          <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> t : data) {
+              maxPQ.offer(t);
+              sb.append(t).append(<span class="hljs-string">&quot;, &quot;</span>);
+          }
+          sb.append(<span class="hljs-string">&quot;]&quot;</span>);
+          System.out.println(sb);
+          <span class="hljs-keyword">return</span> maxPQ;
+      }
+</code></pre>
+</li>
+<li>
+<p><strong>Approach 2: Negate the numbers</strong></p>
+<ul>
+<li>Another way could be we can negate the numbers before adding them in the PQ and as well know <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mn>1</mn><mo>&gt;</mo><mo>−</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">-1 &gt; -2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">−</span><span class="mord">2</span></span></span></span>.</li>
+<li>Hence every time we'll poll() the queue we'll get the highest negative number which can be change back to original value by negative again..</li>
+</ul>
+</li>
+<li>
+<p><strong>Source code:</strong> <strong>Github link:</strong> <a href="https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/queue/problems/MinPQToMaxPQByNegatingValues.java">MinPQToMaxPQByNegatingValues.java</a></p>
+</li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-comment">/**
+      * Create Max priority queue using provided data.
+      *
+      * <span class="hljs-doctag">@param</span> data
+      * <span class="hljs-doctag">@return</span>
+      */</span>
+      <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Queue&lt;Integer&gt; <span class="hljs-title function_">constructMaxPQueue</span><span class="hljs-params">(<span class="hljs-type">int</span>[] data)</span> {
+
+          <span class="hljs-keyword">final</span> Queue&lt;Integer&gt; maxPQ = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;();
+
+          <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>(<span class="hljs-string">&quot;Input array: [&quot;</span>);
+          <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> t : data) {
+              <span class="hljs-comment">/*
+              * Negate the value while adding to the queue.
+              * While polling back, negate them back before processing
+              */</span>
+              maxPQ.offer(t * -<span class="hljs-number">1</span>);
+              sb.append(t).append(<span class="hljs-string">&quot;, &quot;</span>);
+          }
+          sb.append(<span class="hljs-string">&quot;]&quot;</span>);
+          System.out.println(sb);
+          <span class="hljs-keyword">return</span> maxPQ;
+      }
+
+    <span class="hljs-comment">/**
+      * Print Queue data using `poll()` API.
+      *
+      * <span class="hljs-doctag">@param</span> queue
+      */</span>
+      <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">print</span><span class="hljs-params">(Queue&lt;Integer&gt; queue)</span> {
+
+          queue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(queue);
+          <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>(<span class="hljs-string">&quot;MaxPQ : &quot;</span>).append(<span class="hljs-string">&quot; {&quot;</span>);
+
+          <span class="hljs-keyword">while</span> (!queue.isEmpty()) {
+              <span class="hljs-comment">/*
+              * Negating the value to transform it to the actual value.
+              */</span>
+              sb.append(queue.poll() * -<span class="hljs-number">1</span>).append(<span class="hljs-string">&quot;, &quot;</span>);
+          }
+          sb.append(<span class="hljs-string">&quot;}&quot;</span>);
+          System.out.println(sb.toString());
+      }
+</code></pre>
+</li>
+<li>
+<p><strong><ins>References:</ins></strong></p>
+<ul>
+<li><a href="https://youtu.be/RBSGKlAvoiM?t=5493">https://youtu.be/RBSGKlAvoiM?t=5493</a></li>
+<li>[BFS Queue / Graph Explanation] (<a href="https://www.youtube.com/watch?v=OsNklbh9gYI">https://www.youtube.com/watch?v=OsNklbh9gYI</a>)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<hr>
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
