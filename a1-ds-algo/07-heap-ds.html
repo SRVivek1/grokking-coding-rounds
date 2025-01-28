@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Heap Data Structure</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="heap-data-structure">Heap Data Structure</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<ul>
+<li>
+<p><strong><ins>Heap Data Structure</ins></strong></p>
+<ul>
+<li>A <em>Heap</em> is a <em><strong>Specialized Tree Based DS</strong></em> that satisfies the <em>heap invariant</em> (also called Heap property): If <em>A</em> is a parent node of <em>B</em> then <em>A</em> is ordered with respect to <em>B</em> for all nodes <em>A</em>, <em>B</em> in the heap.</li>
+<li>It is commonly used to implement priority queues, as it efficiently supports the operations of finding and removing the highest (or lowest) priority element.</li>
+<li>A Binary Heap is a Complete Binary Tree, which is typically represented as an array.
+<ul>
+<li>The root element will be at <em><strong>array[0]</strong></em>.</li>
+<li>The below table shows indices of other nodes for the ith node, i.e., <em><strong>array[i]</strong></em>:</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Logic (0 based index)</th>
+<th>Logic (1 based index)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Get Parent Node</td>
+<td>array[ (i - 1) / 2]</td>
+<td>TODO</td>
+</tr>
+<tr>
+<td>Get Left Child</td>
+<td>array[ (2 * i) + 1]</td>
+<td>TODO</td>
+</tr>
+<tr>
+<td>Get Right Child</td>
+<td>array[ (2 * i) + 2]</td>
+<td>TODO</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Types of Heap</strong>
+<ul>
+<li><em><strong>Max Heap:</strong></em>
+<ul>
+<li>The largest element is at root.</li>
+<li>The value of Parent node is always greater than or equal to the value of child nodes.</li>
+</ul>
+</li>
+<li><em><strong>Min Heap:</strong></em>
+<ul>
+<li>The smallest element is at root.</li>
+<li>The value of Parent node is always less than or equal to the value of child nodes.</li>
+</ul>
+</li>
+<li><em><strong>Binary Heap:</strong></em>
+<ul>
+<li>A common implementation of a heap using a complete binary tree structure, often represented as an array.</li>
+<li>Every node has exactly 2 child nodes.
+<ul>
+<li><strong>Note: Binary Tree</strong>
+<ul>
+<li>A Binary Tree Data Structure is a hierarchical data structure in which each node has at most two children, referred to as the left child and the right child.</li>
+<li>It is commonly used in computer science for efficient storage and retrieval of data, with various operations such as insertion, deletion, and traversal.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Inserting new objects</strong>
+<ul>
+<li>Compare the value with <code>root node</code> if the value is <em>smaller</em> traverse to the <em>left child</em> otherwie go tot the right child, repeating the process unitl we reach leaf node.</li>
+</ul>
+</li>
+<li><strong>Deleting new Objects</strong>
+<ul>
+<li>In general with heaps we always want to remove the <code>root</code> value becauase it's the node of the interest with highest priority (either smallest or highest value).</li>
+<li><strong>Array based implementation:</strong>
+<ul>
+<li><strong>poll():</strong> Removing a node from heap is called polling, which will remove the root node (first element in array based implementation.)
+<ul>
+<li><em>Steps:</em>
+<ul>
+<li>We first swap the root node with last node.</li>
+<li>Delete the last node.</li>
+<li>Now bubble down the root node to place the new root node to it's right location to satisfy the tree invariant properties.</li>
+<li>Choose the node/leg with the smallest value while finding the position.</li>
+<li>Time complexity - O(log N)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Remove(20):</strong> Delete the node with value <code>20</code>.
+<ul>
+<li><em>Steps:</em>
+<ul>
+<li>Perform linear scan to find the position of desired node lets say <code>x</code> index.</li>
+<li>Now swap it (<code>x</code> index) with the last node (nth index) in the tree.</li>
+<li>Now remove the last node.</li>
+<li>Bubble up / down the <code>x</code> index to maintain tree property (min value on top) if required..</li>
+<li>Time complexity - O(N)</li>
+<li><strong>Note:</strong>
+<ul>
+<li>The inefficiency of the removal algorithm comes from the fact that we have to perform a linear search to find out where an element is indexed at.
+<ul>
+<li>What if we did a index lookup using a hash table to find out where a node is indexed at?</li>
+<li>As a Hashtable provides constant time lookup and update for a mapping from a key (the node value) to a value (the index).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em><strong>Binomial Heap:</strong></em>
+<ul>
+<li>A Binomial Heap is a collection of Binomial Trees. It's an extension of Binary Heap that p<em>rovides faster union or merge operation with other operations provided by Binary Heap</em>.</li>
+<li>It is a set of Binomial Trees where each Binomial Tree follows the Min Heap property and there can be at most one Binomial Tree of any degree.
+<ul>
+<li><strong>Note: Binomial tree</strong>
+<ul>
+<li>A Binomial tree is not a balanced Tree or a Binary tree.</li>
+<li>Some properties of Binomial Tree:
+<ul>
+<li>Let <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex"> B_k </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0502em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> is a Binomial tree with <code>k</code> order.</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex"> B_k </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0502em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> has <code>k</code> child nodes at root.</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex"> B_k </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0502em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> can be formed using 2 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mo stretchy="false">(</mo></msub><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> B_(k-1) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0496em;vertical-align:-0.3552em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-left:-0.0502em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mopen mtight">(</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span> trees.</li>
+<li>The root of one <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mo stretchy="false">(</mo></msub><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">B_(k-1) </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0496em;vertical-align:-0.3552em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-left:-0.0502em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mopen mtight">(</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span> will be the <strong>leftmost child</strong> of the root of other <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>B</mi><mo stretchy="false">(</mo></msub><mi>k</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> B_(k-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0496em;vertical-align:-0.3552em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.5198em;margin-left:-0.0502em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mopen mtight">(</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3552em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>The main application of Binary Heap is to implement a priority queue.</li>
+</ul>
+</li>
+<li><em><strong>Fibonacci Heap:</strong></em>
+<ul>
+<li>x</li>
+</ul>
+</li>
+<li><em><strong>Pairing Heap:</strong></em>
+<ul>
+<li>x</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Key Characteristics:</strong>
+<ul>
+<li><em><strong>Tree Structure:</strong></em>
+<ul>
+<li>Heaps are typically implemented as binary trees (binary heaps), but they can also have other structures like <em>Fibonacci heaps</em> or <em>Binomial heaps</em>.</li>
+</ul>
+</li>
+<li><strong>Complete Binary Tree:</strong>
+<ul>
+<li>A tree in which at every level, except possibly the last is completely filled and all the nodes are as far as left possible.
+<ul>
+<li>This means data is compared from left child/node of the tree and and inserted at right position from left child/node.</li>
+</ul>
+</li>
+<li>In a binary heap, the tree is always a complete binary tree, meaning all levels are fully filled except possibly the last, which is filled from left to right.</li>
+</ul>
+</li>
+<li><strong>Heap Property:</strong>
+<ul>
+<li><em><strong>Max-Heap:</strong></em>
+<ul>
+<li>Parent nodes are always greater than or equal to their child nodes.</li>
+</ul>
+</li>
+<li><em><strong>Min-Heap:</strong></em>
+<ul>
+<li>Parent nodes are always less than or equal to their child nodes.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Binary Heap representation in Array:</strong></li>
+</ul>
+</li>
+</ul>
+<center>
+  <img style="width:450px; height:250px;" src="file:////home/srvivek/wrkspace/grokking-coding-rounds/a1-ds-algo/images/binary-heap-representation.png" title="Binary Heap Representation" alt="Binary Heap Representation diagram">
+</center>
+<ul>
+<li><strong>Operations on MinHeap:</strong>
+<ul>
+<li>Below are some standard operations on min heap:
+<ul>
+<li><strong>getMin():</strong>
+<ul>
+<li>Returns the root element of <strong>Min Heap</strong>.</li>
+<li>The time Complexity of this operation is <em>O(1)</em>.</li>
+<li><em>Note:</em> In case of a <strong>Maxheap</strong> it would be <em><strong>getMax()</strong></em>.</li>
+</ul>
+</li>
+<li><strong>extractMin():</strong>
+<ul>
+<li>Removes the minimum element from <strong>MinHeap</strong>.</li>
+<li>The time Complexity of this Operation is <em>O(log N)</em> as this operation needs to maintain the heap property <em>(by calling heapify())</em> after removing the root.</li>
+</ul>
+</li>
+<li><strong>decreaseKey():</strong>
+<ul>
+<li>Decreases the value of the key. The time complexity of this operation is <em>O(log N)</em>.</li>
+<li>If the decreased key value of a node is greater than the parent of the node, then we don’t need to do anything.
+<ul>
+<li>Otherwise, we need to traverse up to fix the violated heap property.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>insert():</strong>
+<ul>
+<li>Inserting a new key takes <em>O(log N)</em> time.</li>
+<li>We add a new key at the end of the tree. If the new key is greater than its parent, then we don’t need to do anything.
+<ul>
+<li>Otherwise, we need to traverse up to fix the violated heap property.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>delete():</strong>
+<ul>
+<li>Deleting a key also takes <em>O(log N)</em> time.</li>
+<li>We replace the key to be deleted with the minimum infinite by calling <em>decreaseKey()</em>.
+<ul>
+<li>After decreaseKey(), the minus infinite value must reach root, so we call <em>extractMin()</em> to remove the key.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Time Complexility</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>MinHeap</th>
+<th>T.C.</th>
+<th>MaxHeap</th>
+<th>T.C.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Heap Construction</td>
+<td>O(n)</td>
+<td>Heap Construction</td>
+<td>O(n)</td>
+</tr>
+<tr>
+<td>getMin()</td>
+<td>O(1)</td>
+<td>getMax()</td>
+<td>O(1)</td>
+</tr>
+<tr>
+<td>extractMin()</td>
+<td>O(log N)</td>
+<td>extractMin()</td>
+<td>O(log N)</td>
+</tr>
+<tr>
+<td>decreaseKey()</td>
+<td>O(log N)</td>
+<td>decreaseKey()</td>
+<td>O(log N)</td>
+</tr>
+<tr>
+<td>insert()</td>
+<td>O(log N)</td>
+<td>insert()</td>
+<td>O(log N)</td>
+</tr>
+<tr>
+<td>delete()</td>
+<td>O(log N)</td>
+<td>delete()</td>
+<td>O(log N)</td>
+</tr>
+<tr>
+<td>polling()</td>
+<td>O(log N)</td>
+<td>polling()</td>
+<td>O(log N)</td>
+</tr>
+<tr>
+<td>removing()</td>
+<td>O(N)</td>
+<td>removing()</td>
+<td>O(N)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong>Applications of Heap DS</strong></p>
+<ul>
+<li><em>Priority Queues:</em> Efficiently manage tasks with varying priorities.</li>
+<li><em>Heap Sort:</em> A sorting algorithm with O(N log N) complexity.</li>
+<li><em>Graph Algorithms:</em> Like Dijkstra's and Prim's algorithms, which use heaps to find the shortest path or minimum spanning tree.</li>
+<li><em>Median Finding:</em> Maintain a max-heap and min-heap to find the median efficiently.</li>
+</ul>
+</li>
+<li>
+<p><strong><ins>References:</ins></strong></p>
+<ul>
+<li><a href="https://youtu.be/RBSGKlAvoiM">https://youtu.be/RBSGKlAvoiM</a></li>
+<li><a href="https://www.geeksforgeeks.org/complete-binary-tree/">Compete Binary Tree</a></li>
+<li><a href="https://www.geeksforgeeks.org/binomial-heap-2/">Binomial Heap</a></li>
+<li><a href="https://www.youtube.com/watch?v=UqvGHUNd9Uw">Binomial Tree</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<hr>
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
