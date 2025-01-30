@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Union-Find &lpar;Disjoint set or Merge-find set&rpar;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="union-find-disjoint-set-or-merge-find-set">Union-Find (Disjoint set or Merge-find set)</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<ul>
+<li>
+<p><strong><ins>Data Structure</ins></strong></p>
+<ul>
+<li><em><strong>Union Find</strong></em> is a Data structure that keeps track of elements which are split into one or more disjoint sets, meaning it stores a collection of <em>disjoint(non-overlapping) sets</em>. Equivalently, it stores a partition of a set into disjoint subsets.</li>
+<li>It provides operations for adding new sets, merging sets (replacing them with their union), and finding a representative member of a set. The last operation makes it possible to determine efficiently whether any two elements belong to the same set or to different sets.</li>
+<li>It has two primary operations: <em><strong>find</strong></em> &amp; <em><strong>union</strong></em>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Use cases:</strong></p>
+<ul>
+<li>
+<p>Kruskal's minimum spanning tree algorithm</p>
+</li>
+<li>
+<p>Grid Precolation</p>
+</li>
+<li>
+<p>Network Connectivity</p>
+</li>
+<li>
+<p>Least common ancestor in trees.</p>
+</li>
+<li>
+<p>Image processing</p>
+</li>
+<li>
+<p><strong>Kruskal's minimum spanning tree algorithm:</strong></p>
+<ul>
+<li>It's a <em><strong>greedy algorithm</strong></em> used to find the <em><strong>Minimum Spanning Tree (MST)</strong></em> of a graph. An <em>MST</em> is a subset of the edges in a connected, weighted graph that connects all vertices without forming cycles and with the minimum possible total edge weight / count.</li>
+<li>Given a <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mi>r</mi><mi>a</mi><mi>p</mi><mi>h</mi><mo>=</mo><mo stretchy="false">(</mo><mi>V</mi><mo separator="true">,</mo><mi>E</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">graph = (V,E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">a</span><span class="mord mathnormal">p</span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span> we want to find a <em>Minimum spanning tree</em> in the graph (it may not be unique).</li>
+<li>Below images demonstrate the Kruskal's algorithm.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<center>
+  <img style="height:200px;width:430px" src="file:////home/srvivek/wrkspace/grokking-coding-rounds/a1-ds-algo/images/kruskals-min-spanning-tree-q.png" title="Kruskal's Minimum spanning tree">
+  <img style="height:200px;width:430px" src="file:////home/srvivek/wrkspace/grokking-coding-rounds/a1-ds-algo/images/kruskals-min-spanning-tree-ans.png" title="Kruskal's Minimum spanning tree solution ">
+</center>
+<ul>
+<li><strong>Steps of Kruskal's Algorithm:</strong>
+<ul>
+<li><em>Sort Edges:</em>
+<ul>
+<li>Sort all the edges in the graph in non-decreasing order of their weights.</li>
+</ul>
+</li>
+<li><em>Initialize Forest:</em>
+<ul>
+<li>Treat each vertex as an independent set (a &quot;forest&quot; of single nodes).</li>
+</ul>
+</li>
+<li><em>Add Edges:</em>
+<ul>
+<li>Iteratively add edges from the sorted list to the MST.</li>
+<li>Use the Union-Find/Disjoint-Set Data Structure to avoid cycles:</li>
+<li>For each edge, check if the two vertices it connects belong to different sets.
+<ul>
+<li>If they are in different sets, add the edge to the MST and merge the two sets (union).</li>
+<li>If they are in the same set, skip the edge (to avoid cycles).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em>Stop Condition:</em>
+<ul>
+<li>Continue adding edges until the MST contains exactly <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>V</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(V-1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span></span></span></span> edges, where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span></span> is the number of vertices in the graph.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Pseudocode:</strong></li>
+</ul>
+<pre><code class="language-sh">    KRUSKAL(graph):
+    1. MST = []                  <span class="hljs-comment"># Initialize an empty MST</span>
+    2. Sort all edges by weight
+    3. Initialize a Disjoint-Set <span class="hljs-keyword">for</span> all vertices
+    4. For each edge (u, v) <span class="hljs-keyword">in</span> sorted edge list:
+        a. If u and v belong to different sets:
+            i. Add edge (u, v) to MST
+            ii. Union(u, v) <span class="hljs-keyword">in</span> the Disjoint-Set
+        b. If u and v are <span class="hljs-keyword">in</span> the same <span class="hljs-built_in">set</span>, skip edge
+    5. Return MST
+</code></pre>
+<ul>
+<li>
+<p><strong>Example:</strong></p>
+<ul>
+<li>
+<p><em><strong>Graph Input:</strong></em></p>
+<ul>
+<li>Vertices: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo separator="true">,</mo><mi>C</mi><mo separator="true">,</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">{A, B, C, D}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span></span></li>
+<li>Edges: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>−</mo><mi>B</mi><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mi>B</mi><mo>−</mo><mi>C</mi><mo separator="true">,</mo><mn>4</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mi>A</mi><mo>−</mo><mi>C</mi><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mi>C</mi><mo>−</mo><mi>D</mi><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mi>B</mi><mo>−</mo><mi>D</mi><mo separator="true">,</mo><mn>5</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">{ (A-B, 1), (B-C, 4), (A-C, 3), (C-D, 2), (B-D, 5) }</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">4</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">3</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">5</span><span class="mclose">)</span></span></span></span></span></li>
+</ul>
+</li>
+<li>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>
+<p><em><strong>Sort edges by weight:</strong></em></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo stretchy="false">(</mo><mi>A</mi><mo>−</mo><mi>B</mi><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mi>C</mi><mo>−</mo><mi>D</mi><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mi>A</mi><mo>−</mo><mi>C</mi><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mi>B</mi><mo>−</mo><mi>C</mi><mo separator="true">,</mo><mn>4</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mi>B</mi><mo>−</mo><mi>D</mi><mo separator="true">,</mo><mn>5</mn><mo stretchy="false">)</mo><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[(A−B,1),(C−D,2),(A−C,3),(B−C,4),(B−D,5)]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[(</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">3</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">4</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">5</span><span class="mclose">)]</span></span></span></span>.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Initialize Disjoint-Set:</strong></em></p>
+<ul>
+<li>Sets: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo separator="true">,</mo><mi>B</mi><mo separator="true">,</mo><mi>C</mi><mo separator="true">,</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">{A},{B},{C},{D}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">A</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span></span>.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Process edges:</strong></em></p>
+<ul>
+<li>Add <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>−</mo><mi>B</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(A−B)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mclose">)</span></span></span></span>: No cycle, merge <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo separator="true">,</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">{A},{B}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">A</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span></span>.</li>
+<li>Add <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>C</mi><mo>−</mo><mi>D</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(C−D)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mclose">)</span></span></span></span>: No cycle, merge <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo separator="true">,</mo><mi>D</mi></mrow><annotation encoding="application/x-tex">{C},{D}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span></span>.</li>
+<li>Add <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>−</mo><mi>C</mi><mo stretchy="false">)</mo><mo>:</mo><mi>N</mi><mi>o</mi><mi>c</mi><mi>y</mi><mi>c</mi><mi>l</mi><mi>e</mi><mo separator="true">,</mo><mi>m</mi><mi>e</mi><mi>r</mi><mi>g</mi><mi>e</mi></mrow><annotation encoding="application/x-tex">(A−C): No cycle, merge </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal">ocyc</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">e</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">m</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">e</span></span></span></span>{A,B},{C,D}$.</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>B</mi><mo>−</mo><mi>C</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(B−C)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mclose">)</span></span></span></span>: Skip (forms cycle).</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>B</mi><mo>−</mo><mi>D</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(B−D)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mclose">)</span></span></span></span>: Skip (forms cycle).</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Output:</strong></em></p>
+<ul>
+<li>Edges: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mo stretchy="false">(</mo><mi>A</mi><mo>−</mo><mi>B</mi><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mi>C</mi><mo>−</mo><mi>D</mi><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><mo stretchy="false">(</mo><mi>A</mi><mo>−</mo><mi>C</mi><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[(A-B, 1), (C-D, 2), (A-C, 3)]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[(</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">3</span><span class="mclose">)]</span></span></span></span></li>
+<li>Total Weight: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn></mrow><annotation encoding="application/x-tex">6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">6</span></span></span></span></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li>While there are several ways of implementing disjoint-set data structures, in practice they are often identified with a particular implementation known as a disjoint-set forest.
+<ul>
+<li>This specialized type of forest performs union and find operations in near-constant amortized time.</li>
+<li>For a sequence of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">m</span></span></span></span> <em>addition, union, or find operations</em> on a disjoint-set forest with <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> nodes, the total time required is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>m</mi><mi>α</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(mα(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">m</span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">))</span></span></span></span>, where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">α(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> is the <em>extremely slow-growing inverse Ackermann function</em>.</li>
+<li>Although disjoint-set forests <em>do not guarantee</em> this time per operation, each operation rebalances the structure (via tree compression) so that subsequent operations become faster. As a result, disjoint-set forests are both asymptotically optimal and practically efficient.</li>
+</ul>
+</li>
+<li>Disjoint-set data structures play a key role in <em><strong>Kruskal's algorithm</strong></em> for finding the minimum spanning tree of a graph.
+<ul>
+<li>The importance of minimum spanning trees means that disjoint-set data structures support a wide variety of algorithms.</li>
+<li>In addition, these data structures find applications in symbolic computation and in compilers, especially for register allocation problems.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Time Complexity:</strong></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>T.C.</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Construction</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></td>
+<td>Create new UnionFind DS</td>
+</tr>
+<tr>
+<td>Union</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">a(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></td>
+<td>Merge two sets</td>
+</tr>
+<tr>
+<td>Find</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">a(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></td>
+<td>Find the given element</td>
+</tr>
+<tr>
+<td>Get Component Size</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">a(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></td>
+<td>List of element in a set</td>
+</tr>
+<tr>
+<td>Check if connected</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">a(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></td>
+<td>True if two elements have same root node</td>
+</tr>
+<tr>
+<td>Count Components</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></td>
+<td>Number of sets available</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Note: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">a(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">a</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> --&gt; Amortized constatnt time, almost constatnt time although not contant time.</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>Operations:</strong></p>
+<ul>
+<li><strong>Union &amp; Find Operations</strong>
+<ul>
+<li><em><strong>Find Operation:</strong></em>
+<ul>
+<li>To find which component a particular element belongs to find the root of that component by following the parent nodes until a self loop is reached (a node who's parent is itself).</li>
+</ul>
+</li>
+<li><em><strong>Union Operation:</strong></em>
+<ul>
+<li>To <em>Unify</em> two elements find which are the root nodes of the each component and if the root nodes are different make one of them root nodes be the parent of the other.</li>
+</ul>
+</li>
+<li><em><strong>Creation:</strong></em>
+<ul>
+<li>To begin with union find first construct a <strong>bijection (a mapping)</strong> between the objects and integers in the range of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">[0, n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> <em>(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span> inclusive to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> non-inclusive)</em>.</li>
+<li>This mapping can be stored in <em>Hash table</em> for constant time lookup.</li>
+<li><strong>Note:</strong>
+<ul>
+<li>This step is not necessary in general but it will allow us to construct an array based union-find.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em><strong>Path Compression:</strong></em>
+<ul>
+<li>It's an optimization technique used in the disjoint-set data structure (also known as union-find) to improve the efficiency of the find operation. It helps keep the structure of the sets more compact, reducing the time complexity of future operations.</li>
+<li><em>How It Works:</em>
+<ul>
+<li>When performing the find operation to determine the root or representative of a set, path compression flattens the structure of the tree by making each node point directly to the root. This ensures that subsequent operations will require fewer steps.</li>
+</ul>
+</li>
+<li><em>Algorithm:</em>
+<ul>
+<li>When you call find(x), the algorithm traverses from the node x to the root of the set.</li>
+<li>While doing this, it updates each node on the path to point directly to the root. This way, the depth of the tree decreases, and future queries for these nodes will take constant time.</li>
+<li><em>Use Cases:</em>
+<ul>
+<li>Path compression in disjoint sets is commonly used in algorithms like:
+<ul>
+<li>Kruskal's Algorithm for Minimum Spanning Tree.</li>
+<li>Connected Component Detection in a graph.</li>
+<li>Various union-find problems in competitive programming.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Note:</strong>
+<ul>
+<li>In this data structure, we do not  <em><strong>un-union</strong></em> elements.</li>
+<li>In general, this would be very inefficient to do since we would have to update all the children of a node.</li>
+<li>The number of components in our <em>union-find</em> is going to be equal to the number of root nodes remaining. Because each root node is responsible for a component.</li>
+<li>The number of root nodes never increases, instead it always decreases because of unifying the components.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Implementation: UnionFind.java</strong></p>
+<pre><code class="language-java">    <span class="hljs-comment">/**
+      * UnionFind / Disjoint Set data-structure implementation.
+      */</span>
+      <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UnionFind</span> {
+
+          <span class="hljs-comment">// The number of elements in the UnionFind.</span>
+          <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> size;
+
+          <span class="hljs-comment">// Used to track the size of each of the component.</span>
+          <span class="hljs-keyword">private</span> <span class="hljs-type">int</span>[] compSize;
+
+          <span class="hljs-comment">/*
+          * id[i] points to the parent of i,
+          * if df[i] = i then i is the root node.
+          */</span>
+          <span class="hljs-keyword">private</span> <span class="hljs-type">int</span>[] id;
+
+          <span class="hljs-comment">// Tracks the number of components in the UnionFind</span>
+          <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> numComponents;
+
+          <span class="hljs-comment">/**
+           * Initializes UnionFind DS with given size.
+          *
+          * <span class="hljs-doctag">@param</span> size
+          */</span>
+          <span class="hljs-keyword">public</span> <span class="hljs-title function_">UnionFind</span><span class="hljs-params">(<span class="hljs-type">int</span> size)</span> {
+
+              <span class="hljs-keyword">if</span> (size &lt;= <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">IllegalArgumentException</span>(<span class="hljs-string">&quot;size &lt;= 0 not allowed.&quot;</span>);
+
+              <span class="hljs-built_in">this</span>.size = <span class="hljs-built_in">this</span>.numComponents = size;
+              compSize = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[size];
+              id = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[size];
+
+              <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; size; i++) {
+                  id[i] = i; <span class="hljs-comment">// Link to itself (self node)</span>
+                  compSize[i] = <span class="hljs-number">1</span>; <span class="hljs-comment">// Each component is originally of size 1</span>
+              }
+          }
+
+          <span class="hljs-comment">/**
+           * Find which component/set &#x27;p&#x27; belongs to, takes amortized constant time.
+          *
+          * <span class="hljs-doctag">@param</span> p
+          * <span class="hljs-doctag">@return</span>
+          */</span>
+          <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">find</span><span class="hljs-params">(<span class="hljs-type">int</span> p)</span> {
+              <span class="hljs-type">int</span> <span class="hljs-variable">root</span> <span class="hljs-operator">=</span> p;
+              <span class="hljs-comment">// find root node of the component/set</span>
+              <span class="hljs-keyword">while</span> (root != id[root]) {
+                  root = id[root];
+              }
+
+              <span class="hljs-comment">/*
+              * Compress the path leading back to the root node.
+              * This operation is called &#x27;Path compression&#x27;
+              * and this is how &#x27;amortized time complexity&#x27; is achieved.
+              */</span>
+              <span class="hljs-keyword">while</span> (p != root) {
+                  <span class="hljs-type">int</span> <span class="hljs-variable">next</span> <span class="hljs-operator">=</span> id[p];
+                  id[p] = root;
+                  p = next;
+              }
+              <span class="hljs-keyword">return</span> root;
+          }
+
+          <span class="hljs-comment">/**
+           * Returns true if &#x27;p&#x27; and &#x27;q&#x27; are part of same component / set,
+          * that is they have same root node.
+          *
+          * <span class="hljs-doctag">@param</span> p
+          * <span class="hljs-doctag">@param</span> q
+          * <span class="hljs-doctag">@return</span>
+          */</span>
+          <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">connected</span><span class="hljs-params">(<span class="hljs-type">int</span> p, <span class="hljs-type">int</span> q)</span> {
+              <span class="hljs-keyword">return</span> find(p) == find(q);
+          }
+
+          <span class="hljs-comment">/**
+           * Returns the size of the component/set &#x27;p&#x27; belongs to.
+          * Note: Root nodes will be having the size of component/size.
+          *
+          * <span class="hljs-doctag">@return</span>
+          */</span>
+          <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">componentSize</span><span class="hljs-params">(<span class="hljs-type">int</span> p)</span> {
+              <span class="hljs-keyword">return</span> compSize[find(p)];
+          }
+
+          <span class="hljs-comment">/**
+           * Returns the number of elements in this UnionFind/Disjoint Set.
+          *
+          * <span class="hljs-doctag">@return</span>
+          */</span>
+          <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span> {
+              <span class="hljs-keyword">return</span> size;
+          }
+
+          <span class="hljs-comment">/**
+           * Returns the number of remaining components/sets.
+          *
+          * <span class="hljs-doctag">@return</span>
+          */</span>
+          <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">components</span><span class="hljs-params">()</span> {
+              <span class="hljs-keyword">return</span> numComponents;
+          }
+
+          <span class="hljs-comment">/**
+           * Merge two disjoint set/components together.
+          *
+          * <span class="hljs-doctag">@param</span> p
+          * <span class="hljs-doctag">@param</span> q
+          */</span>
+          <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">unify</span><span class="hljs-params">(<span class="hljs-type">int</span> p, <span class="hljs-type">int</span> q)</span> {
+
+              <span class="hljs-type">int</span> <span class="hljs-variable">root1</span> <span class="hljs-operator">=</span> find(p);
+              <span class="hljs-type">int</span> <span class="hljs-variable">root2</span> <span class="hljs-operator">=</span> find(q);
+
+              <span class="hljs-comment">// The elements are already in same group.</span>
+              <span class="hljs-keyword">if</span> (root1 == root2) {
+                  <span class="hljs-keyword">return</span>;
+              }
+
+              <span class="hljs-comment">/*
+              * Merge two components / sets together
+              * Approach:
+              *  --&gt; Merge smaller set into the larger one by checking the component size of set.
+              */</span>
+              <span class="hljs-keyword">if</span> (compSize[root1] &lt; compSize[root2]) {
+                  compSize[root2] += compSize[root1];
+                  <span class="hljs-comment">// root2 is parent of root1</span>
+                  id[root1] = root2;
+              } <span class="hljs-keyword">else</span> {
+                  compSize[root1] += compSize[root2];
+                  id[root2] = root1;
+              }
+
+              <span class="hljs-comment">// reduce components/set count as we are merging two sets.</span>
+              numComponents--;
+          }
+      }
+</code></pre>
+</li>
+<li>
+<p><strong><ins>References:</ins></strong></p>
+<ul>
+<li><a href="https://youtu.be/RBSGKlAvoiM?t=8913">https://youtu.be/RBSGKlAvoiM?t=8913</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<hr>
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
