@@ -122,7 +122,7 @@
     - The number of components in our *union-find* is going to be equal to the number of root nodes remaining. Because each root node is responsible for a component.
     - The number of root nodes never increases, instead it always decreases because of unifying the components.
 
-- **Implementation: UnionFind.java**
+- **Implementation:** *Github.com* [UnionFind.java](https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/disjointset/UnionFind.java)
   ```java
       /**
         * UnionFind / Disjoint Set data-structure implementation.
