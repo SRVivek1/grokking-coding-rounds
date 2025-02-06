@@ -3,8 +3,11 @@ package com.srvivek.dsalgo.binarytree;
 import java.util.Iterator;
 
 /**
+ * Alert: This implementation is not fully functional yet.
+ * <p>
  * A Binary search tree implementation.
  * Ref: https://github.com/williamfiset/Algorithms/blob/master/src/main/java/com/williamfiset/algorithms/datastructures/binarysearchtree/BinarySearchTree.java
+ *
  * @param <T>
  */
 
@@ -298,6 +301,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     /**
      * Print tree from given node
+     *
      * @param node
      * @param space
      */
@@ -305,7 +309,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         // Number of spaces between levels
         int space_count = 5;
 
-        if (node == null)   return;
+        if (node == null) return;
 
         // Increase distance between levels
         space += space_count;
@@ -315,7 +319,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
         // Print current node after spaces
         System.out.println();
-        for (int i = space_count; i < space; i++)   System.out.print(" ");
+        for (int i = space_count; i < space; i++) System.out.print(" ");
         System.out.println(node.data);
 
         // Print left child
