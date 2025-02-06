@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Tree&comma; Binary Tree &lpar;BT&rpar; and Binary Search Trees &lpar;BST&rpar;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="tree-binary-tree-bt-and-binary-search-trees-bst">Tree, Binary Tree (BT) and Binary Search Trees (BST)</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<ul>
+<li>
+<p><strong><heading>Tree DS</heading></strong></p>
+<ul>
+<li>Tree Data Structure is a non-linear data structure in which a collection of elements known as nodes are connected to each other via edges such that there exists exactly one path between any two nodes.</li>
+<li>It's an <strong>undirected graph</strong> which satisfies any of the following definitions.
+<ul>
+<li>An acyclic (no cycles) connected graph.</li>
+<li>A connected graph with <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span> nodes and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">N-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span> edges.</li>
+<li>An graph in which any two vertices are connected by <em><strong>exactly</strong></em> one path.</li>
+</ul>
+</li>
+<li><strong>Rooted Tree</strong>
+<ul>
+<li>If we have a roote tree then we want to have a reference to the root node of the Tree.</li>
+<li>It doesn't always matter that which node is selected to be root node because any node can be root of the tree.</li>
+</ul>
+</li>
+<li><strong>Key terminologies</strong>
+<ul>
+<li><em>Root Node:</em>
+<ul>
+<li>The top-most node of the tree.</li>
+</ul>
+</li>
+<li><em>Child Nodes:</em>
+<ul>
+<li>Each node can have up to two children (left and right).</li>
+</ul>
+</li>
+<li><em>Leaf Nodes:</em>
+<ul>
+<li>Nodes with no children (i.e., both left and right child pointers are null).</li>
+</ul>
+</li>
+<li><em>Height of the Tree:</em>
+<ul>
+<li>The number of edges on the longest path from the root to a leaf.</li>
+</ul>
+</li>
+<li><em>Subtrees:</em>
+<ul>
+<li>Every node can act as the root of its own binary tree.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Types of Tree DS</strong>
+<ul>
+<li><em>Binary Tree</em></li>
+<li><em>Binary Search Tree</em></li>
+<li><em>AVL Tree</em></li>
+<li><em>Red-Black Tree</em></li>
+<li><em>Ternary Search Tree</em></li>
+<li><em>n-ary or Generic Tree</em></li>
+<li><em>B Tree</em></li>
+<li><em>B+ Tree</em></li>
+<li><em>Other Type of Trees</em>
+<ul>
+<li><em>Ternary Tree</em></li>
+<li><em>Interval tree</em></li>
+<li><em>2-3-4 Tree</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><heading>Binary Tree (BT):</heading></strong></p>
+<ul>
+<li>
+<p>A <em>Binary Tree</em> is a <em>Tree DS</em> in which every node has at most 2 child nodes meaning we can have BT node having exactly either 1 node or 2 nodes.</p>
+</li>
+<li>
+<p><strong>Types of Binary Trees:</strong></p>
+<ul>
+<li><em>Full Binary Tree:</em>
+<ul>
+<li>Each node has either 0 or 2 children.</li>
+</ul>
+</li>
+<li><em>Complete Binary Tree:</em>
+<ul>
+<li>All levels except possibly the last are fully filled, and the nodes at the last level are as far left as possible.</li>
+</ul>
+</li>
+<li><em>Perfect Binary Tree:</em>
+<ul>
+<li>All levels are fully filled, and all leaf nodes are at the same depth.</li>
+</ul>
+</li>
+<li><em>Balanced Binary Tree:</em>
+<ul>
+<li>The height difference between the left and right subtrees of any node is at most 1.</li>
+</ul>
+</li>
+<li><em>Binary Search Tree (BST):</em>
+<ul>
+<li>A binary tree where the left child of a node contains a value less than the node, and the right child contains a value greater than the node.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><heading>Binary Search Tree (BST):</heading></strong></p>
+<ul>
+<li>A <em>Binary Search Tree</em> is a <em>Binary Tree</em> where each node has at most two(0, 1 or 2) children that satisfies the BST invariant:
+<ul>
+<li>Left Subtree/node/child has smaller elements/value and</li>
+<li>Right Substree/node/child has larger elements/value greater than parent node.</li>
+</ul>
+</li>
+<li>It is used to store data in sorted manner.</li>
+<li>This hierarchical structure allows for efficient searching, insertion, and deletion operations on the data stored in the tree.</li>
+<li>BST elements must be comparable, so that we can order them inside.</li>
+<li><strong>Important Points about BST</strong>
+<ul>
+<li>It's useful for maintaining sorted stream of data.</li>
+<li>It allows <em>search, insert, delete, ceiling, max and min</em> in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span></span></span></span> time. Along with these, we can always <em>traverse the tree items in sorted order</em>.</li>
+<li>With <em>Self Balancing BSTs</em>, we can ensure that the <em>height of the BST</em> is bound be <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">Log(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">L</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>. Hence we achieve, the above mentioned <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>h</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(h)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">h</span><span class="mclose">)</span></span></span></span> operations in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>L</mi><mi>o</mi><mi>g</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(Log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> time.</li>
+<li><strong>Note:</strong>
+<ul>
+<li>When we need only <em>search, insert and delete</em> and do not need other operations, we <em>prefer Hash Table over BST</em> as a Hash Table supports these operations in <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span> time on average.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Examples:</strong><table>
+<tr>
+  <td>Not a BST since 9 is larger than 8. <br/>It should be in the right subtree of 8.</td>
+  <td>
+    <img src="file:////home/srvivek/wrkspace/grokking-coding-rounds/a1-ds-algo/images/not-a-bst-graph-1.png" title="Not a BST as 9 is larger than 8." alt="Not a BST as 9 is larger than 8." height="150" width="200" />
+  </td>
+  <td>Not a BST or TREE as it contains cycle.</td>
+  <td>
+    <img src="file:////home/srvivek/wrkspace/grokking-coding-rounds/a1-ds-algo/images/not-a-bst-graph-2-contains-cycle.png" title="Not a BST or TREE it contains cycle." alt="Not a BST or TREE it contains cycle." height="150" width="200" />
+  </td>
+</tr>
+</table>
+</li>
+<li><strong>BST - Time complexity:</strong></li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Average</th>
+<th>Worst</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Insert</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">))</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></td>
+</tr>
+<tr>
+<td>Delete</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">))</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></td>
+</tr>
+<tr>
+<td>Remove</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">))</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></td>
+</tr>
+<tr>
+<td>Search</td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log(n))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">))</span></span></span></span></td>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong>BST - Search/Find Operation:</strong></p>
+<ul>
+<li>Here's the 4 situations could arise while searching for the elements:
+<ul>
+<li>We hit a <em>null node</em>, meaning the value doesn't exits in the BST.</li>
+<li><em>Comparator value <strong>equal to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></strong></em>, meaning the value is found.</li>
+<li><em>Comparator value <strong>less than <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></strong></em>, meaning the value if it exists, it is in the left subtree.</li>
+<li><em>Comparator value <strong>greater than <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span></strong></em>, meaning the value if it exists, it is in the right subtree.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>BST - Insert Operation:</strong></p>
+<ul>
+<li>While inserting new elements compare it's value to the value stored in current node we're considering to decide on one of the following;
+<ul>
+<li>if value is less, then recurse down left subtree.</li>
+<li>if value is greater, then recurse down right subtree.</li>
+<li>if value is equal, handle finding a duplicate value.</li>
+<li>if reached leaf node (found null), create a new node and add it to tree.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>BST - Remove Opertaion:</strong></p>
+<ul>
+<li>Removing elements from BST is a two step process.
+<ul>
+<li><strong>Find</strong> the element we wish to remove (if it exists).</li>
+<li><strong>Replace</strong> the node we want to remove with it's successor (if any) to maintain the BST invariant.</li>
+<li>Following are the four cases of node, we're trying to remove:
+<ul>
+<li>It's a leaf node.</li>
+<li>Has a right subtree but no left subtree.</li>
+<li>Has a left subtree but no right subtree.</li>
+<li>Has both left and right subtree.</li>
+</ul>
+</li>
+<li><strong>Removing: Leaf Node:</strong>
+<ul>
+<li>As there are no subtrees hence no reblalncing is required. Hence we can do it without any overhead and side-effect.</li>
+</ul>
+</li>
+<li><strong>Removing: Either left/right node is a subtree</strong>
+<ul>
+<li>The successor of the node, we're trying to remove will become the <strong>root node of the left/right subtree</strong>.</li>
+<li>It may be the case that we're removing the root node of the BST in which case it's immediate child becomes the new root as you would expect.</li>
+</ul>
+</li>
+<li><strong>Removing: Node with both left subtree and right subtree:</strong>
+<ul>
+<li><strong>Question:</strong> In which subtree will the successor of the node we are trying to remove be?</li>
+<li><strong>Answer:</strong> The Answer is both! The successor can either be <em>largest value in the left subtree</em> or <em>smallest value in right subtree</em>.</li>
+<li><strong>Justification:</strong>
+<ul>
+<li>We can choose from any subtree based on our approach.</li>
+<li><em>The largest value in left subtree satisfies the BST invariant</em>
+<ul>
+<li>Since, it's larger than everything in left subtree.</li>
+<li>Is samller than everything in right subtree.</li>
+</ul>
+</li>
+<li><em>The smallest value in right subtree satisfies the BST invariant</em>
+<ul>
+<li>It's smaller than everything in right subtree.</li>
+<li>It's larger than everything in left subtree.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em><strong>Steps:</strong></em>
+<ul>
+<li><strong>Step-1:</strong> <em>Find the Inorder Successor (or Predecessor):</em>
+<ul>
+<li>Typically, the <em><strong>inorder successor</strong></em> is chosen for replacement.
+<ul>
+<li>The <em>inorder <strong>successor</strong></em> is the smallest node in the right subtree.</li>
+<li>The <em>inorder <strong>predecessor</strong></em> is the largest node in the left subtree.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Step-2:</strong> <em>Replace the Node's Value with the Successor's Value</em>
+<ul>
+<li><em>Copy the value</em> of the inorder successor into the node to be deleted.</li>
+</ul>
+</li>
+<li><strong>Step-3:</strong> <em>Delete the Inorder Successor</em>
+<ul>
+<li>Since the inorder successor is the smallest node in the right subtree, it will have at most one child (right child).</li>
+<li>Remove it as if it were a node with one or zero children.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Use cases:</strong></p>
+<ul>
+<li>Folder structure (file system) in an operating system.</li>
+<li>Tag structure in an HTML (root tag the as html tag) or XML document.</li>
+<li>Binary Search Trees (BST)
+<ul>
+<li>Implementation of some map and set ADTs</li>
+<li>Red black Trees</li>
+<li>AVL Trees</li>
+<li>Splay Trees ... etc.</li>
+</ul>
+</li>
+<li><em>Binary Heap</em> implementation</li>
+<li><em>Syntax trees</em> - used by compiler and calculators</li>
+<li><em>Treap</em> - a probablistic DS (uses a randomized BST)</li>
+</ul>
+</li>
+<li>
+<p><strong><heading>Tree traversal:</heading></strong></p>
+<ul>
+<li>
+<p>Tree Traversal techniques include various ways to visit all the nodes of the tree.</p>
+<ul>
+<li>Unlike linear data structures (Array, Linked List, Queues, Stacks, etc) which have only one logical way to traverse them, trees can be traversed in different ways.</li>
+<li><em><strong>Depth First Traversal (DFT)</strong></em>
+<ul>
+<li><em>Inorder Traversal</em></li>
+<li><em>Preorder Traversal</em></li>
+<li><em>Postorder Traversal</em></li>
+</ul>
+</li>
+<li><em><strong>Breadth First Traversal (BFT)</strong></em>
+<ul>
+<li><em>Level Order Traversal</em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Preorder Traversal: <em>(Root, Left, Right)</em></strong></p>
+<ul>
+<li>
+<p><em>Approach:</em></p>
+<ul>
+<li>Print the value of the root/current node</li>
+<li>Traverse the left subtree <em>(Recursively)</em></li>
+<li>Traverse the right subtree <em>(Revursively)</em>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Use cases:</strong></p>
+<ul>
+<li>
+<p><em>Copying a Tree (Cloning):</em></p>
+<ul>
+<li>When replicating a tree, we must first create the root, then recursively create left and right subtrees.</li>
+<li>Pre-order ensures the structure is maintained.</li>
+</ul>
+</li>
+<li>
+<p><em>Expression Trees (Prefix Notation):</em></p>
+<ul>
+<li>Used in mathematical expression trees to generate prefix notation.</li>
+<li>Useed in <em>parsing expressions</em> in compilers and calculators.</li>
+<li>For the expression <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>+</mo><mi>B</mi><mo stretchy="false">)</mo><mo>∗</mo><mo stretchy="false">(</mo><mi>C</mi><mo>−</mo><mi>D</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(A + B) * (C - D)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mclose">)</span></span></span></span> --&gt; as <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∗</mo><mo>+</mo><mi>A</mi><mi>B</mi><mo>−</mo><mi>C</mi><mi>D</mi></mrow><annotation encoding="application/x-tex">* + A B - C D</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6667em;vertical-align:-0.0833em;"></span><span class="mord">∗</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span></span></span></span> (Prefix notation)</li>
+</ul>
+</li>
+<li>
+<p><em>Tree Serialization (Storing and Loading Trees):</em></p>
+<ul>
+<li><em><strong>Serialization:</strong></em> Convert a tree into a string (or list) to store in a file.</li>
+<li><em><strong>Deserialization:</strong></em> Reconstruct the tree from the stored data.</li>
+<li><em>Why Preorder:</em>
+<ul>
+<li>Ensures that the root is always processed first.</li>
+<li>Helps in reconstructing the exact tree structure without ambiguity.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><em>File System Traversal:</em></p>
+<ul>
+<li>Used in listing files and folders in a hierarchical directory structure.</li>
+<li><strong>Example:</strong> <em>ls -R</em> in Linux does a pre-order traversal.
+<ul>
+<li><em>-R:</em> List subdirectories recursively.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><em>Solving Maze/Graph Problems (DFS):</em></p>
+<ul>
+<li>Depth-First Search (DFS) follows a pre-order traversal approach.</li>
+<li>Used in:
+<ul>
+<li>Path finding algorithms (e.g., finding exits in a maze).</li>
+<li>Solving puzzles (e.g., Sudoku, N-Queens).</li>
+<li>AI decision trees.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><em>Network Routing (Hierarchical Networks):</em></p>
+<ul>
+<li>Used in hierarchical routing protocols like OSPF (Open Shortest Path First).</li>
+<li>The root router (core) is processed first, then child routers.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><em>Sudo code - Recursive Algo.:</em></p>
+</li>
+</ul>
+<pre><code class="language-python">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">preorder_recursive</span>(<span class="hljs-params">root</span>):
+      <span class="hljs-keyword">if</span> root:
+          <span class="hljs-built_in">print</span>(root.val, end=<span class="hljs-string">&quot; &quot;</span>)  <span class="hljs-comment"># Visit/Process the node</span>
+          preorder_recursive(root.left)  <span class="hljs-comment"># Traverse left</span>
+          preorder_recursive(root.right)  <span class="hljs-comment"># Traverse right</span>
+</code></pre>
+<ul>
+<li><em>Sudo code - using Stack:</em></li>
+</ul>
+<pre><code class="language-python">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">preorder_iterative</span>(<span class="hljs-params">root</span>):
+      <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+          <span class="hljs-keyword">return</span>
+      
+      stack = [root]
+      <span class="hljs-keyword">while</span> stack:
+          node = stack.pop()
+          <span class="hljs-built_in">print</span>(node.val, end=<span class="hljs-string">&quot; &quot;</span>)  <span class="hljs-comment"># Visit the node</span>
+          <span class="hljs-keyword">if</span> node.right:
+              stack.append(node.right)  <span class="hljs-comment"># Push right child first (LIFO)</span>
+          <span class="hljs-keyword">if</span> node.left:
+              stack.append(node.left)  <span class="hljs-comment"># Push left child last (so it gets processed first)</span>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<center>
+  <img src="file:////home/srvivek/wrkspace/grokking-coding-rounds/a1-ds-algo/images/tree-preorder-traversal.png" title="Preorder tree traversal" alt=="Preorder tree traversal" width="350px" height="190px">
+</center>
+<ul>
+<li><strong>Inorder Traversal: <em>(Left, Root, Right)</em></strong>
+<ul>
+<li>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Traverse the left subtree <em>(Recursively)</em></li>
+<li>Print the value of the root node</li>
+<li>Traverse the right subtree <em>(Revursively)</em>.</li>
+</ul>
+</li>
+<li>
+<p><em>Note:</em></p>
+<ul>
+<li>Notice that with a <em>BST</em> the values printed by <em>Inorder traversal</em> are in <em>increasing order</em>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Use cases:</strong></p>
+<ul>
+<li>
+<p><em>Binary Search Trees (BST) Sorting:</em></p>
+<ul>
+<li>In-order traversal of a BST results in nodes being visited in ascending order.</li>
+<li>This is incredibly useful when you need to get a sorted list of elements.</li>
+</ul>
+</li>
+<li>
+<p><em>Converting a Binary Tree to a Doubly Linked List:</em></p>
+<ul>
+<li>The in-order traversal visits nodes in a “linked list” fashion.</li>
+<li>Each visited node can be linked to the next, creating a sorted doubly linked list.</li>
+</ul>
+</li>
+<li>
+<p><em>K-th Smallest/Largest Element in BST:</em></p>
+<ul>
+<li>In-order traversal is used to find the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>−</mo><mi>t</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">k-th</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7778em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span></span></span></span> smallest or largest element efficiently.</li>
+<li><em>Example:</em>
+<ul>
+<li>To find the 3rd smallest element, do an in-order traversal and count the nodes until you reach <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><em>Validating a Binary Search Tree (BST):</em></p>
+<ul>
+<li>Checking if a binary tree follows BST properties.</li>
+<li>An in-order traversal should yield a strictly increasing sequence of values if the tree is a valid BST.</li>
+<li><em><strong>Example:</strong></em>
+<ul>
+<li>For each node during traversal, ensure the current node’s value is greater than the previous node’s value.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><em>Expression Trees (Infix Expression):</em></p>
+<ul>
+<li>Used to print out an expression in human-readable infix form, with proper parentheses for operator precedence.</li>
+<li>It naturally follows the arithmetic precedence rules.</li>
+</ul>
+</li>
+<li>
+<p><em>Database Queries and Indexing:</em></p>
+<ul>
+<li>In databases, trees (like B-trees or AVL trees) are used for indexing.</li>
+<li>In-order traversal helps in range queries to get sorted data within a range.</li>
+<li><em><strong>Example:</strong></em>
+<ul>
+<li>Retrieve all values between 10 and 20.</li>
+</ul>
+</li>
+<li><em><strong>Why In-order?</strong></em>
+<ul>
+<li>Processes nodes in sorted order, perfect for ordered range queries.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><em>Sudo code - Recursive Algo.:</em></p>
+</li>
+</ul>
+<pre><code class="language-python">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">inorder_recursive</span>(<span class="hljs-params">root</span>):
+      <span class="hljs-keyword">if</span> root:
+          inorder_recursive(root.left)  <span class="hljs-comment"># Traverse left</span>
+          <span class="hljs-built_in">print</span>(root.val, end=<span class="hljs-string">&quot; &quot;</span>)  <span class="hljs-comment"># Visit the node</span>
+          inorder_recursive(root.right)  <span class="hljs-comment"># Traverse right</span>
+</code></pre>
+<ul>
+<li><em>Sudo code - using Stack:</em></li>
+</ul>
+<pre><code class="language-python">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">inorder_iterative</span>(<span class="hljs-params">root</span>):
+      stack = []
+      current = root
+      <span class="hljs-keyword">while</span> stack <span class="hljs-keyword">or</span> current:
+          <span class="hljs-keyword">while</span> current:  <span class="hljs-comment"># Go as left as possible</span>
+              stack.append(current)
+              current = current.left
+          current = stack.pop()  <span class="hljs-comment"># Visit the node</span>
+          <span class="hljs-built_in">print</span>(current.val, end=<span class="hljs-string">&quot; &quot;</span>)
+          current = current.right  <span class="hljs-comment"># Move to right subtree</span>
+</code></pre>
+</li>
+</ul>
+<center>
+  <img src="file:////home/srvivek/wrkspace/grokking-coding-rounds/a1-ds-algo/images/tree-inorder-traversal.png" title="Inorder tree traversal" alt=="Inorder tree traversal" width="350px" height="220px">
+</center>
+<ul>
+<li><strong>Postorder Traversal: <em>(Left, Right, Root)</em></strong>
+<ul>
+<li>Traverse the Left subtree followed by the right subtree and then print the value of the node.</li>
+<li><em>Approach:</em>
+<ul>
+<li>Traverse the left subtree <em>(Recursively)</em></li>
+<li>Traverse the right subtree <em>(Revursively)</em>.</li>
+<li>Print the value of the root node.</li>
+</ul>
+</li>
+<li><strong>Note:</strong>
+<ul>
+<li>It's commonly used for deleting trees, evaluating expressions, and converting trees into postfix notation.</li>
+</ul>
+</li>
+<li><strong>Use cases:</strong>
+<ul>
+<li>
+<p><em>Deleting a Tree (Memory Cleanup):</em></p>
+<ul>
+<li>Ensures children are deleted before the parent.</li>
+<li>Ensures safe memory deallocation without orphaning child nodes.</li>
+<li>This prevents memory leaks and dangling pointers.</li>
+</ul>
+</li>
+<li>
+<p><em>Expression Tree Evaluation (Postfix Notation):</em></p>
+<ul>
+<li>Used in compilers and calculators to evaluate mathematical expressions.</li>
+<li><em>Example:</em> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>3</mn><mo>+</mo><mn>4</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(3 + 4)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">4</span><span class="mclose">)</span></span></span></span> as <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>34</mn><mo>+</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(3 4 +)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">34</span><span class="mord">+</span><span class="mclose">)</span></span></span></span>.</li>
+<li>Operators are evaluated only after their operands (e.g., + is processed after 3 and 4 are available).</li>
+</ul>
+</li>
+<li>
+<p><em>Dependency Resolution (Task Scheduling, Build Systems):</em></p>
+<ul>
+<li>Used in task scheduling systems, build dependency graphs, and package managers (e.g., make, Maven, Gradle).</li>
+<li>Ensures dependencies (modules/components) are processed before the dependent project.</li>
+</ul>
+</li>
+<li>
+<p><em>File System Deletion (Recursive Folder Deletion):</em></p>
+<ul>
+<li>Used in deleting directories and file systems where child files are removed before their parent directory.</li>
+<li>Ensures files are deleted before folders, preventing errors.</li>
+</ul>
+</li>
+<li>
+<p><em>Tree Balancing (AVL Tree, Red-Black Tree):</em></p>
+<ul>
+<li>Post-order is used to recalculate balance factors in self-balancing trees after insertion/deletion.</li>
+<li><em>Why Post-order?</em>
+<ul>
+<li>Ensures subtree heights are updated before checking parent balance.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><em>Reverse Polish Notation (RPN) Evaluation:</em></p>
+<ul>
+<li>Used in stack-based calculations (e.g., Hewlett-Packard calculators).</li>
+<li><em>Example:</em>
+<ul>
+<li>Expression: (5 + 3) * 2
+<ul>
+<li>✅ Post-order traversal: 5 3 + 2 *</li>
+<li>✅ Evaluates as:
+<ul>
+<li>5 3 + → 8</li>
+<li>8 2 * → 16</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em>Sudo code - Recursive Algo.:</em></li>
+</ul>
+<pre><code class="language-python">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">post_order_traversal</span>(<span class="hljs-params">root</span>):
+      <span class="hljs-keyword">if</span> root:
+          post_order_traversal(root.left)
+          post_order_traversal(root.right)
+          <span class="hljs-built_in">print</span>(root.value, end=<span class="hljs-string">&quot; &quot;</span>)
+</code></pre>
+<ul>
+<li><em>Sudo code - using Stack:</em></li>
+</ul>
+<pre><code class="language-python">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">post_order_iterative</span>(<span class="hljs-params">root</span>):
+      <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+          <span class="hljs-keyword">return</span>
+      
+      stack, output = [root], []          
+      <span class="hljs-keyword">while</span> stack:
+          node = stack.pop()
+          output.append(node.value)
+          
+          <span class="hljs-keyword">if</span> node.left:
+              stack.append(node.left)
+          <span class="hljs-keyword">if</span> node.right:
+              stack.append(node.right)
+      <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot; &quot;</span>.join(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">str</span>, output[::-<span class="hljs-number">1</span>])))  <span class="hljs-comment"># Reverse output for post-order</span>
+</code></pre>
+</li>
+</ul>
+<center>
+  <img src="file:////home/srvivek/wrkspace/grokking-coding-rounds/a1-ds-algo/images/tree-postorder-traversal.png" title="Postorder tree traversal" alt=="Postorder tree traversal" width="350px" height="220px">
+</center>
+<ul>
+<li>
+<p><strong>Level-Order Traversal: <em>(Breadth-First Search)</em></strong></p>
+<ul>
+<li>
+<p>Level Order Traversal processes nodes level by level from top to bottom, left to right.</p>
+</li>
+<li>
+<p>This traversal is implemented using a queue (FIFO structure).</p>
+</li>
+<li>
+<p>Begins with root node inside the queue and finishes when the queue is empty.</p>
+</li>
+<li>
+<p>At each iteration we add the left child and then the right child of current node to our queue.</p>
+</li>
+<li>
+<p><em>Approach:</em></p>
+<ul>
+<li>Visit all nodes at <em><strong>depth 0</strong></em> (root).</li>
+<li>Visit all nodes at <em><strong>depth 1</strong></em> (children of root).</li>
+<li>Visit all nodes at <em><strong>depth 2</strong></em>, and so on.</li>
+</ul>
+</li>
+<li>
+<p><em>How It Works (Using a Queue)</em></p>
+</li>
+</ul>
+<pre><code class="language-sh">    1. Start with the root <span class="hljs-keyword">in</span> the queue.
+    2. While the queue is not empty:
+        Dequeue a node and process it.
+        Enqueue its left and right children (<span class="hljs-keyword">if</span> they exist).
+    3. Repeat until all nodes are processed.
+</code></pre>
+<ul>
+<li>
+<p><strong>Use cases:</strong></p>
+<ul>
+<li>
+<p><em>Finding the Shortest Path in an Unweighted Graph:</em></p>
+<ul>
+<li>In graph theory, level order traversal is used in Breadth-First Search (BFS) to find the shortest path.</li>
+<li><em>Example:</em>
+<ul>
+<li>Consider a maze or social network where each node is a person and edges represent friendships.</li>
+<li>Level order traversal can find the shortest path between two people in a network.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><em>Printing a Tree Level-by-Level:</em></p>
+<ul>
+<li>Used in debugging and visualizing hierarchical data.</li>
+</ul>
+</li>
+<li>
+<p><em>Finding the Deepest Node:</em></p>
+<ul>
+<li>The last node processed in level order is the deepest node.</li>
+</ul>
+</li>
+<li>
+<p><em>Checking If a Tree is Complete:</em></p>
+<ul>
+<li>A complete binary tree has all levels fully filled, except possibly the last.</li>
+<li>If a node is missing before another node in level order, it’s not complete.</li>
+</ul>
+</li>
+<li>
+<p><em>Serializing and Deserializing Trees:</em></p>
+<ul>
+<li>Serialization: Convert a tree into a list/string.</li>
+<li>Deserialization: Reconstruct a tree from that list</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><em>Sudo code: implementation</em></p>
+</li>
+</ul>
+<pre><code class="language-python">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">level_order_traversal</span>(<span class="hljs-params">root</span>):
+      <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> root:
+          <span class="hljs-keyword">return</span>
+      
+      queue = deque([root])
+      <span class="hljs-keyword">while</span> queue:
+          node = queue.popleft()
+          <span class="hljs-built_in">print</span>(node.value, end=<span class="hljs-string">&quot; &quot;</span>)  <span class="hljs-comment"># Process node</span>
+          <span class="hljs-keyword">if</span> node.left:
+              queue.append(node.left)  <span class="hljs-comment"># Enqueue left child</span>
+          <span class="hljs-keyword">if</span> node.right:
+              queue.append(node.right) <span class="hljs-comment"># Enqueue right child</span>
+</code></pre>
+</li>
+<li>
+<p><strong>Implementations:</strong></p>
+<ul>
+<li><em><strong>Binary Search Tree (BST):</strong></em>
+<ul>
+<li><a href="https://github.com/SRVivek1/grokking-coding-rounds/blob/main/a1-ds-algo-java/a1-ds-arrays/src/main/java/com/srvivek/dsalgo/binarytree/BinarySearchTree.java">BinarySearchTree.java</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><ins>References:</ins></strong></p>
+<ul>
+<li><a href="https://youtu.be/RBSGKlAvoiM?t=11100">https://youtu.be/RBSGKlAvoiM?t=11100</a></li>
+<li><a href="https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/">https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+heading {
+  color: blue;
+  font-size: 20px;
+  }
+</style>
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
