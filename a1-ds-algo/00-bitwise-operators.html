@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Bitwise Operators</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="bitwise-operators">Bitwise Operators</h1>
+<h2 id="1-introduction">1. Introduction</h2>
+<ul>
+<li>
+<p><strong><heading>Bitwise Operators</heading></strong></p>
+<ul>
+<li>Bitwise operators in Java are used to perform operations at the binary level. These operators work on individual bits of integer types (byte, short, int, long) and are useful for low-level programming, bit manipulation, and performance optimizations.</li>
+<li>Operations performed using <em>Bitwise Operators</em> are comaratively fast as they perform directly on binary number bits.</li>
+</ul>
+</li>
+<li>
+<p><strong>Operators:</strong></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&amp;</td>
+<td>Bitwise AND</td>
+<td>Sets each bit to <strong>1</strong> if both corresponding bits are <strong>1</strong>.</td>
+</tr>
+<tr>
+<td>|</td>
+<td>Bitwise OR</td>
+<td>Set each bit to <strong>0</strong> only if both corresponding bits are <strong>0</strong>.</td>
+</tr>
+<tr>
+<td>^</td>
+<td>Bitwise XOR</td>
+<td>Sets each bit to <strong>1</strong> if only one of the corresponding bits is <strong>1</strong>.</td>
+</tr>
+<tr>
+<td>~</td>
+<td>Bitwise Complement</td>
+<td>Inverts all bits (1's complement). Accepts one operand.</td>
+</tr>
+<tr>
+<td>&lt;&lt;</td>
+<td>Left Shift</td>
+<td>Shifts bits to the left, filling with <strong>0s</strong> on the right. <br/>  Multiplying by <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span></td>
+</tr>
+<tr>
+<td>&gt;&gt;</td>
+<td>Right Shift</td>
+<td>Shifts bits to the right, preserving sign (MSB remains the same for negative numbers). <br/>  Dividing by <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span></td>
+</tr>
+<tr>
+<td>&gt;&gt;&gt;</td>
+<td>Unsigned Right Shift</td>
+<td>Shifts bits to the right, filling the left with <strong>0s</strong> (ignores sign bit).</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Truth Table:</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>B</th>
+<th>AND</th>
+<th>OR</th>
+<th>XOR</th>
+<th>Complement (~A)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Shift operators</strong>
+<ul>
+<li>In below example operators are shifting the bit by <strong>1</strong>.</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Binary</th>
+<th>Shift</th>
+<th>Left Shift</th>
+<th>Right Shift</th>
+<th>Unsigned Right Shift</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>32</td>
+<td>100000  <em>(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">2^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>)</em></td>
+<td>1 bit</td>
+<td>1000000 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>6</mn></msup></mrow><annotation encoding="application/x-tex">2^6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span></span></span></span></span></span></span></span></td>
+<td>10000 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">2^4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span></span></span></span></td>
+<td></td>
+</tr>
+<tr>
+<td>32</td>
+<td>100000  <em>(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">2^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span>)</em></td>
+<td>2 bit</td>
+<td>10000000 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>7</mn></msup></mrow><annotation encoding="application/x-tex">2^7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">7</span></span></span></span></span></span></span></span></span></span></span></td>
+<td>1000 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">2^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span></td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>1000  <em>(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">2^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>)</em></td>
+<td>1 bit</td>
+<td>10000 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">2^4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span></span></span></span></td>
+<td>100 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">2^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>1000  <em>(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">2^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span>)</em></td>
+<td>2 bit</td>
+<td>100000 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">2^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></td>
+<td>10 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>1</mn></msup></mrow><annotation encoding="application/x-tex">2^1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>1110</td>
+<td>1 bit</td>
+<td>11100</td>
+<td>0111</td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>1110</td>
+<td>2 bit</td>
+<td>111000</td>
+<td>0011</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Use Cases:</strong>
+<ul>
+<li>
+<p><em><strong>Right Shift Operator:</strong> Divide by 2:</em></p>
+<ul>
+<li>Where ever we want to divide a given number by <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span>, instead of <code>\</code> operator use Right Shift operator <code>&gt;&gt;</code>.</li>
+<li>Very efficient when used in iterative statements.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Left Shift Operator:</strong> Multiply by 2:</em></p>
+<ul>
+<li>Where ever we want to multiply a given number by <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span>, instead of <code>*</code> operator use Left Shift operator <code>&lt;&lt;</code>.</li>
+<li>Very efficient when used in iterative statements.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Bitwise <code>AND</code>:</strong> Check Even/Odd numbers:</em></p>
+<ul>
+<li>An even number is completely divided by <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span>.</li>
+<li>Binary representation of some of the Even and Odd numbers are given below.</li>
+<li><strong>Observation:</strong> Every even number ends with <em>0</em> while every odd number ends with <em>1</em>.</li>
+<li><strong>Approach:</strong> So as we know that if we perform <em><strong>&amp;</strong></em> / <em><strong>AND</strong></em> operation with any even number and <em><strong>1</strong></em>, then remainder will always be <em><strong>0</strong></em>, because every even number's last bit is <em><strong>0</strong></em>.
+<ul>
+<li>Hence, <em><strong>0  &amp;  1 ==&gt; 0</strong></em>.</li>
+</ul>
+</li>
+<li><em><strong>Java function</strong> to check if a number is even or odd.</em><pre><code class="language-java">        <span class="hljs-comment">/**
+         * <span class="hljs-doctag">@param</span> num input number
+         * <span class="hljs-doctag">@return</span> true for even number
+         */</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isEven</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> {
+            <span class="hljs-keyword">return</span> (num &amp; <span class="hljs-number">1</span>) == <span class="hljs-number">0</span>;
+        }
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Decimal</td>
+<td>02</td>
+<td>04</td>
+<td>06</td>
+<td>08</td>
+<td>10</td>
+<td>12</td>
+<td>14</td>
+<td>16</td>
+<td>18</td>
+<td>20</td>
+<td>22</td>
+<td>24</td>
+</tr>
+<tr>
+<td>Binary</td>
+<td>10</td>
+<td>100</td>
+<td>110</td>
+<td>1000</td>
+<td>1010</td>
+<td>1100</td>
+<td>1110</td>
+<td>10000</td>
+<td>10010</td>
+<td>10100</td>
+<td>10110</td>
+<td>11000</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+<th>Val</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Decimal</td>
+<td>01</td>
+<td>03</td>
+<td>05</td>
+<td>07</td>
+<td>09</td>
+<td>11</td>
+<td>13</td>
+<td>15</td>
+<td>17</td>
+<td>19</td>
+<td>21</td>
+<td>23</td>
+<td>25</td>
+</tr>
+<tr>
+<td>Binary</td>
+<td>01</td>
+<td>011</td>
+<td>101</td>
+<td>111</td>
+<td>1001</td>
+<td>1011</td>
+<td>1101</td>
+<td>1111</td>
+<td>10001</td>
+<td>10011</td>
+<td>10101</td>
+<td>10111</td>
+<td>11001</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><em><strong>Bitwise <code>XOR</code>:</strong> Swap values in two variables:</em></p>
+<ul>
+<li>We can swap values between two numbers without use of temporary variables.</li>
+<li>Java function to swap values using XOR operator.</li>
+</ul>
+<pre><code class="language-java">          <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+
+          <span class="hljs-type">Integer</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> <span class="hljs-number">10</span>;
+          <span class="hljs-type">Integer</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> <span class="hljs-number">20</span>;
+          System.out.printf(<span class="hljs-string">&quot;a = %d, b= %d.%n&quot;</span>, a, b);
+
+          <span class="hljs-comment">// Swap with Mathematical operator</span>
+          a = b + a;
+          b = a - b;
+          a = a - b;
+          System.out.println(<span class="hljs-string">&quot;Mathematical operator:&quot;</span>);
+          System.out.printf(<span class="hljs-string">&quot;a = %d, b= %d.%n&quot;</span>, a, b);
+
+          <span class="hljs-comment">/*
+          * swap using bitwise XOR operator
+          * -------------------------------------
+          * a = 20 [10100], b = 10 [1010]
+          * a = a ^ b ==&gt; 10100 ^ 01010 ==&gt; 11110 [30]
+          * b = a ^ b ==&gt; 11110 ^ 01010 ==&gt; 10100 [20]
+          * a = a ^ b ==&gt; 11110 ^ 10100 ==&gt; 01010 [10]
+          */</span>
+          a = a ^ b;
+          b = a ^ b;
+          a = a ^ b;
+          System.out.println(<span class="hljs-string">&quot;Bitwise XOR operator:&quot;</span>);
+          System.out.printf(<span class="hljs-string">&quot;a = %d, b= %d.%n&quot;</span>, a, b);
+      }
+</code></pre>
+</li>
+<li>
+<p><strong><ins>References:</ins></strong></p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=Db8OmMfzwl8">https://www.youtube.com/watch?v=Db8OmMfzwl8</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+heading {
+  color: blue;
+  font-size: 20px;
+  }
+</style>
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
