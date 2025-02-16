@@ -1,5 +1,8 @@
 package com.srvivek.dsalgo.operator.bitwise;
 
+/**
+ * Bitwise `&` AND operator.
+ */
 public class CheckEvenOdd {
 
     public static void main(String[] args) {
