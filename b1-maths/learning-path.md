@@ -1,5 +1,5 @@
 ## Maths learning path for SDE
-## Start Here: [Chagpt - Tutor Me]
+## Start Here: [ChatGPT - Tutor Me]
 - 1️⃣ Basic Algebra – Equations, functions, and graphs
 - 2️⃣ Linear Algebra – Matrices, vectors, and transformations
 - 3️⃣ Probability & Statistics – Mean, variance, distributions, Bayes’ theorem
