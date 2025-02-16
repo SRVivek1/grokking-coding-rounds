@@ -1,7 +1,7 @@
 package com.srvivek.dsalgo.operator.bitwise;
 
 /**
- * Bitwise `&` AND operator.
+ * Bitwise `&` AND operator demo.
  */
 public class CheckEvenOdd {
 

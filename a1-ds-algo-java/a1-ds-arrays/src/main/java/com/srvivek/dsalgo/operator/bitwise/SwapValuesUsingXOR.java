@@ -1,7 +1,7 @@
 package com.srvivek.dsalgo.operator.bitwise;
 
 /**
- * Swap values of two variables using `XOR` operator.
+ * Swap values of two variables using `XOR` operator app.
  */
 public class SwapValuesUsingXOR {
 
