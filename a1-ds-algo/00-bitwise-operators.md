@@ -42,6 +42,64 @@
 | 14    | 1110                | 2 bit | 111000           | 0011              |                      |
 
 
+- **Bitwise XOR:**
+  - The bitwise XOR (exclusive OR) operator compares corresponding bits of two numbers and returns 1 if the bits are different and 0 if they are the same.
+    - that is if we use XOR of two variables having same value it willreturn *0*.
+  - Properties of XOR:
+    - Self XOR (x ^ x = 0)
+      - XOR-ing a number with itself always results in 0.
+      - *System.out.println(7 ^ 7); // Output: 0*
+    - XOR with Zero (x ^ 0 = x)
+      - XOR-ing a number with 0 keeps it unchanged.
+      - *System.out.println(9 ^ 0); // Output: 9*
+    - XOR is Commutative (a ^ b = b ^ a)
+      - *System.out.println((4 ^ 6) == (6 ^ 4)); // Output: true*
+    - XOR is Associative (a ^ (b ^ c) = (a ^ b) ^ c)
+      - *System.out.println((2 ^ (3 ^ 4)) == ((2 ^ 3) ^ 4)); // Output: true*
+  
+  - **Use cases: XOR**
+    - ***Bitwise `XOR`:** Swap values in two variables:*
+      - We can swap values between two numbers without use of temporary variables.
+      - Java function to swap values using XOR operator.
+      ```java
+            public static void main(String[] args) {
+
+                Integer a = 10;
+                Integer b = 20;
+                System.out.printf("a = %d, b= %d.%n", a, b);
+
+                // Swap with Mathematical operator
+                a = b + a;
+                b = a - b;
+                a = a - b;
+                System.out.println("Mathematical operator:");
+                System.out.printf("a = %d, b= %d.%n", a, b);
+
+                /*
+                * swap using bitwise XOR operator
+                * -------------------------------------
+                * a = 20 [10100], b = 10 [1010]
+                * a = a ^ b ==> 10100 ^ 01010 ==> 11110 [30]
+                * b = a ^ b ==> 11110 ^ 01010 ==> 10100 [20]
+                * a = a ^ b ==> 11110 ^ 10100 ==> 01010 [10]
+                */
+                a = a ^ b;
+                b = a ^ b;
+                a = a ^ b;
+                System.out.println("Bitwise XOR operator:");
+                System.out.printf("a = %d, b= %d.%n", a, b);
+            }
+      ``` 
+    - ***Bitwise `XOR`:** Finding the Unique Number in an Array (Single Number Problem)*
+      - If every element appears twice except one, XOR-ing all elements gives the unique number.
+
+    - ***Bitwise `XOR:** Toggling a Bit at a Specific Position*
+
+    - ***Bitwise `XOR:** XOR-Based Encryption & Decryption*
+
+    - ***Bitwise `XOR:** Checking if Two Numbers Are Equal*
+
+
 
 - **Use Cases:**
   - ***Right Shift Operator:** Divide by 2:*
@@ -82,38 +140,7 @@
 | Binary  | 01  | 011 | 101 | 111  | 1001 | 1011 | 1101 | 1111 | 10001 | 10011 | 10101 | 10111 | 11001 |
 
 
-  - ***Bitwise `XOR`:** Swap values in two variables:*
-    - We can swap values between two numbers without use of temporary variables.
-    - Java function to swap values using XOR operator.
-    ```java
-              public static void main(String[] args) {
 
-              Integer a = 10;
-              Integer b = 20;
-              System.out.printf("a = %d, b= %d.%n", a, b);
-
-              // Swap with Mathematical operator
-              a = b + a;
-              b = a - b;
-              a = a - b;
-              System.out.println("Mathematical operator:");
-              System.out.printf("a = %d, b= %d.%n", a, b);
-
-              /*
-              * swap using bitwise XOR operator
-              * -------------------------------------
-              * a = 20 [10100], b = 10 [1010]
-              * a = a ^ b ==> 10100 ^ 01010 ==> 11110 [30]
-              * b = a ^ b ==> 11110 ^ 01010 ==> 10100 [20]
-              * a = a ^ b ==> 11110 ^ 10100 ==> 01010 [10]
-              */
-              a = a ^ b;
-              b = a ^ b;
-              a = a ^ b;
-              System.out.println("Bitwise XOR operator:");
-              System.out.printf("a = %d, b= %d.%n", a, b);
-          }
-    ```
 
 - **Bit Masking**
   - TODO 

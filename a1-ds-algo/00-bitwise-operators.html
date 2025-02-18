@@ -316,7 +316,101 @@
 </tbody>
 </table>
 <ul>
-<li><strong>Use Cases:</strong>
+<li>
+<p><strong>Bitwise XOR:</strong></p>
+<ul>
+<li>
+<p>The bitwise XOR (exclusive OR) operator compares corresponding bits of two numbers and returns 1 if the bits are different and 0 if they are the same.</p>
+<ul>
+<li>that is if we use XOR of two variables having same value it willreturn <em>0</em>.</li>
+</ul>
+</li>
+<li>
+<p>Properties of XOR:</p>
+<ul>
+<li>Self XOR (x ^ x = 0)
+<ul>
+<li>XOR-ing a number with itself always results in 0.</li>
+<li><em>System.out.println(7 ^ 7); // Output: 0</em></li>
+</ul>
+</li>
+<li>XOR with Zero (x ^ 0 = x)
+<ul>
+<li>XOR-ing a number with 0 keeps it unchanged.</li>
+<li><em>System.out.println(9 ^ 0); // Output: 9</em></li>
+</ul>
+</li>
+<li>XOR is Commutative (a ^ b = b ^ a)
+<ul>
+<li><em>System.out.println((4 ^ 6) == (6 ^ 4)); // Output: true</em></li>
+</ul>
+</li>
+<li>XOR is Associative (a ^ (b ^ c) = (a ^ b) ^ c)
+<ul>
+<li><em>System.out.println((2 ^ (3 ^ 4)) == ((2 ^ 3) ^ 4)); // Output: true</em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Use cases: XOR</strong></p>
+<ul>
+<li>
+<p><em><strong>Bitwise <code>XOR</code>:</strong> Swap values in two variables:</em></p>
+<ul>
+<li>We can swap values between two numbers without use of temporary variables.</li>
+<li>Java function to swap values using XOR operator.</li>
+</ul>
+<pre><code class="language-java">      <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+
+          <span class="hljs-type">Integer</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> <span class="hljs-number">10</span>;
+          <span class="hljs-type">Integer</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> <span class="hljs-number">20</span>;
+          System.out.printf(<span class="hljs-string">&quot;a = %d, b= %d.%n&quot;</span>, a, b);
+
+          <span class="hljs-comment">// Swap with Mathematical operator</span>
+          a = b + a;
+          b = a - b;
+          a = a - b;
+          System.out.println(<span class="hljs-string">&quot;Mathematical operator:&quot;</span>);
+          System.out.printf(<span class="hljs-string">&quot;a = %d, b= %d.%n&quot;</span>, a, b);
+
+          <span class="hljs-comment">/*
+          * swap using bitwise XOR operator
+          * -------------------------------------
+          * a = 20 [10100], b = 10 [1010]
+          * a = a ^ b ==&gt; 10100 ^ 01010 ==&gt; 11110 [30]
+          * b = a ^ b ==&gt; 11110 ^ 01010 ==&gt; 10100 [20]
+          * a = a ^ b ==&gt; 11110 ^ 10100 ==&gt; 01010 [10]
+          */</span>
+          a = a ^ b;
+          b = a ^ b;
+          a = a ^ b;
+          System.out.println(<span class="hljs-string">&quot;Bitwise XOR operator:&quot;</span>);
+          System.out.printf(<span class="hljs-string">&quot;a = %d, b= %d.%n&quot;</span>, a, b);
+      }
+</code></pre>
+</li>
+<li>
+<p><em><strong>Bitwise <code>XOR</code>:</strong> Finding the Unique Number in an Array (Single Number Problem)</em></p>
+<ul>
+<li>If every element appears twice except one, XOR-ing all elements gives the unique number.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Bitwise `XOR:</strong> Toggling a Bit at a Specific Position</em></p>
+</li>
+<li>
+<p><em><strong>Bitwise `XOR:</strong> XOR-Based Encryption &amp; Decryption</em></p>
+</li>
+<li>
+<p><em><strong>Bitwise `XOR:</strong> Checking if Two Numbers Are Equal</em></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Use Cases:</strong></p>
 <ul>
 <li>
 <p><em><strong>Right Shift Operator:</strong> Divide by 2:</em></p>
@@ -464,39 +558,10 @@
 </table>
 <ul>
 <li>
-<p><em><strong>Bitwise <code>XOR</code>:</strong> Swap values in two variables:</em></p>
+<p><strong>Bit Masking</strong></p>
 <ul>
-<li>We can swap values between two numbers without use of temporary variables.</li>
-<li>Java function to swap values using XOR operator.</li>
+<li>TODO</li>
 </ul>
-<pre><code class="language-java">          <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
-
-          <span class="hljs-type">Integer</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> <span class="hljs-number">10</span>;
-          <span class="hljs-type">Integer</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> <span class="hljs-number">20</span>;
-          System.out.printf(<span class="hljs-string">&quot;a = %d, b= %d.%n&quot;</span>, a, b);
-
-          <span class="hljs-comment">// Swap with Mathematical operator</span>
-          a = b + a;
-          b = a - b;
-          a = a - b;
-          System.out.println(<span class="hljs-string">&quot;Mathematical operator:&quot;</span>);
-          System.out.printf(<span class="hljs-string">&quot;a = %d, b= %d.%n&quot;</span>, a, b);
-
-          <span class="hljs-comment">/*
-          * swap using bitwise XOR operator
-          * -------------------------------------
-          * a = 20 [10100], b = 10 [1010]
-          * a = a ^ b ==&gt; 10100 ^ 01010 ==&gt; 11110 [30]
-          * b = a ^ b ==&gt; 11110 ^ 01010 ==&gt; 10100 [20]
-          * a = a ^ b ==&gt; 11110 ^ 10100 ==&gt; 01010 [10]
-          */</span>
-          a = a ^ b;
-          b = a ^ b;
-          a = a ^ b;
-          System.out.println(<span class="hljs-string">&quot;Bitwise XOR operator:&quot;</span>);
-          System.out.printf(<span class="hljs-string">&quot;a = %d, b= %d.%n&quot;</span>, a, b);
-      }
-</code></pre>
 </li>
 <li>
 <p><strong><ins>References:</ins></strong></p>

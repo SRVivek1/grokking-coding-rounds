@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Integers&colon; Fizz Buzz interview problem</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="integers-fizz-buzz-interview-problem">Integers: Fizz Buzz interview problem</h1>
+<h2 id="problem-stattement">Problem stattement:</h2>
+<ul>
+<li>Given an integer <code>n</code>, return a String array (1-Indexed) where:
+<ul>
+<li><strong>answer[i] = &quot;FizzBuzz&quot;</strong> <em>if <code>i</code> is divisble by 3 and 5.</em></li>
+<li><strong>answer[i] = &quot;Fizz&quot;</strong> <em>if <code>i</code> is divisble by 3.</em></li>
+<li><strong>answer[i] = &quot;Buzz&quot;</strong> <em>if <code>i</code> is divisble by 5.</em></li>
+<li><strong>answer[i] = i (as String)</strong> <em>if none of the above conditions are true.</em></li>
+</ul>
+</li>
+<li>Enhance the solution to add more divisor rules.
+<ul>
+<li><strong>answer[i] = &quot;Bazz&quot;</strong> <em>if <code>i</code> is divisble by 7</em></li>
+<li><strong>answer[i] = &quot;Abcd&quot;</strong> <em>if <code>i</code> is divisble by 9</em></li>
+</ul>
+</li>
+<li>Implement the solution using <em>java 8 Streams</em></li>
+<li>Enhance the streams solution for parallel processing*</li>
+</ul>
+<h2 id="soltuions">Soltuions:</h2>
+<h3 id="1-using-if-else-brute-force">1. Using If-Else Brute force</h3>
+<pre><code class="language-java">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String[] fizzBuzzBruteForce(<span class="hljs-type">int</span> n) {
+        String[] result = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[n];
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= n; i++) {
+            <span class="hljs-keyword">if</span> (i % <span class="hljs-number">3</span> == <span class="hljs-number">0</span> &amp;&amp; i % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>) {
+                result[i - <span class="hljs-number">1</span>] = <span class="hljs-string">&quot;FizzBuzz&quot;</span>;
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (i % <span class="hljs-number">3</span> == <span class="hljs-number">0</span>) {
+                result[i - <span class="hljs-number">1</span>] = <span class="hljs-string">&quot;Fizz&quot;</span>;
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (i % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>) {
+                result[i - <span class="hljs-number">1</span>] = <span class="hljs-string">&quot;Buzz&quot;</span>;
+            } <span class="hljs-keyword">else</span> {
+                result[i - <span class="hljs-number">1</span>] = i + <span class="hljs-string">&quot;&quot;</span>;
+            }
+        }
+        <span class="hljs-keyword">return</span> result;
+    }
+</code></pre>
+<h3 id="2-using-if-else-simplified">2. Using If-Else Simplified</h3>
+<pre><code class="language-java">     <span class="hljs-comment">/**
+     * Optimized Solution (Avoid Multiple Modulus Operations)
+     * Instead of checking i % 3 and i % 5 multiple times, we can store the result in a StringBuilder:
+     *
+     * TC: O(N)
+     * SC: O(N)
+     * <span class="hljs-doctag">@param</span> n max
+     * <span class="hljs-doctag">@return</span> string[]
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String[] fizzBuzz_buzz_string_builder(<span class="hljs-type">int</span> n) {
+        String[] result = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[n];
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= n; i++) {
+            <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();
+            <span class="hljs-keyword">if</span> (i % <span class="hljs-number">3</span> == <span class="hljs-number">0</span>) sb.append(<span class="hljs-string">&quot;Fizz&quot;</span>);
+            <span class="hljs-keyword">if</span> (i % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>) sb.append(<span class="hljs-string">&quot;Buzz&quot;</span>);
+
+            <span class="hljs-comment">// result[i - 1] = sb.length() &gt; 0 ? sb.toString() : i + &quot;&quot;; //both works fines</span>
+            result[i - <span class="hljs-number">1</span>] = sb.isEmpty() ? i + <span class="hljs-string">&quot;&quot;</span> : sb.toString();
+        }
+        <span class="hljs-keyword">return</span> result;
+    }
+</code></pre>
+<h3 id="3-enhance-to-add-custom-divisors-rule">3. Enhance to add custom divisors rule</h3>
+<ul>
+<li>Explanation: <em><strong>TODO</strong></em></li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-comment">/**
+     * Fizz Buzz Bazz custom divisors
+     *
+     * <span class="hljs-doctag">@param</span> n     input size
+     * <span class="hljs-doctag">@param</span> rules divisors
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String[] fizzBuzzCustomDivisors(<span class="hljs-type">int</span> n, Map&lt;Integer, String&gt; rules) {
+
+        <span class="hljs-keyword">final</span> String[] result = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[n];
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= n; i++) {
+            <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();
+            <span class="hljs-keyword">for</span> (Map.Entry&lt;Integer, String&gt; entry : rules.entrySet()) {
+                <span class="hljs-keyword">if</span> (i % entry.getKey() == <span class="hljs-number">0</span>) {
+                    sb.append(entry.getValue());
+                }
+            }
+            <span class="hljs-comment">//append to result array</span>
+            result[i - <span class="hljs-number">1</span>] = sb.isEmpty() ? i + <span class="hljs-string">&quot;&quot;</span> : sb.toString();
+        }
+
+        <span class="hljs-keyword">return</span> result;
+    }
+</code></pre>
+<h3 id="4-implement-solution-using-java-streams">4. Implement solution using Java-Streams</h3>
+<ul>
+<li>Explanation: <em><strong>TODO</strong></em></li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-comment">/**
+     * Implement fizz buzz using java 8 streams.
+     *
+     * <span class="hljs-doctag">@param</span> n
+     * <span class="hljs-doctag">@param</span> rules
+     * <span class="hljs-doctag">@return</span>
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String[] fizzBuzzCustomDivisorsStreams(<span class="hljs-type">int</span> n, Map&lt;Integer, String&gt; rules) {
+        <span class="hljs-keyword">return</span> IntStream.rangeClosed(<span class="hljs-number">1</span>, n).mapToObj(i -&gt; {
+
+            <span class="hljs-type">String</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> rules.entrySet().stream()
+                    .filter(entry -&gt; i % entry.getKey() == <span class="hljs-number">0</span>)
+                    .map(Map.Entry::getValue)
+                    .reduce(<span class="hljs-string">&quot;&quot;</span>, String::concat);
+            <span class="hljs-keyword">return</span> res.isEmpty() ? i + <span class="hljs-string">&quot;&quot;</span> : res;
+        }).toArray(String[]::<span class="hljs-keyword">new</span>);
+    }
+</code></pre>
+<h3 id="5-implement-solution-using-java-streams-parallelism">5. Implement solution using Java-Streams Parallelism</h3>
+<ul>
+<li>Explanation: <em><strong>TODO</strong></em></li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-comment">/**
+     * Implement fizz buzz using java 8 streams and parallelism.
+     *
+     * <span class="hljs-doctag">@param</span> n
+     * <span class="hljs-doctag">@param</span> rules
+     * <span class="hljs-doctag">@return</span>
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String[] fizzBuzzCustomDivisorsStreamsParallel(<span class="hljs-type">int</span> n, Map&lt;Integer, String&gt; rules) {
+        <span class="hljs-keyword">return</span> IntStream.rangeClosed(<span class="hljs-number">1</span>, n)
+                .parallel() <span class="hljs-comment">// Enables parallel execution</span>
+                .mapToObj(i -&gt; {
+                    <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> rules.entrySet().stream()
+                            .filter(entry -&gt; i % entry.getKey() == <span class="hljs-number">0</span>)
+                            .map(Map.Entry::getValue)
+                            .reduce(<span class="hljs-string">&quot;&quot;</span>, String::concat);
+                    <span class="hljs-keyword">return</span> result.isEmpty() ? String.valueOf(i) : result; <span class="hljs-comment">// FIXED: Use `i` instead of `N`</span>
+                })
+                .toArray(String[]::<span class="hljs-keyword">new</span>);
+    }
+</code></pre>
+
+            
+            
+        </body>
+        </html>

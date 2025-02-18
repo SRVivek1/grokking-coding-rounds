@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Integers&colon; Find the only unique number in an array</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="integers-find-the-only-unique-number-in-an-array">Integers: Find the only unique number in an array</h1>
+<h2 id="problem-statements">Problem statements:</h2>
+<ul>
+<li>
+<p>Given a non-empty array of integers <code>nums</code> every element appears twice except for one. Find that single/unique integer value.</p>
+</li>
+<li>
+<p>Constraints:</p>
+<ul>
+<li>The solution should have linear time complexity : O(n).</li>
+<li>Space complexicity should be O(1).</li>
+</ul>
+</li>
+<li>
+<p>Example 1:</p>
+<ul>
+<li><strong>Input:</strong> <code>nums = [2,2,1]</code></li>
+<li><strong>Output:</strong> <code>1</code></li>
+</ul>
+</li>
+<li>
+<p>Example 2:</p>
+<ul>
+<li><strong>Input:</strong> <code>nums = [4,1,2,1,2]</code></li>
+<li><strong>Output:</strong> <code>4</code></li>
+</ul>
+</li>
+<li>
+<p>Example 3:</p>
+<ul>
+<li><strong>Input:</strong> <code>nums = [1]</code></li>
+<li><strong>Output:</strong> <code>1</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="soltuions">Soltuions:</h2>
+<h3 id="1-using-hashset-to-filter-unique-element">1. Using HashSet to filter unique element</h3>
+<ul>
+<li>In this approach we'll iterate the array and check
+<ul>
+<li>If element is not present in HashSet add it</li>
+<li>If element is present in HashSet remove it</li>
+</ul>
+</li>
+<li>Once all elements are iterated:
+<ul>
+<li>If set is empty there are no uniqueu elements</li>
+<li>if set has more than 1 elements, there are multiple unique elements</li>
+<li>if there's exactly one element, return it as ans.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-comment">/**
+    * Find unique element in the array using HashSet.
+    * TC: O(n)
+    * SC: O(n)
+    *
+    * <span class="hljs-doctag">@param</span> nums
+    * <span class="hljs-doctag">@return</span>
+    */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">findSingleNumberHashSet</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> {
+        <span class="hljs-keyword">final</span> Set&lt;Integer&gt; numSet = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; nums.length; i++) {
+            <span class="hljs-type">int</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> nums[i];
+            <span class="hljs-keyword">if</span> (numSet.contains(t)) {
+                numSet.remove(t);
+            } <span class="hljs-keyword">else</span> {
+                numSet.add(t);
+            }
+        }
+        <span class="hljs-keyword">if</span> (numSet.size() == <span class="hljs-number">1</span>) {
+            <span class="hljs-keyword">return</span> numSet.iterator().next();
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+    }
+</code></pre>
+<h3 id="2-using-bitwise-xor-operator">2. Using Bitwise XOR operator</h3>
+<ul>
+<li>Due to following bitwise XOR property we can find the unique element.
+<ul>
+<li>XOR with same value results in <em>0</em>.</li>
+<li>XOR any value with <em>0</em> will result in the value itself.</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-comment">/**
+      * Find Unique number in an array using Bitwise XOR operator.
+      * TC: O(n)
+      * SC: O(1)
+      *
+      * <span class="hljs-doctag">@param</span> nums
+      * <span class="hljs-doctag">@return</span>
+      */</span>
+      <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">findSingleNumberBitwiseXor</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> {
+          <span class="hljs-type">int</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+          <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; nums.length; i++) {
+              res = res ^ nums[i];
+          }
+          <span class="hljs-keyword">return</span> res;
+      }
+</code></pre>
+
+            
+            
+        </body>
+        </html>
