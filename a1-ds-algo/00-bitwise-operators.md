@@ -92,12 +92,106 @@
       ``` 
     - ***Bitwise `XOR`:** Finding the Unique Number in an Array (Single Number Problem)*
       - If every element appears twice except one, XOR-ing all elements gives the unique number.
+      ```java
+          /**
+            * Find Unique number in an array using Bitwise XOR operator.
+            * TC: O(n)
+            * SC: O(1)
+            *
+            * @param nums
+            * @return
+            */
+            public static int findSingleNumberBitwiseXor(int[] nums) {
+                int res = 0;
+                for (int i = 0; i < nums.length; i++) {
+                    res = res ^ nums[i];
+                }
+                return res;
+            }
+      ```
 
-    - ***Bitwise `XOR:** Toggling a Bit at a Specific Position*
+    - ***Bitwise XOR:** Finding Two Unique Numbers in an Array*
+      - If every number appears twice except two, XORing all elements gives a ^ b.
+      - Find the rightmost set bit (LSB) in a ^ b and partition numbers into two groups based on it.
+      ```java
+          int[] findTwoUnique(int[] nums) {
+              int xor = 0;
+              for (int num : nums) xor ^= num;
 
-    - ***Bitwise `XOR:** XOR-Based Encryption & Decryption*
+              int diffBit = xor & (-xor); // Rightmost set bit
+              int a = 0, b = 0;
 
-    - ***Bitwise `XOR:** Checking if Two Numbers Are Equal*
+              for (int num : nums) {
+                  if ((num & diffBit) == 0) a ^= num;
+                  else b ^= num;
+              }
+              return new int[]{a, b};
+          }
+      ```
+
+    - ***Bitwise XOR:** Toggling a Bit at a Specific Position*
+      - Formula: To toggle the bit at position pos in number n:
+        - `n = n ^ (1 << pos);`
+          - *1 << pos* creates a mask with a 1 at position *pos*.
+          - XORing with 1 flips the bit:
+            - 1 ^ 1 = 0 (turns off if it was on)
+            - 0 ^ 1 = 1 (turns on if it was off)
+      ```java
+          public class ToggleBit {
+            public static int toggleBit(int n, int pos) {
+                return n ^ (1 << pos);
+            }
+
+            public static void main(String[] args) {
+                int num = 10; // Binary: 1010
+                int pos = 1;
+                int toggled = toggleBit(num, pos);
+                System.out.println("Before: " + Integer.toBinaryString(num)); // 1010
+                System.out.println("After : " + Integer.toBinaryString(toggled)); // 1000
+            }
+        }
+      ```
+
+    - ***Bitwise XOR:** Power of Two Check Using XOR (Alternative to Bitwise AND Trick)*
+      - Another way to check power of two without using % or loops.
+      ```java
+          boolean isPowerOfTwo(int n) {
+              return n > 0 && (n ^ (n - 1)) == (2 * n - 1);
+          }
+      ```
+
+    - ***Bitwise XOR:** Checking if Two Numbers Are Equal*
+      - Useful in low-level optimizations.
+      ```java
+          boolean isEqual = (a ^ b) == 0;
+      ```
+
+    - ***Bitwise XOR:** Finding the Missing Number (XOR-based approach)*
+      - Given an array of n numbers containing [0, n] with one missing.
+      ```java
+          int missingNumber(int[] nums) {
+              int n = nums.length;
+              int xorAll = 0, xorNums = 0;
+
+              for (int i = 0; i <= n; i++) xorAll ^= i;
+              for (int num : nums) xorNums ^= num;
+
+              return xorAll ^ xorNums;
+          }
+      ```
+
+    - ***Bitwise XOR:** Encryption and Decryption (XOR Cipher)*
+      - XOR is used in simple encryption algorithms where applying XOR twice restores original data.
+      - Used in lightweight security mechanisms.
+      ```java
+          char encrypt(char ch, char key) {
+              return (char) (ch ^ key);  // Encryption
+          }
+          char decrypt(char ch, char key) {
+              return (char) (ch ^ key); // Reverses encryption
+          }
+
+      ```
 
 
 
