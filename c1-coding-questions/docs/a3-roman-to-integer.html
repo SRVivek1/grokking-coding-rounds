@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Integers&colon; Roman to integer</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="integers-roman-to-integer">Integers: Roman to integer</h1>
+<h2 id="problem-stattement">Problem stattement:</h2>
+<ul>
+<li>Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Value</th>
+<th>Symbol</th>
+<th>Value</th>
+<th>Symbol</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I</td>
+<td>1</td>
+<td>L</td>
+<td>50</td>
+<td>D</td>
+<td>500</td>
+</tr>
+<tr>
+<td>V</td>
+<td>5</td>
+<td>C</td>
+<td>100</td>
+<td>M</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>X</td>
+<td>10</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>For example,</p>
+<ul>
+<li>2 is written as II in Roman numeral, just two ones added together.</li>
+<li>12 is written as XII, which is simply X + II.</li>
+<li>The number 27 is written as XXVII, which is XX + V + II.</li>
+</ul>
+</li>
+<li>
+<p>Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX.</p>
+</li>
+<li>
+<p>There are six instances where subtraction is used:</p>
+<ul>
+<li>I can be placed before V (5) and X (10) to make 4 and 9.</li>
+<li>X can be placed before L (50) and C (100) to make 40 and 90.</li>
+<li>C can be placed before D (500) and M (1000) to make 400 and 900.</li>
+</ul>
+</li>
+<li>
+<p>Given a roman numeral, convert it to an integer.</p>
+<ul>
+<li>
+<p>Example 1:</p>
+<ul>
+<li>Input: s = &quot;III&quot;</li>
+<li>Output: 3</li>
+<li>Explanation: III = 3.</li>
+</ul>
+</li>
+<li>
+<p>Example 2:</p>
+<ul>
+<li>Input: s = &quot;LVIII&quot;</li>
+<li>Output: 58</li>
+<li>Explanation: L = 50, V= 5, III = 3.</li>
+</ul>
+</li>
+<li>
+<p>Example 3:</p>
+<ul>
+<li>Input: s = &quot;MCMXCIV&quot;</li>
+<li>Output: 1994</li>
+<li>Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Constraints:</p>
+<ul>
+<li>1 &lt;= s.length &lt;= 15</li>
+<li>s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').</li>
+<li>It is guaranteed that s is a valid roman numeral in the range [1, 3999].</li>
+</ul>
+</li>
+</ul>
+<h2 id="soltuions">Soltuions:</h2>
+<h3 id="1-approach-iterate-string-as-array-of-chars">1. Approach: Iterate string as array of chars</h3>
+<ul>
+<li>
+<p>Check if next value is greater than previous than subtract it from next value and add it to result.</p>
+</li>
+<li>
+<p>Otherwise simply add current value to result.</p>
+<pre><code class="language-java">    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">romanToInt</span><span class="hljs-params">(String s)</span> {
+            <span class="hljs-type">int</span> <span class="hljs-variable">num</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; s.length(); i++) {
+                <span class="hljs-type">int</span> <span class="hljs-variable">val1</span> <span class="hljs-operator">=</span> value(s.charAt(i));
+                <span class="hljs-keyword">if</span> (i + <span class="hljs-number">1</span> &lt; s.length()) {
+                    <span class="hljs-type">int</span> <span class="hljs-variable">val2</span> <span class="hljs-operator">=</span> value(s.charAt(i + <span class="hljs-number">1</span>));
+                    <span class="hljs-keyword">if</span> (val1 &lt; val2) {
+                        num += val2 - val1;
+                        i++;
+                    } <span class="hljs-keyword">else</span> {
+                        num += val1;
+                    }
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-comment">// last index</span>
+                    num += val1;
+                }
+            }
+            <span class="hljs-keyword">return</span> num;
+        }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">value</span><span class="hljs-params">(<span class="hljs-type">char</span> roman)</span> {
+            <span class="hljs-keyword">switch</span> (roman) {
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;I&#x27;</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;V&#x27;</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-number">5</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;X&#x27;</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-number">10</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;L&#x27;</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-number">50</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;C&#x27;</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-number">100</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;D&#x27;</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-number">500</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;M&#x27;</span>:
+                <span class="hljs-keyword">default</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-number">1000</span>;
+            }
+        }
+    }
+</code></pre>
+</li>
+</ul>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+heading {
+  color: blue;
+  font-size: 20px;
+  }
+</style>
+            
+            
+        </body>
+        </html>
