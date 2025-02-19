@@ -89,3 +89,20 @@
         return k;
     }
   ```
+
+---
+<center>
+<h1> ------ End ------ </h1>
+</center>
+
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+heading {
+  color: blue;
+  font-size: 20px;
+  }
+</style>

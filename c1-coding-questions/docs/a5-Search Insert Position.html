@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Integers&colon; Search Insert Position</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="integers-search-insert-position">Integers: Search Insert Position</h1>
+<h2 id="problem-statements-leetcode-35">Problem statements: <a href="https://leetcode.com/problems/search-insert-position/description/">leetcode-35</a></h2>
+<ul>
+<li>
+<p>Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.</p>
+<ul>
+<li>You must write an algorithm with O(log n) runtime complexity.</li>
+</ul>
+</li>
+<li>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input:</strong> nums = [1,3,5,6], target = 5</li>
+<li><strong>Output:</strong> 2</li>
+</ul>
+</li>
+<li>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input:</strong> nums = [1,3,5,6], target = 2</li>
+<li><strong>Output:</strong> 1</li>
+</ul>
+</li>
+<li>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input:</strong> nums = [1,3,5,6], target = 7</li>
+<li><strong>Output:</strong> 4</li>
+</ul>
+</li>
+</ul>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><em>1 &lt;= nums.length &lt;= 104</em></li>
+<li><em>-104 &lt;= nums[i] &lt;= 104</em></li>
+<li><em>nums contains distinct values sorted in ascending order.</em></li>
+<li><em>-104 &lt;= target &lt;= 104</em></li>
+</ul>
+<h2 id="soltuions">Soltuions:</h2>
+<h3 id="1-binary-search-approach">1. Binary Search Approach</h3>
+<ul>
+<li>
+<p>Perform binary search on the input array for target value.</p>
+</li>
+<li>
+<p>If element is found:</p>
+<ul>
+<li>Return the element index.</li>
+</ul>
+</li>
+<li>
+<p>If element is not found:</p>
+<ul>
+<li>Check if target is greater than mid, then it will lie on right side of mid.
+<ul>
+<li>Hence return <em><strong>mid + 1</strong></em> index.</li>
+</ul>
+</li>
+<li>Check if target is smaller than mid, then it will lie on left side of mid.
+<ul>
+<li>Hence return <em><strong>mid</strong></em> index.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Logic:</strong></p>
+<ul>
+<li>TBU</li>
+</ul>
+</li>
+<li>
+<p><strong>Implementation: Recurssion</strong></p>
+<ul>
+<li><strong>Note:</strong> Recussion approach has one drawback that it uses Stack memory for recursive calls.</li>
+</ul>
+<pre><code class="language-java">        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">searchInsert</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target)</span> {
+            <span class="hljs-keyword">return</span> search(nums, <span class="hljs-number">0</span>, nums.length - <span class="hljs-number">1</span>, target);
+        }
+
+        <span class="hljs-comment">/**
+         * Perform binary search to check for target element and determine the insertion positions if missing.
+        * 
+        */</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">search</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> start, <span class="hljs-type">int</span> end, <span class="hljs-type">int</span> target)</span> {
+
+            <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> start + (end - start) / <span class="hljs-number">2</span>;
+
+            <span class="hljs-comment">// insertion position</span>
+            <span class="hljs-keyword">if</span> (start &gt;= end) {
+                <span class="hljs-keyword">if</span> (target &gt; nums[mid]) {
+                    <span class="hljs-keyword">return</span> mid + <span class="hljs-number">1</span>;
+                } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (target &lt; nums[mid]) {
+                    <span class="hljs-keyword">return</span> mid;
+                }
+            }
+
+            <span class="hljs-keyword">if</span> (nums[mid] == target) {
+                <span class="hljs-keyword">return</span> mid;
+            }
+
+            <span class="hljs-keyword">if</span> (target &gt; nums[mid]) {
+                <span class="hljs-keyword">return</span> search(nums, mid + <span class="hljs-number">1</span>, end, target);
+            }
+
+            <span class="hljs-keyword">if</span> (target &lt; nums[mid]) {
+                <span class="hljs-keyword">return</span> search(nums, start, mid - <span class="hljs-number">1</span>, target);
+            }
+
+            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+        }
+</code></pre>
+</li>
+<li>
+<p><strong>Implementation: whhile loop</strong></p>
+<ul>
+<li>Advance on execution time and space complexity.</li>
+<li><em><strong>+10%</strong></em> efficient on leetcode compared to recursion.</li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">searchInsert</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target)</span> {
+        <span class="hljs-keyword">return</span> search(nums, <span class="hljs-number">0</span>, nums.length - <span class="hljs-number">1</span>, target);
+    }
+    
+    <span class="hljs-comment">/**
+     * Binary search using loop.
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">searchloop</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target)</span> {
+
+    <span class="hljs-type">int</span> <span class="hljs-variable">start</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, end = nums.length -<span class="hljs-number">1</span>; 
+    <span class="hljs-keyword">while</span>(start &lt; end) {
+        <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> start + (end - start) / <span class="hljs-number">2</span>;
+
+        <span class="hljs-keyword">if</span>(nums[mid] == target) {
+            <span class="hljs-keyword">return</span> mid;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(target &lt; nums[mid]) {
+            end = mid - <span class="hljs-number">1</span>;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(target &gt; nums[mid]) {
+            start = mid + <span class="hljs-number">1</span>;
+        }
+    }
+    <span class="hljs-keyword">if</span>(target &lt;= nums[start]) {
+        <span class="hljs-keyword">return</span> start;
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">return</span> start + <span class="hljs-number">1</span>;
+    }
+}
+</code></pre>
+</li>
+</ul>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+heading {
+  color: blue;
+  font-size: 20px;
+  }
+</style>
+            
+            
+        </body>
+        </html>

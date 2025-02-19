@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Integers&colon; Find the only unique number in an array</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="integers-find-the-only-unique-number-in-an-array">Integers: Find the only unique number in an array</h1>
+<h2 id="problem-statements">Problem statements:</h2>
+<ul>
+<li>
+<p>Given an integer array <em>nums</em> and an integer <em>val</em>, remove all occurrences of <em>val</em> in <em>nums</em> <em><strong>in-place</strong></em>. The order of the elements may be changed.</p>
+<ul>
+<li>Then return the number of elements in nums which are not equal to val.</li>
+</ul>
+</li>
+<li>
+<p>Consider the number of elements in nums which are not equal to val be k, to get accepted, you need to do the following things:</p>
+<ul>
+<li>Change the array nums such that the first k elements of nums contain the elements which are not equal to val. The remaining elements of nums are not important as well as the size of nums.</li>
+<li>Return k.</li>
+</ul>
+</li>
+<li>
+<p>Custom Judge:</p>
+<ul>
+<li>
+<p>The judge will test your solution with the following code:</p>
+<ul>
+<li>
+<p>int[] nums = [...]; // Input array</p>
+</li>
+<li>
+<p>int val = ...; // Value to remove</p>
+</li>
+<li>
+<p>int[] expectedNums = [...]; // The expected answer with correct length.
+// It is sorted with no values equaling val.</p>
+</li>
+<li>
+<p>int k = removeElement(nums, val); // Calls your implementation</p>
+</li>
+</ul>
+<pre><code class="language-java">  <span class="hljs-type">assert</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span>= expectedNums.length;
+  sort(nums, <span class="hljs-number">0</span>, k); <span class="hljs-comment">// Sort the first k elements of nums</span>
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; actualLength; i++) {
+      <span class="hljs-keyword">assert</span> nums[i] == expectedNums[i];
+  }
+</code></pre>
+</li>
+<li>
+<p>If all assertions pass, then your solution will be accepted.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input:</strong> nums = [3,2,2,3], val = 3</li>
+<li><strong>Output:</strong> 2, nums = [2,2,<em>,</em>]</li>
+<li><strong>Explanation:</strong>
+<ul>
+<li>Your function should return k = 2, with the first two elements of nums being 2.</li>
+</ul>
+</li>
+<li><strong>Note:</strong>
+<ul>
+<li>It does not matter what you leave beyond the returned k (hence they are underscores).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input:</strong> nums = [0,1,2,2,3,0,4,2], val = 2</li>
+<li><strong>Output:</strong> 5, nums = [0,1,4,0,3,<em>,</em>,_]</li>
+<li><strong>Explanation:</strong>
+<ul>
+<li>Your function should return k = 5, with the first five elements of nums containing 0, 0, 1, 3, and 4.</li>
+</ul>
+</li>
+<li><strong>Note:</strong>
+<ul>
+<li>The five elements can be returned in any order.</li>
+<li>It does not matter what you leave beyond the returned k (hence they are underscores).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li>0 &lt;= nums.length &lt;= 100</li>
+<li>0 &lt;= nums[i] &lt;= 50</li>
+<li>0 &lt;= val &lt;= 100</li>
+</ul>
+</li>
+</ul>
+<h2 id="soltuions">Soltuions:</h2>
+<h3 id="1-approach-using-two-pointer-approach">1. Approach: Using two pointer approach</h3>
+<ul>
+<li>
+<p>A common and effective technique for in-place array manipulation is using two pointers.</p>
+</li>
+<li>
+<p>Here's how you can apply it:</p>
+<ul>
+<li>k (or next_pos): This pointer will track where the next element that isn't equal to val should be placed.  It starts at 0.</li>
+<li>i (or current): This pointer iterates through the entire array from the beginning.</li>
+</ul>
+</li>
+<li>
+<p><strong>Logic:</strong></p>
+<ul>
+<li>For each element nums[i]:
+<ul>
+<li>If nums[i] is not equal to val:
+<ul>
+<li>Copy nums[i] to nums[k].</li>
+<li>Increment k.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>If nums[i] is equal to val:
+<ul>
+<li>Do nothing (effectively skipping this element).</li>
+</ul>
+</li>
+<li>Return k: After the loop finishes, k will represent the number of elements that are not equal to val, which is what you need to return.</li>
+</ul>
+</li>
+<li>
+<p><strong>Implementation:</strong></p>
+</li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-comment">/**
+    * Remove the elements where `element == val`.
+    * Returns the index k, which has elements `element != val`
+    * TC: O(n)
+    * SC: O(n)
+    *
+    * <span class="hljs-doctag">@param</span> nums
+    * <span class="hljs-doctag">@return</span>
+    */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">removeElement</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> val)</span> {
+      
+      <span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; nums.length; i++) {
+          <span class="hljs-keyword">if</span> (nums[i] != val) {
+              nums[k++] = nums[i];
+          }
+      }
+      <span class="hljs-keyword">return</span> k;
+  }
+</code></pre>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+heading {
+  color: blue;
+  font-size: 20px;
+  }
+</style>
+            
+            
+        </body>
+        </html>

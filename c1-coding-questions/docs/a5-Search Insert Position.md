@@ -1,7 +1,6 @@
 # Integers: Search Insert Position
-## Problem statements:
+## Problem statements: [leetcode-35](https://leetcode.com/problems/search-insert-position/description/)
 
-- [leetcode-35](https://leetcode.com/problems/search-insert-position/description/)
 - Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
   - You must write an algorithm with O(log n) runtime complexity.
 
@@ -80,7 +79,7 @@
 
   - **Implementation: whhile loop**
     - Advance on execution time and space complexity.
-    - +10% efficient on leetcode compared to recursion.
+    - ***+10%*** efficient on leetcode compared to recursion.
     ```java
         public int searchInsert(int[] nums, int target) {
             return search(nums, 0, nums.length - 1, target);
@@ -111,3 +110,19 @@
     }
     ```
 
+---
+<center>
+<h1> ------ End ------ </h1>
+</center>
+
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+heading {
+  color: blue;
+  font-size: 20px;
+  }
+</style>
