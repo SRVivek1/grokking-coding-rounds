@@ -111,23 +111,62 @@
       ```
 
     - ***Bitwise XOR:** Finding Two Unique Numbers in an Array*
-      - If every number appears twice except two, XORing all elements gives a ^ b.
-      - Find the rightmost set bit (LSB) in a ^ b and partition numbers into two groups based on it.
-      ```java
-          int[] findTwoUnique(int[] nums) {
-              int xor = 0;
-              for (int num : nums) xor ^= num;
-
-              int diffBit = xor & (-xor); // Rightmost set bit
-              int a = 0, b = 0;
-
-              for (int num : nums) {
-                  if ((num & diffBit) == 0) a ^= num;
-                  else b ^= num;
+      - **Approach:**
+        - *Step-1:* Filter the duplicates, result will be XOR of unique numbers.
+        - *Step-2:* Find the right most set bit using XOR result.
+        - *Step-3:* Now filter numbers in 2 groups:
+          - 1st who has rightmost bit set.
+          - 2nd where the rightmost bit is not set.
+        - Step-4: Now at this stage we have two group of numbers where each group has 1 unique number in it.
+          - Apply XOR operation to filter the unique numbers from each group.
+        ```java
+              /**
+              * Find the 2 unique numbers in the array of duplicates.
+              *
+              * @param nums input array
+              * @return result array
+              */
+              public static int[] findUniqueNumbers(int[] nums) {
+                  int[] res = new int[2];
+                  // Step - 1 : Find XOR of the 2 unique numbers
+                  int xors = 0;
+                  for (int num : nums) {
+                      xors ^= num;
+                  }
+                  // step-2: Find the right most set bit
+                  int rightMostSetBit = xors & (-xors);
+                  // step-3: filter both unique values
+                  // Approach: In the given unique number only one have right bit set '1'
+                  for (int num : nums) {
+                      if ((num & rightMostSetBit) != 0) {
+                          res[0] ^= num;
+                      } else {
+                          res[1] ^= num;
+                      }
+                  }
+                  return res;
               }
-              return new int[]{a, b};
-          }
-      ```
+              
+              // Driver program
+              public static void main(String[] args) {
+                    int[] inp1 = {1, 4};
+                    int[] inp2 = {1, 2, 4, 5, 7, 9, 1, 2, 4, 5};
+                    int[] inp3 = {7, 2, 4, 5, 2, 4, 5, 15};
+
+                    print(inp1);
+                    int[] res = findUniqueNumbers(inp1);
+                    print(res);
+
+                    print(inp2);
+                    res = findUniqueNumbers(inp2);
+                    print(res);
+
+                    print(inp3);
+                    res = findUniqueNumbers(inp3);
+                    print(res);
+
+              }
+        ```
 
     - ***Bitwise XOR:** Toggling a Bit at a Specific Position*
       - Formula: To toggle the bit at position pos in number n:
