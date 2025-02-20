@@ -37,9 +37,10 @@
   - *digits does not contain any leading 0's.*
 
 ## Solution:
-  - Appraoch:
+  - **Appraoch:**
     - We will need a array if all elements are *9* in the input array.
     - And in this case all other values in array will become *1*.
+  - **Implementation:**
     ```java
         public int[] plusOne(int[] digits) {
 
@@ -58,3 +59,21 @@
             return newDigits;
         }
     ```
+
+
+---
+<center>
+<h1> ------ End ------ </h1>
+</center>
+
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+heading {
+  color: blue;
+  font-size: 20px;
+  }
+</style>
