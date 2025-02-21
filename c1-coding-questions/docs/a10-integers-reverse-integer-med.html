@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>LeetCode&colon; Factorail Trailling zeros</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="leetcode-factorail-trailling-zeros">LeetCode: Factorail Trailling zeros</h1>
+<h2 id="problem-statements">Problem statements:</h2>
+<ul>
+<li><a href="https://leetcode.com/problems/reverse-integer/description/">Leetcode-7</a> [<em>Difficulty: Medium</em>]
+<ul>
+<li>
+<p>Given a signed 32-bit integer <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span>, return <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> with its digits reversed. If reversing <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> causes the value to go outside the signed <em><strong>32-bit integer range [-231, 231 - 1]</strong></em>, then <em><strong>return 0</strong></em>.</p>
+</li>
+<li>
+<p>Assume the environment does not allow you to store 64-bit integers (signed or unsigned).</p>
+</li>
+<li>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input:</strong> x = 123</li>
+<li><strong>Output:</strong> 321</li>
+</ul>
+</li>
+<li>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input:</strong> x = -123</li>
+<li><strong>Output:</strong> -321</li>
+</ul>
+</li>
+<li>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input:</strong> x = 120</li>
+<li><strong>Output:</strong> 21</li>
+</ul>
+</li>
+<li>
+<p><strong>Constraints:</strong></p>
+<ul>
+<li><em>-231 &lt;= x &lt;= 231 - 1</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="solution">Solution:</h2>
+<ul>
+<li>
+<p><strong>Critical Problem Areas:</strong></p>
+<ul>
+<li>
+<p><em><strong>Handling Negative Numbers:</strong></em></p>
+<ul>
+<li>The negative sign should be preserved in the reversed number.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Handling Trailing Zeros:</strong></em></p>
+<ul>
+<li>Trailing zeros in the original number should not appear at the beginning of the reversed number (e.g., 120 → 21).</li>
+</ul>
+</li>
+<li>
+<p><em><strong>32-bit Integer Overflow:</strong></em></p>
+<ul>
+<li>The reversed number must fit within the 32-bit signed integer range (-2^31 to 2^31 - 1). If the reversed number overflows, the program should return 0.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Solution Approach:</strong></p>
+<ul>
+<li>
+<p><em><strong>Extract the Sign:</strong></em></p>
+<ul>
+<li>Determine if the number is negative and store the sign separately.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Reverse the Digits:</strong></em></p>
+<ul>
+<li>Use modulo and division operations to reverse the digits of the absolute value of the number.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Check for Overflow:</strong></em></p>
+<ul>
+<li>Before returning the result, ensure that the reversed number is within the 32-bit signed integer range.</li>
+</ul>
+</li>
+<li>
+<p><strong>Return the Result:</strong></p>
+<ul>
+<li>Apply the sign to the reversed number and return it.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Time Complexity:</strong></p>
+<ul>
+<li>The time complexity is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>10</mn></msub><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log₁₀n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>, where n is the input number, because we process each digit of the number once.</li>
+</ul>
+</li>
+<li>
+<p><strong>Space Complexity:</strong></p>
+<ul>
+<li>The space complexity is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>, as we are using a constant amount of extra space.</li>
+</ul>
+</li>
+<li>
+<p><strong>Implementation:</strong></p>
+<pre><code class="language-java">      <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">reverse</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> {
+          <span class="hljs-keyword">if</span>(x == Integer.MIN_VALUE || x == Integer.MAX_VALUE) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+
+          <span class="hljs-type">int</span> <span class="hljs-variable">rev</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+          <span class="hljs-keyword">while</span>(x != <span class="hljs-number">0</span>) {
+              <span class="hljs-type">int</span> <span class="hljs-variable">ld</span> <span class="hljs-operator">=</span> x % <span class="hljs-number">10</span>;
+
+              <span class="hljs-comment">// Reduces runtime score in leetcode</span>
+              <span class="hljs-comment">//if(isIntOutOfRange(rev, ld)) return 0;</span>
+              
+              <span class="hljs-comment">//leet code - beats 100%</span>
+              <span class="hljs-keyword">if</span>((rev &gt; Integer.MAX_VALUE / <span class="hljs-number">10</span>) || (rev &lt; Integer.MIN_VALUE / <span class="hljs-number">10</span>)) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+
+              rev = (rev * <span class="hljs-number">10</span>) + ld;
+              x = x / <span class="hljs-number">10</span>;
+          }
+
+          <span class="hljs-keyword">return</span> rev;
+      }
+
+      <span class="hljs-comment">/**
+       * Verifies if the reverse integer will overflow if last digit is added
+       */</span>
+      <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isIntOutOfRange</span><span class="hljs-params">(<span class="hljs-type">int</span> rev, <span class="hljs-type">int</span> ld)</span> {
+          <span class="hljs-keyword">if</span> (rev &gt; Integer.MAX_VALUE / <span class="hljs-number">10</span> || (rev == Integer.MAX_VALUE / <span class="hljs-number">10</span> &amp;&amp; ld &gt; <span class="hljs-number">7</span>)) {
+              <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+          }
+
+          <span class="hljs-keyword">if</span> (rev &lt; Integer.MIN_VALUE / <span class="hljs-number">10</span> || (rev == Integer.MIN_VALUE / <span class="hljs-number">10</span> &amp;&amp; ld &lt; -<span class="hljs-number">8</span>)) {
+              <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+          }
+
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+      }
+</code></pre>
+</li>
+</ul>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<!-- HTML styling -->
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+heading {
+  color: blue;
+  font-size: 20px;
+  }
+</style>
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
