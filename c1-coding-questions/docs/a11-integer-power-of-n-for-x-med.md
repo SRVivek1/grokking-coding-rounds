@@ -73,7 +73,7 @@
     - **Time Complexity:** O(log n) (as we divide n by 2 in each step).
     - **Space Complexity:** O(1) (iterative approach avoids recursion stack).
 
-  - **Java Implementation:**
+  - **Java Implementation: Iterative approach**
     ```java
         public double myPow(double x, int n) {
             double res = 1.0;
@@ -90,6 +90,18 @@
         }
     ```
 
+  - **Java Implementation: Recursion Approach**
+  - **Note:** Recursion uses stack memory, may lead to stack overflow for large values of n.
+    ```java
+        public double myPowRecursion(double x, int n) {
+            if (n == 0)
+                return 1.0;
+            if (n < 0) {
+                return 1.0 / x * myPowRecursion(1.0 / x, -(n + 1));
+            }
+            return (n % 2 == 0) ? myPowRecursion(x * x, n / 2) : x * myPowRecursion(x * x, n / 2);
+        }
+    ```
 
 ---
 <center>
@@ -98,12 +110,12 @@
 
 <!-- HTML styling -->
 <style>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-heading {
-  color: blue;
-  font-size: 20px;
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  heading {
+    color: blue;
+    font-size: 20px;
   }
 </style>

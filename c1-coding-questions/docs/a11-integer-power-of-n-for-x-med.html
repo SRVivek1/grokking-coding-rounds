@@ -278,7 +278,7 @@
 </ul>
 </li>
 <li>
-<p><strong>Java Implementation:</strong></p>
+<p><strong>Java Implementation: Iterative approach</strong></p>
 <pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">myPow</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">int</span> n)</span> {
         <span class="hljs-type">double</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> <span class="hljs-number">1.0</span>;
         <span class="hljs-type">long</span> <span class="hljs-variable">exp</span> <span class="hljs-operator">=</span> Math.abs((<span class="hljs-type">long</span>) n);
@@ -294,6 +294,21 @@
     }
 </code></pre>
 </li>
+<li>
+<p><strong>Java Implementation: Recursion Approach</strong></p>
+</li>
+<li>
+<p><strong>Note:</strong> Recursion uses stack memory, may lead to stack overflow for large values of n.</p>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">myPowRecursion</span><span class="hljs-params">(<span class="hljs-type">double</span> x, <span class="hljs-type">int</span> n)</span> {
+        <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>)
+            <span class="hljs-keyword">return</span> <span class="hljs-number">1.0</span>;
+        <span class="hljs-keyword">if</span> (n &lt; <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">1.0</span> / x * myPowRecursion(<span class="hljs-number">1.0</span> / x, -(n + <span class="hljs-number">1</span>));
+        }
+        <span class="hljs-keyword">return</span> (n % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>) ? myPowRecursion(x * x, n / <span class="hljs-number">2</span>) : x * myPowRecursion(x * x, n / <span class="hljs-number">2</span>);
+    }
+</code></pre>
+</li>
 </ul>
 <hr>
 <center>
@@ -301,13 +316,13 @@
 </center>
 <!-- HTML styling -->
 <style>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-heading {
-  color: blue;
-  font-size: 20px;
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  heading {
+    color: blue;
+    font-size: 20px;
   }
 </style>
             <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
