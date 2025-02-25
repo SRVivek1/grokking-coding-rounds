@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>LeetCode&colon; Convert integer to Roman</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="leetcode-convert-integer-to-roman">LeetCode: Convert integer to Roman</h1>
+<h2 id="problem-statements">Problem statements:</h2>
+<ul>
+<li><a href="https://leetcode.com/problems/integer-to-roman/">Leetcode-12</a> [<em>Difficulty: Medium</em>]
+<ul>
+<li>
+<p>Implement the function that converts an integer to its Roman numeral representation.</p>
+</li>
+<li>
+<p>Seven different symbols represent Roman numerals with the following values:</p>
+<ul>
+<li><em>I (1), V (5), X (10), L (50), C (100), D (500), M (1000).</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="roman-numerals-formation">Roman numerals formation:</h2>
+<ul>
+<li>Roman numerals are formed by appending the conversions of decimal place values from highest to lowest. Converting a decimal place value into a Roman numeral has the following rules:
+<ul>
+<li>If the value does not start with 4 or 9, select the symbol of the maximal value that can be subtracted from the input, append that symbol to the result, subtract its value, and convert the remainder to a Roman numeral.</li>
+<li>If the value starts with 4 or 9 use the subtractive form representing one symbol subtracted from the following symbol, for example, 4 is 1 (I) less than 5 (V): IV and 9 is 1 (I) less than 10 (X): IX. Only the following subtractive forms are used: 4 (IV), 9 (IX), 40 (XL), 90 (XC), 400 (CD) and 900 (CM).</li>
+<li>Only powers of 10 (I, X, C, M) can be appended consecutively at most 3 times to represent multiples of 10. You cannot append 5 (V), 50 (L), or 500 (D) multiple times. If you need to append a symbol 4 times use the subtractive form.</li>
+</ul>
+</li>
+</ul>
+<h2 id="given-an-integer-convert-it-to-a-roman-numeral">Given an integer, convert it to a Roman numeral.</h2>
+<ul>
+<li>
+<p><strong>Example-1:</strong></p>
+<ul>
+<li>
+<p><strong>Input:</strong> num = 3749</p>
+</li>
+<li>
+<p><strong>Output:</strong> &quot;MMMDCCXLIX&quot;</p>
+</li>
+<li>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li>3000 = MMM as 1000 (M) + 1000 (M) + 1000 (M)</li>
+<li>700 = DCC as 500 (D) + 100 (C) + 100 (C)</li>
+<li>40 = XL as 10 (X) less of 50 (L)</li>
+<li>9 = IX as 1 (I) less of 10 (X)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> 49 is not 1 (I) less of 50 (L) because the conversion is based on decimal places.</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Example-2:</strong></p>
+<ul>
+<li>
+<p><strong>Input:</strong> num = 58</p>
+</li>
+<li>
+<p><strong>Output:</strong> &quot;LVIII&quot;</p>
+</li>
+<li>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li>50 = L as 50 (L)</li>
+<li>8 = VIII as 5 (V) + 1 (I) + 1 (I) + 1 (I)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Example-3:</strong></p>
+<ul>
+<li>
+<p><strong>Input:</strong> num = 1994</p>
+</li>
+<li>
+<p><strong>Output:</strong> &quot;MCMXCIV&quot;</p>
+</li>
+<li>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li>1000 = M as 1000 (M)</li>
+<li>900 = CM as 1000 (M) less of 100 (C)</li>
+<li>90 = XC as 100 (C) less of 10 (X)</li>
+<li>4 = IV as 5 (V) less of 1 (I)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="constraints">Constraints:</h2>
+<ul>
+<li><em>1 &lt;= num &lt;= 3999</em></li>
+</ul>
+<h2 id="solution">Solution:</h2>
+<ul>
+<li>
+<p><strong>Problem Statement:</strong></p>
+<ul>
+<li>The input integer is within the range 1 to 3999.</li>
+<li>Roman numerals are based on the following symbols:
+<ul>
+<li>I = 1</li>
+<li>V = 5</li>
+<li>X = 10</li>
+<li>L = 50</li>
+<li>C = 100</li>
+<li>D = 500</li>
+<li>M = 1000</li>
+</ul>
+</li>
+<li>Numbers are formed using subtractive notation, meaning:
+<ul>
+<li>IV (4) instead of IIII</li>
+<li>IX (9) instead of VIIII</li>
+<li>XL (40) instead of XXXX</li>
+<li>XC (90) instead of LXXXX</li>
+<li>CD (400) instead of CCCC</li>
+<li>CM (900) instead of DCCCC</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Approach:</strong></p>
+<ul>
+<li>Create Mappings: Use an array of values and their corresponding Roman numeral symbols.</li>
+<li>Iterate from Largest to Smallest: Start from the largest value and subtract from num while appending the corresponding Roman numeral.</li>
+<li>Use Subtractive Notation: Since we prioritize the largest values first, we automatically handle cases like IV, IX, etc.</li>
+<li>Iterate through the mappings, using a while loop to continue subtracting the Roman numeral values from the input integer until it reaches zero.</li>
+<li>Construct the final result string using the collected Roman numerals.</li>
+</ul>
+</li>
+<li>
+<p><strong>Time &amp; Space Complexity Analysis:</strong></p>
+<ul>
+<li><strong>Time Complexity:</strong>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span> (Since the maximum number is 3999, the loop runs at most 13 times)</li>
+</ul>
+</li>
+<li><strong>Space Complexity:</strong>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span> (Only a fixed-size StringBuilder is used).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Java Implementation:</strong></p>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">intToRoman</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> {
+      <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();
+      <span class="hljs-type">int</span>[] values = {<span class="hljs-number">1000</span>, <span class="hljs-number">900</span>, <span class="hljs-number">500</span>, <span class="hljs-number">400</span>, <span class="hljs-number">100</span>, <span class="hljs-number">90</span>, <span class="hljs-number">50</span>, <span class="hljs-number">40</span>, <span class="hljs-number">10</span>, <span class="hljs-number">9</span>, <span class="hljs-number">5</span>, <span class="hljs-number">4</span>, <span class="hljs-number">1</span>};
+      String[] symbols = {<span class="hljs-string">&quot;M&quot;</span>, <span class="hljs-string">&quot;CM&quot;</span>, <span class="hljs-string">&quot;D&quot;</span>, <span class="hljs-string">&quot;CD&quot;</span>, <span class="hljs-string">&quot;C&quot;</span>, <span class="hljs-string">&quot;XC&quot;</span>, <span class="hljs-string">&quot;L&quot;</span>, <span class="hljs-string">&quot;XL&quot;</span>, <span class="hljs-string">&quot;X&quot;</span>, <span class="hljs-string">&quot;IX&quot;</span>, <span class="hljs-string">&quot;V&quot;</span>, <span class="hljs-string">&quot;IV&quot;</span>, <span class="hljs-string">&quot;I&quot;</span>};
+
+      <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; values.length; i++) {
+            <span class="hljs-keyword">while</span> (num &gt;= values[i]) {
+                res.append(symbols[i]);
+                num = num - values[i];
+            }
+      }
+      <span class="hljs-keyword">return</span> res.toString();
+    }
+</code></pre>
+</li>
+</ul>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<!-- HTML styling -->
+<style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  heading {
+    color: blue;
+    font-size: 20px;
+  }
+</style>
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
