@@ -1,4 +1,4 @@
-# Integers: Find the only unique number in an array
+# Integers: Find the only two unique number in an array
 ## Problem statements:
 - Given a non-empty array of integers `nums` every element appears twice except for two numbers. 
 - Find those unique integer values.
