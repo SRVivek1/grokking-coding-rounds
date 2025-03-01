@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>LeetCode&colon; Longest Common Prefix</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="leetcode-longest-common-prefix">LeetCode: Longest Common Prefix</h1>
+<h2 id="problem-statements">Problem statements:</h2>
+<ul>
+<li><a href="https://leetcode.com/problems/longest-common-prefix/description/">Leetcode-14</a> [<em>Difficulty: Easy</em>]
+<ul>
+<li>Write a function to find the longest common prefix string amongst an array of strings.</li>
+<li>If there is no common prefix, return an empty string &quot;&quot;.</li>
+</ul>
+</li>
+</ul>
+<h3 id="examples">Examples:</h3>
+<ul>
+<li>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input:</strong> strs = [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]</li>
+<li><strong>Output:</strong> &quot;fl&quot;</li>
+</ul>
+</li>
+<li>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input:</strong> strs = [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]</li>
+<li><strong>Output:</strong> &quot;&quot;</li>
+<li><strong>Explanation:</strong>
+<ul>
+<li>There is no common prefix among the input strings.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input:</strong> strs = [&quot;apple&quot;,&quot;apricot&quot;,&quot;apartment&quot;]</li>
+<li><strong>Output:</strong> &quot;ap&quot;</li>
+</ul>
+</li>
+</ul>
+<h3 id="constraints">Constraints:</h3>
+<ul>
+<li><em>1 &lt;= strs.length &lt;= 200</em></li>
+<li><em>0 &lt;= strs[i].length &lt;= 200</em></li>
+<li><em>strs[i] consists of only lowercase English letters if it is non-empty.</em></li>
+</ul>
+<h3 id="solution-approach">Solution Approach:</h3>
+<ul>
+<li>
+<ol>
+<li><strong>Horizontal Scanning (Efficient for small input):</strong></li>
+</ol>
+<ul>
+<li>Start with the first string as the prefix.</li>
+<li>Compare it with each subsequent string and reduce the prefix until a match is found.</li>
+<li>If at any point, the prefix becomes an empty string, return &quot;&quot;.</li>
+<li><strong>Time Complexity:</strong>
+<ul>
+<li><em>O(N×M)</em>, where <em>N</em> is the number of strings and <em>M</em> is the length of the longest string.</li>
+</ul>
+</li>
+<li><strong>Additional Notes:</strong>
+<ul>
+<li>The above approach is simple and works well for small input sizes.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ol start="2">
+<li><strong>Vertical Scanning (Optimized for early mismatch):</strong></li>
+</ol>
+<ul>
+<li>Pick characters one by one from the first string.</li>
+<li>Compare it with corresponding characters in other strings.</li>
+<li>Stop if there is a mismatch or if we reach the end.</li>
+<li><strong>Time Complexity:</strong>
+<ul>
+<li><em>O(N×M)</em>, but can be faster in case of early mismatches.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ol start="3">
+<li><strong>Divide and Conquer (Optimized for large input):</strong></li>
+</ol>
+<ul>
+<li>Divide/Split the array into two halves.</li>
+<li>Find the common prefix of each half.</li>
+<li>Merge the two common prefixes.</li>
+<li><strong>Time Complexity:</strong>
+<ul>
+<li><em>O(N×M)</em>, but can be faster in case of early mismatches.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ol start="4">
+<li><strong>Bitwise Comparison (Alternative approach):</strong></li>
+</ol>
+<ul>
+<li>Use bitwise operations to compare characters in positions across strings.</li>
+<li>Increase efficiency in cases where many strings share identical prefixes.</li>
+<li><strong>Time Complexity:</strong>
+<ul>
+<li><em>O(N × M)</em>, but efficient for large datasets with high similarity.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<ol start="4">
+<li><strong>Trie (For Large Inputs):</strong></li>
+</ol>
+<ul>
+<li>Insert all words into a Trie.</li>
+<li>Traverse down until a branching occurs.</li>
+<li><strong>Time Complexity:</strong>
+<ul>
+<li><em>O(N×M)</em>, but requires extra space <em>O(N×M)</em>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="solution-horizontal-scanning">Solution: Horizontal Scanning</h2>
+<pre><code class="language-java">      <span class="hljs-keyword">public</span> String <span class="hljs-title function_">longestCommonPrefix</span><span class="hljs-params">(String[] strs)</span> {
+        <span class="hljs-keyword">if</span> (strs == <span class="hljs-literal">null</span> || strs.length == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;
+        <span class="hljs-type">String</span> <span class="hljs-variable">prefix</span> <span class="hljs-operator">=</span> strs[<span class="hljs-number">0</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; strs.length; i++) {
+            <span class="hljs-keyword">while</span> (strs[i].indexOf(prefix) != <span class="hljs-number">0</span>) {
+                prefix = prefix.substring(<span class="hljs-number">0</span>, prefix.length() - <span class="hljs-number">1</span>);
+                <span class="hljs-keyword">if</span> (prefix.isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;
+            }
+        }
+        <span class="hljs-keyword">return</span> prefix;
+    }
+</code></pre>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<!-- HTML styling -->
+<style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  heading {
+    color: blue;
+    font-size: 20px;
+  }
+</style>
+            
+            
+        </body>
+        </html>
