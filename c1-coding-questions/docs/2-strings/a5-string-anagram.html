@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>LeetCode&colon; String Anagrams</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="leetcode-string-anagrams">LeetCode: String Anagrams</h1>
+<h2 id="problem-statements">Problem statements:</h2>
+<ul>
+<li><a href="https://leetcode.com/problems/valid-anagram/description/">Leetcode-242</a> [<em>Difficulty: Easy</em>]
+<ul>
+<li>Given two strings s and t, return true if t is an anagram of s, and false otherwise.</li>
+<li>An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.</li>
+</ul>
+</li>
+</ul>
+<h3 id="examples">Examples:</h3>
+<ul>
+<li>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input:</strong> s = &quot;anagram&quot;, t = &quot;nagaram&quot;</li>
+<li><strong>Output:</strong> true</li>
+</ul>
+</li>
+<li>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input:</strong> s = &quot;rat&quot;, t = &quot;car&quot;</li>
+<li><strong>Output:</strong> false</li>
+</ul>
+</li>
+</ul>
+<h3 id="constraints">Constraints:</h3>
+<ul>
+<li>1 &lt;= s.length, t.length &lt;= 5 * 10^4</li>
+<li>s and t consist of lowercase English letters.</li>
+</ul>
+<h2 id="solution-approach">Solution Approach:</h2>
+<ul>
+<li>
+<p><strong>Edge Cases to Consider:</strong></p>
+<ul>
+<li><em><strong>Different lengths:</strong></em>
+<ul>
+<li>If s and t have different lengths, they cannot be anagrams.</li>
+</ul>
+</li>
+<li><em><strong>Empty strings:</strong></em>
+<ul>
+<li>If both s and t are empty, they should return true.</li>
+</ul>
+</li>
+<li><em><strong>Single-character strings:</strong></em>
+<ul>
+<li>&quot;a&quot;, &quot;a&quot; → true, &quot;a&quot;, &quot;b&quot; → false</li>
+</ul>
+</li>
+<li><em><strong>Same characters but different frequencies:</strong></em>
+<ul>
+<li>&quot;aabb&quot; and &quot;ab&quot; → false</li>
+</ul>
+</li>
+<li><em><strong>Uppercase vs. lowercase:</strong></em>
+<ul>
+<li>Problem assumes lowercase only, but if case is considered, &quot;Hello&quot; and &quot;hello&quot; would be false.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Approach 1: <em>Using a Frequency Counter (Time: O(n), Space: O(1))</em></strong></p>
+<ul>
+<li>Use an integer array of size 26 (for lowercase English letters).
+<ul>
+<li>Increase the array size as needed for Unicode characters.</li>
+<li>Use a HashMap for counting character frequencies instead of an array for all unicode characters.</li>
+</ul>
+</li>
+<li>Iterate through s, incrementing character count.</li>
+<li>Iterate through t, decrementing character count.</li>
+<li>If all counts are zero at the end, return true.</li>
+</ul>
+</li>
+<li>
+<p><strong>Approach 2: <em>Using Sorting (Time: O(n log n), Space: O(1))</em></strong></p>
+<ul>
+<li>Sort both strings.</li>
+<li>Compare the sorted strings. If they are equal, they are anagrams.</li>
+</ul>
+</li>
+</ul>
+<h2 id="solution">Solution:</h2>
+<h3 id="1-using-integer-array-to-count-frequency-time-on-space-o1">1. Using integer array to count frequency (Time: O(n), Space: O(1))</h3>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isAnagramArrSol</span><span class="hljs-params">(String s, String t)</span> {
+        <span class="hljs-keyword">if</span>(s == <span class="hljs-literal">null</span> || t == <span class="hljs-literal">null</span> || s.length() != t.length()) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+
+        <span class="hljs-type">int</span>[] fr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[<span class="hljs-number">26</span>];
+
+        <span class="hljs-comment">// update frequency of chars</span>
+        <span class="hljs-keyword">for</span>(<span class="hljs-type">char</span> c: s.toCharArray()) {
+            ++fr[c - <span class="hljs-string">&#x27;a&#x27;</span>];
+        }
+
+        <span class="hljs-comment">// match frequency</span>
+        <span class="hljs-keyword">for</span>(<span class="hljs-type">char</span> c: t.toCharArray()) {
+            --fr[c - <span class="hljs-string">&#x27;a&#x27;</span>];
+        }
+
+        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; fr.length; i++) {
+            <span class="hljs-keyword">if</span>(fr[i] != <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        }
+
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+</code></pre>
+<h3 id="2-using-hashmap-to-count-frequency-time-on-space-o1">2. Using HashMap to count frequency (Time: O(n), Space: O(1))</h3>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isAnagramMapSol</span><span class="hljs-params">(String s, String t)</span> {
+      <span class="hljs-keyword">if</span>(s == <span class="hljs-literal">null</span> || t == <span class="hljs-literal">null</span> || s.length() != t.length()) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+
+      Map&lt;Character, Integer&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();
+      <span class="hljs-keyword">for</span>(<span class="hljs-type">char</span> c: s.toCharArray()) {
+            map.put(c, map.getOrDefault(c, <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>);
+      }
+
+      <span class="hljs-keyword">for</span>(<span class="hljs-type">char</span> c: t.toCharArray()) {
+            <span class="hljs-type">Integer</span> <span class="hljs-variable">v</span> <span class="hljs-operator">=</span> map.get(c);
+            <span class="hljs-keyword">if</span>(v == <span class="hljs-literal">null</span>) {
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-keyword">if</span> (v &gt; <span class="hljs-number">1</span>) {
+                    map.put(c, v - <span class="hljs-number">1</span>);
+                } <span class="hljs-keyword">else</span> {
+                    map.remove(c);
+                }
+            }
+      }
+      <span class="hljs-keyword">return</span> map.isEmpty();
+    }
+</code></pre>
+<h3 id="3-using-sorting-time-on-log-n-space-o1">3. Using Sorting (Time: O(n log n), Space: O(1))</h3>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isAnagramSortSol</span><span class="hljs-params">(String s, String t)</span> {
+        <span class="hljs-keyword">if</span>(s == <span class="hljs-literal">null</span> || t == <span class="hljs-literal">null</span> || s.length() != t.length()) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+
+        <span class="hljs-type">char</span>[] sArray = s.toCharArray();
+        <span class="hljs-type">char</span>[] tArray = t.toCharArray();
+
+        Arrays.sort(sArray);
+        Arrays.sort(tArray);
+
+        <span class="hljs-keyword">return</span> Arrays.equals(sArray, tArray);
+    }
+</code></pre>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<!-- HTML styling -->
+<style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  heading {
+    color: blue;
+    font-size: 20px;
+  }
+</style>
+            
+            
+        </body>
+        </html>
