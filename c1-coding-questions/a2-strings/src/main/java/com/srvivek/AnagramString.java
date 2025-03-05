@@ -20,7 +20,22 @@ public class AnagramString {
 
         // create map
         final Map<Character, Integer> map = new HashMap<>();
+        for(char c: s1.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
 
+        // check if all characters in s2 are present in map
+        for(char c: s2.toCharArray()) {
+            Integer count = map.get(c);
+            if(count == null) {
+                return false;
+            } else if (count > 1) {
+                map.put(c, count - 1);
+            } else {
+                map.remove(c);
+            }
+        }
 
+        return map.isEmpty();
     }
 }
