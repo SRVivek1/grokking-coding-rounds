@@ -260,11 +260,11 @@
 <li>
 <p><strong>Recursion Approach:</strong></p>
 <ul>
-<li><strong>Note:</strong> The recursion solution is not efficient due to the extra space used in the recursive stack but on leetcode it's almost 6-7 times faster than the iterative solution.</li>
+<li><strong>Note:</strong> The recursion solution is not efficient due to the extra space used in the recursive stack.</li>
 </ul>
 <pre><code class="language-java">        <span class="hljs-type">String</span> <span class="hljs-variable">lps</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span>;
         <span class="hljs-keyword">public</span> String <span class="hljs-title function_">longestPalindrome</span><span class="hljs-params">(String s)</span> {
-            <span class="hljs-keyword">if</span> (s == <span class="hljs-literal">null</span> || s.isBlank() || s.length() &lt;= <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> s;
+            <span class="hljs-keyword">if</span> (s == <span class="hljs-literal">null</span> || s.length() &lt;= <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> s;
 
             <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; s.length(); i++) {
                 expandAroundCenter(s, i, i);
@@ -288,43 +288,41 @@
 </li>
 <li>
 <p><strong>Iterative Approach:</strong></p>
-<pre><code class="language-java">      <span class="hljs-keyword">public</span> String <span class="hljs-title function_">longestPalindrome</span><span class="hljs-params">(String s)</span> {
-          <span class="hljs-keyword">if</span> (s == <span class="hljs-literal">null</span> || s.isBlank() || s.length() &lt;= <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> s;
+<pre><code class="language-java">          <span class="hljs-keyword">public</span> String <span class="hljs-title function_">longestPalindrome_iterative</span><span class="hljs-params">(String s)</span> {
+              <span class="hljs-keyword">if</span> (s == <span class="hljs-literal">null</span> || s.length() &lt;= <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> s;
 
-          <span class="hljs-type">String</span> <span class="hljs-variable">lps</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span>;
-          <span class="hljs-type">int</span> <span class="hljs-variable">si</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, ei = <span class="hljs-number">0</span>;
+              <span class="hljs-type">String</span> <span class="hljs-variable">lps</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&quot;</span>;
+              <span class="hljs-type">int</span> <span class="hljs-variable">si</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, ei = <span class="hljs-number">0</span>;
 
-          <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; s.length(); i++) {
-          
-              <span class="hljs-comment">// Odd length substring</span>
-              <span class="hljs-type">int</span> <span class="hljs-variable">l</span> <span class="hljs-operator">=</span> i, r = i;
-              <span class="hljs-keyword">while</span>(l &gt;= <span class="hljs-number">0</span> &amp;&amp; r &lt; s.length() &amp;&amp; s.charAt(l) == s.charAt(r)) {
-                  <span class="hljs-type">String</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> s.substring(l, r + <span class="hljs-number">1</span>);
-                  <span class="hljs-keyword">if</span>(lps.length() &lt; t.length()) {
-                      lps = t;
-                      si = l;
-                      ei = r;
+              <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; s.length(); i++) {
+              
+                  <span class="hljs-comment">// Odd length substring</span>
+                  <span class="hljs-type">int</span> <span class="hljs-variable">l</span> <span class="hljs-operator">=</span> i, r = i;
+                  <span class="hljs-keyword">while</span>(l &gt;= <span class="hljs-number">0</span> &amp;&amp; r &lt; s.length() &amp;&amp; s.charAt(l) == s.charAt(r)) {
+                      <span class="hljs-keyword">if</span>(lps.length() &lt; r - l + <span class="hljs-number">1</span>) {
+                          lps = s.substring(l, r + <span class="hljs-number">1</span>);
+                          si = l;
+                          ei = r;
+                      }
+                      l--;
+                      r++;
                   }
-                  l--;
-                  r++;
-              }
 
-              <span class="hljs-comment">// even length substring</span>
-              l = i;
-              r = (i &lt; s.length() - <span class="hljs-number">1</span>) ? i + <span class="hljs-number">1</span> : i;
-              <span class="hljs-keyword">while</span>(l &gt;= <span class="hljs-number">0</span> &amp;&amp; r &lt; s.length() &amp;&amp; s.charAt(l) == s.charAt(r)) {
-                  <span class="hljs-type">String</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> s.substring(l, r + <span class="hljs-number">1</span>);
-                  <span class="hljs-keyword">if</span>(lps.length() &lt; t.length()) {
-                      lps = t;
-                      si = l;
-                      ei = r;
+                  <span class="hljs-comment">// even length substring</span>
+                  l = i;
+                  r = (i &lt; s.length() - <span class="hljs-number">1</span>) ? i + <span class="hljs-number">1</span> : i;
+                  <span class="hljs-keyword">while</span>(l &gt;= <span class="hljs-number">0</span> &amp;&amp; r &lt; s.length() &amp;&amp; s.charAt(l) == s.charAt(r)) {
+                      <span class="hljs-keyword">if</span>(lps.length() &lt; r - l + <span class="hljs-number">1</span>) {
+                          lps = s.substring(l, r + <span class="hljs-number">1</span>);
+                          si = l;
+                          ei = r;
+                      }
+                      l--;
+                      r++;
                   }
-                  l--;
-                  r++;
               }
+              <span class="hljs-keyword">return</span> lps;
           }
-          <span class="hljs-keyword">return</span> lps;
-      }
 </code></pre>
 </li>
 </ul>
