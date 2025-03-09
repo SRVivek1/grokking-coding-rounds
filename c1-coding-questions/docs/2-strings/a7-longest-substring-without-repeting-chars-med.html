@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>LeetCode&colon; Longest Substring Without Repeating Characters</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="leetcode-longest-substring-without-repeating-characters">LeetCode: Longest Substring Without Repeating Characters</h1>
+<h2 id="problem-statements">Problem statements:</h2>
+<ul>
+<li><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/description/">Leetcode-3</a> [<em>Difficulty: Medium</em>]
+<ul>
+<li>Given a string s, return the length of the longest substring without repeating characters.</li>
+</ul>
+</li>
+</ul>
+<h3 id="examples">Examples:</h3>
+<ul>
+<li>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input:</strong> s = &quot;abcabcbb&quot;</li>
+<li><strong>Output:</strong> 3 (&quot;abc&quot;)</li>
+</ul>
+</li>
+<li>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input:</strong> s = &quot;bbbbb&quot;</li>
+<li><strong>Output:</strong> 1 (&quot;b&quot;)</li>
+</ul>
+</li>
+<li>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input:</strong> s = &quot;pwwkew&quot;</li>
+<li><strong>Output:</strong> 3 (&quot;wke&quot;)</li>
+</ul>
+</li>
+</ul>
+<h3 id="constraints">Constraints:</h3>
+<ul>
+<li>0 &lt;= s.length &lt;= 5 * 104</li>
+<li>s consists of English letters, digits, symbols and spaces.</li>
+</ul>
+<h2 id="edge-cases-to-consider">Edge Cases to Consider</h2>
+<ul>
+<li><strong>Empty String (&quot;&quot;)</strong>:
+<ul>
+<li><em>The result should be 0.</em></li>
+</ul>
+</li>
+<li><strong>Single Character String (&quot;a&quot;)</strong>:
+<ul>
+<li><em>The result should be 1.</em></li>
+</ul>
+</li>
+<li><strong>All Unique Characters (&quot;abcdef&quot;)</strong>:
+<ul>
+<li><em>The result should be length of the string.</em></li>
+</ul>
+</li>
+<li><strong>All Same Characters (&quot;aaaa&quot;)</strong>:
+<ul>
+<li><em>The result should be 1.</em></li>
+</ul>
+</li>
+<li><strong>Repeating Characters in Between (&quot;abcabcbb&quot;)</strong>:
+<ul>
+<li><em>The result should be 3 (&quot;abc&quot;).</em></li>
+</ul>
+</li>
+<li><strong>Long Input String</strong>:
+<ul>
+<li><em>Ensuring efficiency for large inputs</em></li>
+</ul>
+</li>
+</ul>
+<h2 id="solution-approach">Solution Approach:</h2>
+<ul>
+<li><strong>Approach 1:</strong> <em>We can use the Sliding Window with Array or HashMap (or HashSet)</em>
+<ul>
+<li>
+<p><strong>Algorithm:</strong></p>
+<ul>
+<li>Initialize two pointers, <strong>left</strong> and <strong>right</strong>, to define a window in the string.</li>
+<li>Expand <strong>right</strong> to include characters until a duplicate is found.</li>
+<li>Maintain an Array or HashSet (or HashMap) to track unique characters in the window.
+<ul>
+<li><strong>Note:</strong> Using an Array is more efficient for memory and runtime than a HashSet.</li>
+</ul>
+</li>
+<li>If a duplicate is found, move <strong>left</strong> to shrink the window until uniqueness is restored.</li>
+<li>Update the maximum length of such a window.</li>
+<li>Continue adjusting the window until the end of the string is reached.</li>
+<li>Finally, return the maximum length found.</li>
+</ul>
+</li>
+<li>
+<p><strong>Time Complexity:</strong></p>
+<ul>
+<li>Each character is processed at most twice (once added and once removed), making it O(n).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="solution">Solution:</h2>
+<ul>
+<li>
+<p><strong>Solution-1: Array - Using Sliding Window with Array (Time: O(n), Space: O(1))</strong></p>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">lengthOfLongestSubstringArr</span><span class="hljs-params">(String s)</span> {
+        <span class="hljs-keyword">if</span>(s == <span class="hljs-literal">null</span> || s.length() == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+
+        <span class="hljs-type">int</span>[] fr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[<span class="hljs-number">128</span>]; <span class="hljs-comment">// frequency</span>
+        <span class="hljs-type">int</span> <span class="hljs-variable">l</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, r = <span class="hljs-number">0</span>, ml = <span class="hljs-number">0</span>; <span class="hljs-comment">// left, right, maxLength</span>
+
+        <span class="hljs-keyword">while</span>(r &lt; s.length()){
+            <span class="hljs-type">char</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> s.charAt(r);
+            <span class="hljs-keyword">while</span>(fr[c] &gt; <span class="hljs-number">0</span>) {
+                fr[s.charAt(l)]--;
+                l++;
+            }
+            fr[c]++;
+            ml = Math.max(ml, r - l + <span class="hljs-number">1</span>);
+            r++;
+        }
+        <span class="hljs-keyword">return</span> ml;
+    }
+</code></pre>
+</li>
+<li>
+<p><strong>Solution-1: Set - Using Sliding Window with Array (Time: O(n), Space: O(1))</strong></p>
+</li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">lengthOfLongestSubstringSet</span><span class="hljs-params">(String s)</span> {
+        <span class="hljs-keyword">if</span>(s == <span class="hljs-literal">null</span> || s.length() == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+
+        <span class="hljs-type">int</span> <span class="hljs-variable">l</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, ml = <span class="hljs-number">0</span>;
+        Set&lt;Character&gt; uc = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();
+        
+        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> <span class="hljs-variable">r</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; r &lt; s.length(); r++) {
+            <span class="hljs-keyword">while</span>(uc.contains(s.charAt(r))) {
+                uc.remove(s.charAt(l));
+                l++;
+            }
+            uc.add(s.charAt(r));
+            ml = Math.max(ml, r - l + <span class="hljs-number">1</span>);
+        }
+        <span class="hljs-keyword">return</span> ml;     
+    }
+</code></pre>
+<h2 id="summary">Summary:</h2>
+<ul>
+<li>We have solved the problem using the Sliding Window technique.</li>
+<li>We have used an Array to track the frequency of characters in the window.</li>
+<li>We have also solved the problem using a HashSet to track unique characters in the window.</li>
+<li>The time complexity of both solutions is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>, where n is the length of the input string.</li>
+<li>The space complexity of both solutions is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>, as the size of the Array or HashSet is constant.</li>
+</ul>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<!-- HTML styling -->
+<style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  heading {
+    color: blue;
+    font-size: 20px;
+  }
+</style>
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
