@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>LeetCode&colon; Reverse Words in a String</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="leetcode-reverse-words-in-a-string">LeetCode: Reverse Words in a String</h1>
+<h2 id="problem-statements">Problem statements:</h2>
+<ul>
+<li><a href="https://leetcode.com/problems/reverse-words-in-a-string/description/">Leetcode-151</a> [<em>Difficulty: Medium</em>]
+<ul>
+<li>Given a string s, reverse the order of words in a string while preserving spaces.</li>
+<li>A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space.</li>
+<li>Return a string of the words in reverse order concatenated by a single space.</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> That the String <em><strong>s</strong></em> may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="examples">Examples:</h3>
+<ul>
+<li>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><strong>Input:</strong> s = &quot;the sky is blue&quot;</li>
+<li><strong>Output:</strong> &quot;blue is sky the&quot;</li>
+</ul>
+</li>
+<li>
+<p><strong>Example 2:</strong></p>
+<ul>
+<li><strong>Input:</strong> s = &quot;  hello world  &quot;</li>
+<li><strong>Output:</strong> &quot;world hello&quot;</li>
+</ul>
+</li>
+<li>
+<p><strong>Example 3:</strong></p>
+<ul>
+<li><strong>Input:</strong> s = &quot;a good   example&quot;</li>
+<li><strong>Output:</strong> &quot;example good a&quot;</li>
+</ul>
+</li>
+</ul>
+<h3 id="constraints">Constraints:</h3>
+<ul>
+<li>1 &lt;= s.length &lt;= 104</li>
+<li>s contains English letters (upper-case and lower-case), digits, and spaces ' '.</li>
+<li>There is at least one word in s.</li>
+</ul>
+<h2 id="edge-cases-to-consider">Edge Cases to Consider</h2>
+<ul>
+<li><strong>Multiple spaces:</strong> Ensure consecutive spaces are reduced to one.
+<ul>
+<li><em><strong>Input:</strong></em> &quot; hello world &quot;</li>
+<li><em><strong>Output:</strong></em> &quot;world hello&quot;</li>
+</ul>
+</li>
+<li><strong>Leading or trailing spaces:</strong> They should be removed.
+<ul>
+<li><em><strong>Input:</strong></em> &quot; hello &quot;</li>
+<li><em><strong>Output:</strong></em> &quot;hello&quot;</li>
+</ul>
+</li>
+<li><strong>Single word:</strong> Should return the word itself without extra spaces.
+<ul>
+<li><em><strong>Input:</strong></em> &quot;hello&quot;</li>
+<li><em><strong>Output:</strong></em> &quot;hello&quot;</li>
+</ul>
+</li>
+<li><strong>Empty string or spaces only:</strong> Should return an empty string.
+<ul>
+<li><em><strong>Input:</strong></em> &quot; &quot;</li>
+<li><em><strong>Output:</strong></em> &quot;&quot;</li>
+</ul>
+</li>
+<li><strong>Special characters and numbers:</strong> They should be treated as normal words.
+<ul>
+<li><em><strong>Input:</strong></em> &quot;123 hello! @world&quot;</li>
+<li><em><strong>Output:</strong></em> &quot;@world hello! 123&quot;</li>
+</ul>
+</li>
+</ul>
+<h2 id="solution-approach">Solution Approach:</h2>
+<h3 id="approach-1-in-place-reversal-optimal---tc-on--sc-o1"><strong>Approach-1:</strong> <em>In-place Reversal (Optimal) - T.C: O(N) &amp; S.C: O(1)</em></h3>
+<ul>
+<li>Since we need <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span> space complexity, we must modify the string in-place without using extra memory for storing words separately.</li>
+<li><strong>Steps to Solve:</strong>
+<ul>
+<li><strong>Stage-A:</strong> Reverse the string
+<ul>
+<li><strong>Step-1: <em>Reverse the entire string:</em></strong>
+<ul>
+<li>This moves the last word to the front and vice versa.</li>
+</ul>
+</li>
+<li><strong>Step-2: <em>Reverse each word individually:</em></strong>
+<ul>
+<li>This restores the correct word order.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Stage-B: Trim extra spaces:</strong>
+<ul>
+<li><strong>Step-1: <em>Cleanup spaces in the string.</em></strong>
+<ul>
+<li>Remove leading, trailing, and multiple spaces.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Finally, Return the final reversed string.</li>
+</ul>
+</li>
+</ul>
+<h3 id="approach-2-using-stringbuilder-to-split-and-merge-words"><strong>Approach-2:</strong> <em>Using StringBuilder to split and merge words</em></h3>
+<ul>
+<li>This approach uses <em><strong>StringBuilder</strong></em> to construct the reversed string efficiently.</li>
+<li>While <em><strong>StringBuilder</strong></em> takes extra space, we will aim for minimal extra memory usage by avoiding <em><strong>List<String></strong></em> storage.</li>
+<li><strong>Steps to Solve:</strong>
+<ul>
+<li><strong>Step-1: <em>Trim leading/trailing spaces:</em></strong>
+<ul>
+<li>Use String class <em>trim()</em> API to remove leading and trailling spaces.</li>
+</ul>
+</li>
+<li><strong>Step-2: <em>Split words efficiently:</em></strong>
+<ul>
+<li>Instead of using <em><strong>split(&quot; &quot;)</strong></em>, we can manually extract words while skipping extra spaces.</li>
+</ul>
+</li>
+<li><strong>Step-3: <em>Use StringBuilder for efficient concatenation:</em></strong>
+<ul>
+<li>Append words in reverse order to avoid extra memory overhead from <em><strong>List<String></strong></em>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="solution">Solution:</h2>
+<h3 id="solution-1-two-pointer-approach-tc-on--sc-o1"><strong>Solution-1:</strong> <em>Two Pointer approach [T.C: O(n) &amp; S.C: O(1)]</em></h3>
+<ul>
+<li>This solution uses 2 pointer approach to reverse string, words and space cleanup.</li>
+</ul>
+<pre><code class="language-java">        <span class="hljs-keyword">public</span> String <span class="hljs-title function_">solution</span><span class="hljs-params">(String s)</span> {
+            <span class="hljs-keyword">if</span> (s == <span class="hljs-literal">null</span> || s.isBlank()) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;
+            <span class="hljs-keyword">if</span> (s.length() == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> s;
+
+            <span class="hljs-type">char</span>[] arr = s.toCharArray();
+
+            <span class="hljs-comment">// Step-1: Reverse entire string</span>
+            reverse(arr, <span class="hljs-number">0</span>, arr.length - <span class="hljs-number">1</span>);
+
+            <span class="hljs-comment">// step-2: reverse each word</span>
+            reverseWord(arr);
+
+            <span class="hljs-comment">// Step-3: clean spaces</span>
+            <span class="hljs-type">int</span> <span class="hljs-variable">len</span> <span class="hljs-operator">=</span> cleanSpaces(arr);
+
+            <span class="hljs-type">String</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(arr, <span class="hljs-number">0</span>, len);
+            System.out.printf(<span class="hljs-string">&quot;Input : [%s] %nOutput: [%s] %n&quot;</span>, s, res);
+            <span class="hljs-keyword">return</span> res;
+        }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">cleanSpaces</span><span class="hljs-params">(<span class="hljs-type">char</span>[] arr)</span> {
+            <span class="hljs-type">int</span> <span class="hljs-variable">l</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, r = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">while</span>(r &lt; arr.length) {
+                <span class="hljs-keyword">while</span> (r &lt; arr.length &amp;&amp; arr[r] == <span class="hljs-string">&#x27; &#x27;</span>) r++;
+                <span class="hljs-keyword">while</span> (r &lt; arr.length &amp;&amp; arr[r] != <span class="hljs-string">&#x27; &#x27;</span>) {
+                    arr[l++] = arr[r++];
+                }
+                <span class="hljs-comment">// Skip extra spaces between words</span>
+                <span class="hljs-keyword">while</span> (r &lt; arr.length &amp;&amp; arr[r] == <span class="hljs-string">&#x27; &#x27;</span>) r++;
+                <span class="hljs-keyword">if</span> (r &lt; arr.length) arr[l++] = <span class="hljs-string">&#x27; &#x27;</span>;
+            }
+            <span class="hljs-comment">// Remove trailing space if it exists</span>
+            <span class="hljs-keyword">return</span> (l &gt; <span class="hljs-number">0</span> &amp;&amp; arr[l - <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27; &#x27;</span>) ? l - <span class="hljs-number">1</span> : l;
+        }
+
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">reverseWord</span><span class="hljs-params">(<span class="hljs-type">char</span>[] arr)</span> {
+            <span class="hljs-type">int</span> <span class="hljs-variable">l</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, r = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">while</span>(r &lt; arr.length) {
+                <span class="hljs-comment">// Find start of the word</span>
+                <span class="hljs-keyword">while</span>(l &lt; arr.length &amp;&amp; arr[l] == <span class="hljs-string">&#x27; &#x27;</span>) l++;
+                <span class="hljs-keyword">if</span> (l &gt;= arr.length) <span class="hljs-keyword">break</span>;
+
+                <span class="hljs-comment">// Find end of the word</span>
+                r = l;
+                <span class="hljs-keyword">while</span> (r &lt; arr.length &amp;&amp; arr[r] != <span class="hljs-string">&#x27; &#x27;</span>) r++;
+
+                <span class="hljs-comment">// reverse word</span>
+                <span class="hljs-keyword">if</span>(l &lt; r) reverse(arr, l, r - <span class="hljs-number">1</span>);
+
+                <span class="hljs-comment">//move to next word</span>
+                l = r;
+            }
+        }
+
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">reverse</span><span class="hljs-params">(<span class="hljs-type">char</span>[] arr, <span class="hljs-type">int</span> start, <span class="hljs-type">int</span> end)</span> {
+            <span class="hljs-keyword">while</span>(start &lt; end) {
+                <span class="hljs-type">char</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> arr[start];
+                arr[start++] = arr[end];
+                arr[end--] = temp;
+            }
+        }
+</code></pre>
+<ul>
+<li>Time &amp; Space Complexity Analysis
+<ul>
+<li><strong>Time Complexity:</strong>
+<ul>
+<li><em><strong>Removing extra spaces:</strong></em> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li>
+<li><em><strong>Reversing the entire string:</strong></em> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li>
+<li><em><strong>Reversing each word:</strong></em> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li>
+<li><em><strong>Total:</strong></em> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li>
+</ul>
+</li>
+<li><strong>Space Complexity:</strong>
+<ul>
+<li>In-place modification, using only a few extra variables → <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="solution-2-using-stringbuilder-to-split-and-merge-words"><strong>Solution-2:</strong> <em>Using StringBuilder to split and merge words</em></h3>
+<pre><code class="language-java">      <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">reverseWords</span><span class="hljs-params">(String s)</span> {
+          <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();
+          <span class="hljs-type">int</span> <span class="hljs-variable">right</span> <span class="hljs-operator">=</span> s.length() - <span class="hljs-number">1</span>;
+
+          <span class="hljs-keyword">while</span> (right &gt;= <span class="hljs-number">0</span>) {
+              <span class="hljs-comment">// Skip trailing spaces</span>
+              <span class="hljs-keyword">while</span> (right &gt;= <span class="hljs-number">0</span> &amp;&amp; s.charAt(right) == <span class="hljs-string">&#x27; &#x27;</span>) right--;
+              <span class="hljs-keyword">if</span> (right &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">break</span>;
+
+              <span class="hljs-comment">// Find start of the word</span>
+              <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> right;
+              <span class="hljs-keyword">while</span> (left &gt;= <span class="hljs-number">0</span> &amp;&amp; s.charAt(left) != <span class="hljs-string">&#x27; &#x27;</span>) left--;
+
+              <span class="hljs-comment">// Append word</span>
+              sb.append(s, left + <span class="hljs-number">1</span>, right + <span class="hljs-number">1</span>).append(<span class="hljs-string">&#x27; &#x27;</span>);
+
+              <span class="hljs-comment">// Move right pointer</span>
+              right = left;
+          }
+
+          <span class="hljs-comment">// Remove last space</span>
+          <span class="hljs-keyword">return</span> sb.length() &gt; <span class="hljs-number">0</span> ? sb.substring(<span class="hljs-number">0</span>, sb.length() - <span class="hljs-number">1</span>) : <span class="hljs-string">&quot;&quot;</span>;
+      }
+</code></pre>
+<ul>
+<li><strong>Time &amp; Space Complexity Analysis</strong>
+<ul>
+<li><strong>Time Complexity:</strong>
+<ul>
+<li><em><strong>Traversing the string once from right to left:</strong></em> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li>
+<li><em><strong>Appending words to StringBuilder:</strong></em> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li>
+<li><em><strong>Total:</strong></em> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></li>
+</ul>
+</li>
+<li><strong>Space Complexity:</strong>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> for StringBuilder (used for output).</li>
+<li>Not <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>, since we store the result separately.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="comparison-with-in-place-approach">Comparison with In-Place Approach</h3>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Time Complexity</th>
+<th>Space	Complexity</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In-Place Reversal</td>
+<td>O(n)</td>
+<td>O(1)</td>
+<td>No extra space, efficient</td>
+<td>Complex implementation</td>
+</tr>
+<tr>
+<td>StringBuilder Approach</td>
+<td>O(n)</td>
+<td>O(n)</td>
+<td>Simple, easy to understand</td>
+<td>Uses extra space</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<!-- HTML styling -->
+<style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  heading {
+    color: blue;
+    font-size: 20px;
+  }
+</style>
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
