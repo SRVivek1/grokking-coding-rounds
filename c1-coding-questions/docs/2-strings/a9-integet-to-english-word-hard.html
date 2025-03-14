@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>LeetCode&colon; Integer to English</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="leetcode-integer-to-english">LeetCode: Integer to English</h1>
+<h2 id="problem-statements">Problem statements:</h2>
+<ul>
+<li><a href="https://leetcode.com/problems/integer-to-english-words/description/">Leetcode-273</a> [<em>Difficulty: Hard</em>]
+Convert a non-negative integer num to its English words representation.</li>
+</ul>
+<h3 id="examples">Examples:</h3>
+<ul>
+<li>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><em><strong>Input:</strong></em> num = 123</li>
+<li><em><strong>output:</strong></em> &quot;One Hundred Twenty Three&quot;</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Example 2:</strong></em></p>
+<ul>
+<li><em><strong>Input:</strong></em> num = 1,234</li>
+<li><em><strong>output:</strong></em> &quot;One Thousand Two Hundred Thirty Four&quot;</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Example 3:</strong></em></p>
+<ul>
+<li><em><strong>Input:</strong></em> num = 12,345</li>
+<li><em><strong>output:</strong></em> &quot;Twelve Thousand Three Hundred Forty Five&quot;</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Example 4:</strong></em></p>
+<ul>
+<li><em><strong>Input:</strong></em> num = 123,456</li>
+<li><em><strong>output:</strong></em> &quot;One Hundred Twenty Three Thousand Four Hundred Fifty Six&quot;</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Example 5:</strong></em></p>
+<ul>
+<li><em><strong>Input:</strong></em> num = 1,234,567</li>
+<li><em><strong>output:</strong></em> &quot;One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven&quot;</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Example 6:</strong></em></p>
+<ul>
+<li><em><strong>Input:</strong></em> num = 12,345,678</li>
+<li><em><strong>output:</strong></em> &quot;Twelve Million Three Hundred Forty Five Thousand Six Hundred Seventy Eight&quot;</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Example 7:</strong></em></p>
+<ul>
+<li><em><strong>Input:</strong></em> num = 123,456,789</li>
+<li><em><strong>output:</strong></em> &quot;One Hunddred Twenty Three Million Four hundred Fifty Six Thousand Seven hundred Eighty nine&quot;</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Example 7:</strong></em></p>
+<ul>
+<li><em><strong>Input:</strong></em> num = 5,123,456,789</li>
+<li><em><strong>output:</strong></em> &quot;Five Billion One Hunddred Twenty Three Million Four hundred Fifty Six Thousand Seven hundred Eighty nine&quot;</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong>
+A million is (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>10</mn><mn>6</mn></msup></mrow><annotation encoding="application/x-tex">10^6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">6</span></span></span></span></span></span></span></span></span></span></span>), that is 1,000,000 (Ten lakhs).
+A billion is (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>10</mn><mn>9</mn></msup></mrow><annotation encoding="application/x-tex">10^9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span></span></span></span>), that is 1,000,000,000 (100 crore).
+A trillion is (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>10</mn><mn>1</mn></msup><mn>2</mn></mrow><annotation encoding="application/x-tex">10^12</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span><span class="mord">2</span></span></span></span>), that is 1,000,000,000,000 (10 lakh crore).
+A Quadrillion is (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>10</mn><mn>1</mn></msup><mn>5</mn></mrow><annotation encoding="application/x-tex">10^15</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span><span class="mord">5</span></span></span></span>), that is 1,000,000,000,000,000 (100 lakh crore).</p>
+</blockquote>
+<h3 id="constraints">Constraints:</h3>
+<ul>
+<li>0 &lt;= num &lt;= 231 - 1</li>
+</ul>
+<h2 id="challenges-in-this-problem">Challenges in This Problem</h2>
+<ul>
+<li><strong>Handling Large Numbers:</strong>
+<ul>
+<li>Numbers can be very large (up to 2,147,483,647). We need to efficiently decompose and process large values.</li>
+</ul>
+</li>
+<li><strong>Handling Different Word Conventions:</strong>
+<ul>
+<li>Special cases like 11 to 19 (Eleven, Twelve, ..., Nineteen) follow a different naming convention.</li>
+<li>Tens place (20, 30, ..., 90) has unique words like &quot;Twenty&quot;, &quot;Thirty&quot;, etc.</li>
+<li>Hundreds, Thousands, Millions, Billions must be processed in groups of three digits.</li>
+</ul>
+</li>
+<li><strong>Edge Cases:</strong>
+<ul>
+<li>0 should return &quot;Zero&quot;.</li>
+<li>Numbers like 1000, 1000000 should not have extra spaces (&quot;One Thousand&quot; instead of &quot;One Thousand &quot;).</li>
+</ul>
+</li>
+</ul>
+<h2 id="solution-approach">Solution Approach:</h2>
+<ul>
+<li>
+<p><strong>1. Divide the Number into Chunks of 3 Digits:</strong></p>
+<ul>
+<li>We process the number three digits at a time, from right to left (units, thousands, millions, billions).</li>
+<li><strong>Example:</strong>
+<ul>
+<li>1,234,567,890 → 890 (units), 567 (thousands), 234 (millions), 1 (billions).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>2. Process Each Three-Digit Chunk</strong></p>
+<ul>
+<li><em><strong>Convert numbers under 1000 using:</strong></em>
+<ul>
+<li><em><strong>Single digits:</strong></em>
+<ul>
+<li>&quot;One&quot;, &quot;Two&quot;, ..., &quot;Nine&quot;</li>
+</ul>
+</li>
+<li><em><strong>Teens:</strong></em>
+<ul>
+<li>&quot;Eleven&quot;, &quot;Twelve&quot;, ..., &quot;Nineteen&quot;</li>
+</ul>
+</li>
+<li><strong>Tens:</strong>
+<ul>
+<li>&quot;Twenty&quot;, &quot;Thirty&quot;, ..., &quot;Ninety&quot;</li>
+</ul>
+</li>
+<li><em><strong>Hundreds:</strong></em>
+<ul>
+<li>&quot;One Hundred&quot;, &quot;Two Hundred&quot;, ..., &quot;Nine Hundred&quot;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Handle edge cases like &quot;Eleven&quot; (not &quot;Ten One&quot;) and &quot;Zero&quot; (not &quot;Zero Hundred&quot;).</li>
+</ul>
+</li>
+<li>
+<p><strong>3. Recursively Process Each Chunk with Correct Suffix</strong></p>
+<ul>
+<li>Append &quot;Thousand&quot;, &quot;Million&quot;, &quot;Billion&quot; based on the chunk position.</li>
+</ul>
+</li>
+</ul>
+<h2 id="solution">Solution:</h2>
+<h3 id="solution-1-optimized-cpu-time-and-memory">Solution-1: Optimized CPU time and Memory</h3>
+<pre><code class="language-java">      String[] belowTwenty = {<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;One&quot;</span>, <span class="hljs-string">&quot;Two&quot;</span>, <span class="hljs-string">&quot;Three&quot;</span>, <span class="hljs-string">&quot;Four&quot;</span>, <span class="hljs-string">&quot;Five&quot;</span>, <span class="hljs-string">&quot;Six&quot;</span>, <span class="hljs-string">&quot;Seven&quot;</span>, <span class="hljs-string">&quot;Eight&quot;</span>, <span class="hljs-string">&quot;Nine&quot;</span>, <span class="hljs-string">&quot;Ten&quot;</span>, <span class="hljs-string">&quot;Eleven&quot;</span>, <span class="hljs-string">&quot;Twelve&quot;</span>, <span class="hljs-string">&quot;Thirteen&quot;</span>, <span class="hljs-string">&quot;Fourteen&quot;</span>, <span class="hljs-string">&quot;Fifteen&quot;</span>, <span class="hljs-string">&quot;Sixteen&quot;</span>, <span class="hljs-string">&quot;Seventeen&quot;</span>, <span class="hljs-string">&quot;Eighteen&quot;</span>, <span class="hljs-string">&quot;Nineteen&quot;</span>};
+
+      String[] tens = {<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;Ten&quot;</span>, <span class="hljs-string">&quot;Twenty&quot;</span>, <span class="hljs-string">&quot;Thirty&quot;</span>, <span class="hljs-string">&quot;Forty&quot;</span>, <span class="hljs-string">&quot;Fifty&quot;</span>, <span class="hljs-string">&quot;Sixty&quot;</span>, <span class="hljs-string">&quot;Seventy&quot;</span>, <span class="hljs-string">&quot;Eighty&quot;</span>, <span class="hljs-string">&quot;Ninety&quot;</span>};
+
+      <span class="hljs-keyword">public</span> String <span class="hljs-title function_">numberToWords</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> {   
+          <span class="hljs-keyword">if</span>(num == <span class="hljs-number">0</span>) {
+              <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Zero&quot;</span>;
+          } <span class="hljs-keyword">else</span> {
+              <span class="hljs-keyword">return</span> helperX(num);
+          }
+      }
+
+      <span class="hljs-keyword">public</span> String <span class="hljs-title function_">helperX</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> {
+          <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();
+
+          <span class="hljs-keyword">if</span>(num &lt; <span class="hljs-number">20</span>) 
+              sb.append(belowTwenty[num]); 
+          <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(num &lt; <span class="hljs-number">100</span>)
+              sb.append(tens[num / <span class="hljs-number">10</span>]).append(<span class="hljs-string">&quot; &quot;</span>).append(helperX(num % <span class="hljs-number">10</span>));
+          <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(num &lt; <span class="hljs-number">1000</span>)  
+              sb.append(helperX(num / <span class="hljs-number">100</span>)).append(<span class="hljs-string">&quot; Hundred &quot;</span>).append(helperX(num % <span class="hljs-number">100</span>));
+          <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(num &lt; <span class="hljs-number">1000000</span>) 
+              sb.append(helperX(num / <span class="hljs-number">1000</span>)).append(<span class="hljs-string">&quot; Thousand &quot;</span>).append(helperX(num % <span class="hljs-number">1000</span>));
+          <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(num &lt; <span class="hljs-number">1000000000</span>) 
+              sb.append(helperX(num / <span class="hljs-number">1000000</span>)).append(<span class="hljs-string">&quot; Million &quot;</span>).append(helperX(num % <span class="hljs-number">1000000</span>));
+          <span class="hljs-keyword">else</span> 
+              sb.append(helperX(num / <span class="hljs-number">1000000000</span>)).append(<span class="hljs-string">&quot; Billion &quot;</span>).append(helperX(num % <span class="hljs-number">1000000000</span>));
+
+          <span class="hljs-keyword">return</span> sb.toString().trim();
+      }
+</code></pre>
+<h3 id="solution-2-requires-more-cpu-time-and-memory">Solution-2: Requires more CPU Time and Memory</h3>
+<pre><code class="language-java">    <span class="hljs-keyword">package</span> com.srvivek;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">IntegerToEnglishWord</span> {
+
+        String[] belowTwenty = {<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;One&quot;</span>, <span class="hljs-string">&quot;Two&quot;</span>, <span class="hljs-string">&quot;Three&quot;</span>, <span class="hljs-string">&quot;Four&quot;</span>, <span class="hljs-string">&quot;Five&quot;</span>, <span class="hljs-string">&quot;Six&quot;</span>, <span class="hljs-string">&quot;Seven&quot;</span>, <span class="hljs-string">&quot;Eight&quot;</span>, <span class="hljs-string">&quot;Nine&quot;</span>, <span class="hljs-string">&quot;Ten&quot;</span>,
+                <span class="hljs-string">&quot;Eleven&quot;</span>, <span class="hljs-string">&quot;Twelve&quot;</span>, <span class="hljs-string">&quot;Thirteen&quot;</span>, <span class="hljs-string">&quot;Fourteen&quot;</span>, <span class="hljs-string">&quot;Fifteen&quot;</span>, <span class="hljs-string">&quot;Sixteen&quot;</span>, <span class="hljs-string">&quot;Seventeen&quot;</span>, <span class="hljs-string">&quot;Eighteen&quot;</span>, <span class="hljs-string">&quot;Nineteen&quot;</span>};
+
+        String[] tens = {<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;Ten&quot;</span>, <span class="hljs-string">&quot;Twenty&quot;</span>, <span class="hljs-string">&quot;Thirty&quot;</span>, <span class="hljs-string">&quot;Forty&quot;</span>, <span class="hljs-string">&quot;Fifty&quot;</span>, <span class="hljs-string">&quot;Sixty&quot;</span>, <span class="hljs-string">&quot;Seventy&quot;</span>, <span class="hljs-string">&quot;Eighty&quot;</span>, <span class="hljs-string">&quot;Ninety&quot;</span>};
+
+        <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">HUNDRED</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Hundred&quot;</span>;
+
+        String[] thousands = {<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;Thousand&quot;</span>, <span class="hljs-string">&quot;Million&quot;</span>, <span class="hljs-string">&quot;Billion&quot;</span>, <span class="hljs-string">&quot;Trillion&quot;</span>};
+
+
+        <span class="hljs-keyword">public</span> String <span class="hljs-title function_">integerToEnglish</span><span class="hljs-params">(Integer value)</span> {
+
+            <span class="hljs-keyword">if</span> (value == <span class="hljs-literal">null</span> ) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;
+            <span class="hljs-keyword">if</span>(value == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;zero&quot;</span>;
+
+            <span class="hljs-type">int</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> value;
+            <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();
+            <span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">while</span>(value != <span class="hljs-number">0</span>) {
+                <span class="hljs-keyword">if</span>(value % <span class="hljs-number">1000</span> &gt; <span class="hljs-number">0</span>) {
+                    <span class="hljs-type">String</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> helper(value % <span class="hljs-number">1000</span>);
+                    <span class="hljs-keyword">if</span>(index == <span class="hljs-number">0</span>) {
+                        sb.insert(<span class="hljs-number">0</span>, t);
+                    } <span class="hljs-keyword">else</span> {
+                        sb.insert(<span class="hljs-number">0</span>, t + <span class="hljs-string">&quot; &quot;</span> + thousands[index] + (sb.isEmpty() ? <span class="hljs-string">&quot;&quot;</span> : <span class="hljs-string">&quot; &quot;</span>));
+                    }
+                }
+                value /= <span class="hljs-number">1000</span>;
+                ++index;
+            }
+
+            <span class="hljs-type">String</span> <span class="hljs-variable">word</span> <span class="hljs-operator">=</span> sb.toString();
+            System.out.printf(<span class="hljs-string">&quot;Input : %d %nOutput: %s%n&quot;</span>, x, word);
+            <span class="hljs-keyword">return</span> word;
+        }
+
+        <span class="hljs-comment">/**
+         * Process value in 3 digit chunks
+         */</span>
+        <span class="hljs-keyword">private</span> String <span class="hljs-title function_">helper</span><span class="hljs-params">(<span class="hljs-type">int</span> value)</span> {
+            <span class="hljs-keyword">if</span> (value == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;
+            <span class="hljs-keyword">if</span> (value &lt; <span class="hljs-number">20</span>) <span class="hljs-keyword">return</span> belowTwenty[value];
+            <span class="hljs-keyword">if</span>(value &lt; <span class="hljs-number">100</span>) <span class="hljs-keyword">return</span> tens[value/<span class="hljs-number">10</span>] + <span class="hljs-string">&quot; &quot;</span> + helper(value % <span class="hljs-number">10</span>);
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> belowTwenty[value / <span class="hljs-number">100</span>] + <span class="hljs-string">&quot; &quot;</span> + HUNDRED + <span class="hljs-string">&quot; &quot;</span> + helper(value % <span class="hljs-number">100</span>);
+        }
+    }
+</code></pre>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<!-- HTML styling -->
+<style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  heading {
+    color: blue;
+    font-size: 20px;
+  }
+</style>
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
