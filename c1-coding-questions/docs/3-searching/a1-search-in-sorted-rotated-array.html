@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>LeetCode&colon; Search in Sorted Rotate Array</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="leetcode-search-in-sorted-rotate-array">LeetCode: Search in Sorted Rotate Array</h1>
+<h2 id="problem-statements">Problem statements:</h2>
+<ul>
+<li><a href="https://leetcode.com/problems/search-in-rotated-sorted-array/description//">Leetcode-33</a> [<em>Difficulty: Medium</em>]
+<ul>
+<li>There is an integer array nums sorted in ascending order (with distinct values).</li>
+<li>Prior to being passed to your function, nums is possibly rotated at an unknown pivot index k (1 &lt;= k &lt; nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become [4,5,6,7,0,1,2].</li>
+<li>Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.</li>
+<li>You must write an algorithm with O(log n) runtime complexity.</li>
+</ul>
+</li>
+</ul>
+<h3 id="examples">Examples:</h3>
+<ul>
+<li>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><em><strong>Input:</strong></em> nums = [4,5,6,7,0,1,2], target = 0</li>
+<li><em><strong>output:</strong></em> 4</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Example 2:</strong></em></p>
+<ul>
+<li><em><strong>Input:</strong></em> nums = [4,5,6,7,0,1,2], target = 3</li>
+<li><em><strong>output:</strong></em> -1</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Example 3:</strong></em></p>
+<ul>
+<li><em><strong>Input:</strong></em> nums = [1], target = 0</li>
+<li><em><strong>output:</strong></em> -1</li>
+</ul>
+</li>
+</ul>
+<h3 id="constraints">Constraints:</h3>
+<ul>
+<li>1 &lt;= nums.length &lt;= 5000</li>
+<li>-104 &lt;= nums[i] &lt;= 104</li>
+<li>All values of nums are unique.</li>
+<li>nums is an ascending array that is possibly rotated.</li>
+<li>-104 &lt;= target &lt;= 104</li>
+</ul>
+<h2 id="edge-cases-to-consider">Edge cases to consider</h2>
+<ul>
+<li>Single element array → [1], target present and absent.</li>
+<li>Already sorted array (no rotation) → [1, 2, 3, 4, 5], target at start, middle, or end.</li>
+<li>Rotation at different points → [3,4,5,1,2], [5,1,2,3,4], etc.</li>
+<li>Target not in array → Must return -1.</li>
+<li>Target is pivot → Ensure correct index is returned.</li>
+<li>Even and odd length arrays → [3,4,5,1,2] (odd), [4,5,6,7,0,1,2,3] (even).</li>
+</ul>
+<h2 id="solution-approach-binary-search---olog-n-o1-space">Solution Approach: <em>(Binary Search - O(log n), O(1) space)</em></h2>
+<ul>
+<li>
+<p>Since we need <em><strong>O(log n)</strong></em> time, a <em><strong>binary search approach</strong></em> is ideal.</p>
+</li>
+<li>
+<p><em><strong>We can exploit the property of the rotated sorted array:</strong></em></p>
+<ul>
+<li><em>One half of the array (either left or right) is always sorted.</em></li>
+<li><em>If target lies in the sorted half, do a normal binary search.</em></li>
+<li><em>Otherwise, search in the unsorted half where rotation exists.</em></li>
+</ul>
+</li>
+<li>
+<p><em><strong>Steps:</strong></em></p>
+<ul>
+<li><strong>Initialize pointers:</strong>
+<ul>
+<li><em>left = 0, right = n - 1</em></li>
+</ul>
+</li>
+<li><strong>Binary Search Loop (while left &lt;= right):</strong>
+<ul>
+<li><strong>Calculate middle index:</strong>
+<ul>
+<li>mid = (left + right) / 2</li>
+<li>If nums[mid] == target, return mid (index) value.</li>
+</ul>
+</li>
+<li><strong>Identify the sorted half:</strong>
+<ul>
+<li>Left half is sorted, if:
+<ul>
+<li><em>If nums[left] ≤ nums[mid]</em> →</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>If target is in range [nums[left], nums[mid]], search in left (right = mid - 1)
+<ul>
+<li>Else, search right (left = mid + 1)</li>
+</ul>
+</li>
+<li><strong>Or else, Right half is sorted:</strong></li>
+<li>If target is in range [nums[mid], nums[right]], search in right (left = mid + 1)
+<ul>
+<li>Else, search left (right = mid - 1)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>If not found, return -1.</li>
+</ul>
+</li>
+</ul>
+<h2 id="solution">Solution:</h2>
+<h3 id="solution-modified-binary-search-algo">Solution: Modified Binary Search Algo.</h3>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">search</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target)</span> {  
+       <span class="hljs-type">int</span> <span class="hljs-variable">l</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, r = nums.length - 
+       <span class="hljs-keyword">while</span>(l &lt;= r) {
+           <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> l + (r -l) / <span class="hljs-number">2</span>;
+           <span class="hljs-keyword">if</span>(nums[mid] == target) <span class="hljs-keyword">return</span> m 
+           <span class="hljs-title function_">if</span><span class="hljs-params">(nums[l] &lt;= nums[mid])</span> {
+               <span class="hljs-keyword">if</span>(target &gt;= nums[l] &amp;&amp; target &lt; nums[mid]) {
+                   r = mid - <span class="hljs-number">1</span>;
+               } <span class="hljs-keyword">else</span> {
+                   l = mid + <span class="hljs-number">1</span>;
+               }
+           }  <span class="hljs-keyword">else</span> {
+               <span class="hljs-keyword">if</span>(target &gt; nums[mid] &amp;&amp; target &lt;= nums[r]){
+                   l = mid + <span class="hljs-number">1</span>;
+               } <span class="hljs-keyword">else</span> {
+                   r = mid - <span class="hljs-number">1</span>;
+               }
+           }
+       }
+       <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+    }
+</code></pre>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<!-- HTML styling -->
+<style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  heading {
+    color: blue;
+    font-size: 20px;
+  }
+</style>
+
+            
+            
+        </body>
+        </html>
