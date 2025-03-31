@@ -35,16 +35,19 @@
 
 
 ## Edge cases to consider
-  - Empty Array: If the input array is empty, we should handle this gracefully (e.g., throw an exception or return a special value).
-  - No Rotation: If the array is not rotated (i.e., it's still in ascending order), the minimum element is simply the first element.
-  - Single Element Array: If the array contains only one element, that element is the minimum.
-  - All elements are same: if all elements are same, then we can find the minimum by simply returning the first element.
+  - **Empty Array:** 
+    - If the input array is empty, we should handle this gracefully (e.g., throw an exception or return a special value).
+  - **No Rotation:** 
+    - If the array is not rotated (i.e., it's still in ascending order), the minimum element is simply the first element.
+  - **Single Element Array:**
+    - If the array contains only one element, that element is the minimum.
+  - **All elements are same:** 
+    - If all elements are same, then we can find the minimum by simply returning the first element.
   
 
 ## Solution Approach: *(Binary Search - O(log n), O(1) space)*
   - Since we need a time complexity of O(log n), we can use binary search. 
   - The key idea is to compare the middle element with the rightmost element.
-
 
   - ***Steps:***
     - **Initialization:**

@@ -64,6 +64,15 @@ public class FindMinInRotatedSortedArrayTest {
     }
 
     @Test
+    public void allSameNumbersTest() {
+        int[] ip = {5, 5, 5, 5, 5};
+        int expected = 5;
+        int res = object.findMinimum(ip);
+        Assertions.assertEquals(expected, res);
+    }
+
+
+    @Test
     public void largeArrayTest() {
         int[] ip = new int[1000000];
         for (int i = 0; i < 1000000; i++) {
