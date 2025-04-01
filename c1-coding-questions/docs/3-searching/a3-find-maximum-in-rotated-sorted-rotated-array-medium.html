@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>LeetCode&colon; Find Minimum in Rotated Sorted Array</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="leetcode-find-minimum-in-rotated-sorted-array">LeetCode: Find Minimum in Rotated Sorted Array</h1>
+<h2 id="problem-statements">Problem statements:</h2>
+<!-- - [Leetcode-N/A](https://leetcode.com/problems/find-maximum-in-rotated-sorted-array/description/) [*Difficulty: Medium*] -->
+<ul>
+<li>
+<p>Suppose an array of length n sorted in ascending order is rotated between 1 and n times.</p>
+</li>
+<li>
+<p>For example, the array nums = [0,1,2,4,5,6,7] might become:</p>
+<ul>
+<li>[4,5,6,7,0,1,2] if it was rotated 4 times.</li>
+<li>[0,1,2,4,5,6,7] if it was rotated 7 times.</li>
+</ul>
+</li>
+<li>
+<p>Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array [a[n-1], a[0], a[1], a[2], ..., a[n-2]].</p>
+</li>
+<li>
+<p>Given the sorted rotated array nums of unique elements, return the maximum element of this array.</p>
+</li>
+<li>
+<p>You must write an algorithm that runs in O(log n) time.</p>
+</li>
+</ul>
+<h3 id="examples">Examples:</h3>
+<ul>
+<li>
+<p><strong>Example 1:</strong></p>
+<ul>
+<li><em><strong>Input:</strong></em> nums = [3,4,5,1,2]</li>
+<li><em><strong>output:</strong></em> 5</li>
+<li><em><strong>Explanation:</strong></em> The original array was [1,2,3,4,5] rotated 3 times.</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Example 2:</strong></em></p>
+<ul>
+<li><em><strong>Input:</strong></em> nums = [4,5,6,7,0,1,2]</li>
+<li><em><strong>output:</strong></em> 7</li>
+</ul>
+</li>
+<li>
+<p><em><strong>Example 3:</strong></em></p>
+<ul>
+<li><em><strong>Input:</strong></em> nums = [11,13,15,17]</li>
+<li><em><strong>output:</strong></em> 17</li>
+</ul>
+</li>
+</ul>
+<h3 id="constraints">Constraints:</h3>
+<ul>
+<li>n == nums.length</li>
+<li>1 &lt;= n &lt;= 5000</li>
+<li>-5000 &lt;= nums[i] &lt;= 5000</li>
+<li>All the integers of nums are unique.</li>
+<li>nums is sorted and rotated between 1 and n times.</li>
+</ul>
+<h2 id="edge-cases-to-consider">Edge cases to consider</h2>
+<ul>
+<li><strong>Empty Array:</strong>
+<ul>
+<li>If the input array is empty, we should handle this gracefully (e.g., throw an exception or return a special value).</li>
+</ul>
+</li>
+<li><strong>No Rotation:</strong>
+<ul>
+<li>If the array is not rotated (i.e., it's still in ascending order), the minimum element is simply the first element.</li>
+</ul>
+</li>
+<li><strong>Single Element Array:</strong>
+<ul>
+<li>If the array contains only one element, that element is the minimum.</li>
+</ul>
+</li>
+<li><strong>All elements are same:</strong>
+<ul>
+<li>If all elements are same, then we can find the minimum by simply returning the first element.</li>
+</ul>
+</li>
+</ul>
+<h2 id="solution-approach-binary-search---olog-n-o1-space">Solution Approach: <em>(Binary Search - O(log n), O(1) space)</em></h2>
+<ul>
+<li>
+<p>Since we need a time complexity of O(log n), we will use binary search.</p>
+</li>
+<li>
+<p>The key idea is to compare the middle element with the rightmost element.</p>
+</li>
+<li>
+<p><em><strong>Steps:</strong></em></p>
+<ul>
+<li><strong>Initialization:</strong>
+<ul>
+<li>Set left to <strong>0</strong> and right to <em><strong>nums.length - 1</strong></em>.</li>
+</ul>
+</li>
+<li><strong>Binary Search:</strong>
+<ul>
+<li>While left &lt; right:</li>
+<li><strong>Calculate the middle index:</strong>
+<ul>
+<li>mid = left + (right - left) / 2.</li>
+</ul>
+</li>
+<li>Check the highest value near to mid:
+<ul>
+<li><em>mid &lt; r &amp;&amp; arr[mid] &gt; arr[mid + 1]</em>, then arr[mid] is the highest value.</li>
+<li><em>mid &gt; l &amp;&amp; arr[mid] &lt; arr[mid - 1]</em>, then arr[mid - 1] is the highest value.</li>
+</ul>
+</li>
+<li>if above condition not satisfied, divide the array and check for the value:
+<ul>
+<li><em>arr[mid] &lt; arr[l]</em> then highest value is in left part, <em>r = mid - 1</em></li>
+<li>Otherwise check in right part, <em>l = mid + 1</em>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Result:</strong>
+<ul>
+<li>When the loop terminates, left will be pointing to the maximum element.
+<ul>
+<li>Return <em><strong>nums[left]</strong></em>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="solution">Solution:</h2>
+<h3 id="solution-1-modified-binary-search-algo">Solution-1: Modified Binary Search Algo.</h3>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">findMax</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr)</span> {
+        <span class="hljs-keyword">if</span>(arr == <span class="hljs-literal">null</span> || arr.length == <span class="hljs-number">0</span>) 
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayIndexOutOfBoundsException</span>(<span class="hljs-string">&quot;Null / Empty array&quot;</span>);
+        <span class="hljs-keyword">if</span>(arr.length == <span class="hljs-number">1</span> || arr[<span class="hljs-number">0</span>] &lt;= arr[arr.length - <span class="hljs-number">1</span>]) <span class="hljs-keyword">return</span> arr[arr.length - <span class="hljs-number">1</span>];
+
+        <span class="hljs-type">int</span> <span class="hljs-variable">l</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, r = arr.length - <span class="hljs-number">1</span>;
+
+        <span class="hljs-keyword">while</span>(l &lt; r) {
+            <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> l + (r - l) / <span class="hljs-number">2</span>;
+
+            <span class="hljs-comment">// check the highest element near to mid</span>
+            <span class="hljs-keyword">if</span>(mid &lt; r &amp;&amp; arr[mid] &gt; arr[mid + <span class="hljs-number">1</span>]) <span class="hljs-keyword">return</span> arr[mid];
+            <span class="hljs-keyword">if</span>(mid &gt; l &amp;&amp; arr[mid] &lt; arr[mid - <span class="hljs-number">1</span>]) <span class="hljs-keyword">return</span> arr[mid - <span class="hljs-number">1</span>];
+
+            <span class="hljs-keyword">if</span>(arr[mid] &lt; arr[l]) r = mid - <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">else</span> l = mid + <span class="hljs-number">1</span>;
+        }
+        <span class="hljs-keyword">return</span> arr[l];
+    }
+</code></pre>
+<h3 id="solution-2-modified-binary-search-algo">Solution-2: Modified Binary Search Algo.</h3>
+<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">findMax</span><span class="hljs-params">(<span class="hljs-type">int</span>[] arr)</span> {
+        <span class="hljs-keyword">if</span> (arr == <span class="hljs-literal">null</span> || arr.length == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+        <span class="hljs-keyword">if</span> (arr.length == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> arr[<span class="hljs-number">0</span>];
+        <span class="hljs-keyword">if</span> (arr[<span class="hljs-number">0</span>] &lt; arr[arr.length - <span class="hljs-number">1</span>]) <span class="hljs-keyword">return</span> arr[arr.length - <span class="hljs-number">1</span>];
+
+        <span class="hljs-type">int</span> <span class="hljs-variable">l</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, r = arr.length - <span class="hljs-number">1</span>;
+
+        <span class="hljs-comment">/*
+        * Modified binary search to find the maximum element in the rotated
+        * sorted array.
+        */</span>
+        <span class="hljs-keyword">while</span> (l &lt; r) {
+            <span class="hljs-type">int</span> <span class="hljs-variable">m</span> <span class="hljs-operator">=</span> l + (r - l) / <span class="hljs-number">2</span>;
+
+            <span class="hljs-keyword">if</span> (arr[m] &gt; arr[r]) l = m + <span class="hljs-number">1</span>;
+            <span class="hljs-keyword">else</span> r = m;
+        }
+
+        <span class="hljs-keyword">return</span> arr[l - <span class="hljs-number">1</span>];
+    }
+</code></pre>
+<hr>
+<center>
+<h1> ------ End ------ </h1>
+</center>
+<!-- HTML styling -->
+<style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  heading {
+    color: blue;
+    font-size: 20px;
+  }
+</style>
+
+            
+            
+        </body>
+        </html>
