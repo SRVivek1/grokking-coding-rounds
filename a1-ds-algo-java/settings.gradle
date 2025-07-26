@@ -1,7 +1,0 @@
-rootProject.name = 'a1-ds-algo-java'
-include 'string-find-longest-prefix-in-array'
-include 'java8-streams'
-include 'string-reversal-interview-problems'
-include 'string-algo'
-include 'a1-ds-arrays'
-

@@ -2,7 +2,7 @@
         <html>
         <head>
             <meta charset="UTF-8">
-            <title>Integers&colon; Check palindrome</title>
+            <title>Integers&colon; Leetcode - Check palindrome number</title>
             <style>
 /* From extension vscode.github */
 /*---------------------------------------------------------------------------------------------
@@ -11,12 +11,15 @@
  *--------------------------------------------------------------------------------------------*/
 
 .vscode-dark img[src$=\#gh-light-mode-only],
-.vscode-light img[src$=\#gh-dark-mode-only] {
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
 	display: none;
 }
 
 </style>
-            
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
 <style>
@@ -136,7 +139,7 @@
         
         </head>
         <body class="vscode-body vscode-light">
-            <h1 id="integers-check-palindrome">Integers: Check palindrome</h1>
+            <h1 id="integers-leetcode---check-palindrome-number">Integers: Leetcode - Check palindrome number</h1>
 <h2 id="problem-statements">Problem statements:</h2>
 <ul>
 <li>
@@ -181,58 +184,253 @@
 </ul>
 </li>
 </ul>
+<h2 id="edge-cases--constraints">Edge Cases / Constraints</h2>
+<h3 id="lets-discuss-some-important-edge-cases">Let's discuss some important edge cases.</h3>
+<ul>
+<li>
+<p><strong>Negative Numbers:</strong></p>
+<ul>
+<li>As per the definition, negative numbers cannot be palindromes.</li>
+<li>For example, <em>-121</em> read backward is <em>121-</em>, which is not the same as <em>-121</em>.</li>
+<li>So, if <em><strong>x &lt; 0</strong></em>, return <strong>false</strong>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Single-Digit Numbers:</strong></p>
+<ul>
+<li>Numbers from 0 to 9 are all palindromes. 0 is a special case.</li>
+<li>So return <strong>true</strong>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Numbers ending in 0 (and not just 0 itself):</strong></p>
+<ul>
+<li>If a number x ends in 0 (e.g., 10, 120), for it to be a palindrome, its first digit must also be 0. The only integer with a leading 0 is 0 itself. Any other number ending in 0 (e.g., 10, 200) cannot be a palindrome because its reversed version would lose the trailing 0 (e.g., 01, 002), which is not the same as the original number.</li>
+<li>So, if x % 10 == 0 and x != 0, return <strong>false</strong>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Large Integers:</strong></p>
+<ul>
+<li>The problem doesn't explicitly state the range of x, but typically LeetCode problems deal with integers that fit within a 32-bit signed integer range (approx. −2 times <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>10</mn><mn>9</mn></msup></mrow><annotation encoding="application/x-tex">10^9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span></span></span></span> to 2 times <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>10</mn><mn>9</mn></msup></mrow><annotation encoding="application/x-tex">10^9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span></span></span></span>).</li>
+<li>Hence, we need to <em><strong>be careful about potential integer overflow</strong></em> if we try to reverse the entire number.</li>
+</ul>
+</li>
+</ul>
 <h2 id="soltuions">Soltuions:</h2>
-<h3 id="1-slice-num-while-adding-digits-to-reverse">1. Slice num while adding digits to reverse</h3>
+<h3 id="1-brute-force-approach-convert-to-string">1. Brute-Force Approach: Convert to String</h3>
 <ul>
-<li><strong>Approach:</strong>
-<ul>
-<li>Inital check:
-<ul>
-<li><strong>False:</strong> if <em>n &lt; 0</em></li>
-<li><strong>False:</strong> if <em>x != 0 &amp;&amp; x % 10 == 0</em></li>
-</ul>
+<li>
+<p><strong>Idea:</strong> The simplest way to check for a palindrome is to convert the integer to a string, then check if the string is a palindrome.</p>
 </li>
-<li>Add last digit to <em>rev</em> and slice it from <em>n</em>.
+<li>
+<p><strong>Algorithm:</strong></p>
 <ul>
-<li>Do it till <em>n</em> is greater than <em>rev</em>.</li>
-</ul>
-</li>
-<li>Check palindrome:
+<li>
+<p><strong>Handle edge cases:</strong></p>
 <ul>
-<li><strong>True:</strong> if <em>rev</em> is equal to <em>n</em>.</li>
-<li><strong>True:</strong> if <em>rev / 10</em> is equal to <em>n</em> (for inputs with odd digit count).</li>
-<li>Otherwise false.</li>
+<li>If x &lt; 0, <em><strong>return false</strong></em>.</li>
+<li>If x % 10 == 0 and x != 0, <em><strong>return false</strong></em>.
+<ul>
+<li>(Though for string conversion, this isn't strictly necessary, it's good practice for an interview to mention it as an optimization if the interviewer asks for it later).</li>
 </ul>
 </li>
 </ul>
 </li>
+<li>
+<p>Convert the integer <code>x</code> to a string <code>s</code>.</p>
+</li>
+<li>
+<p><strong>Initialize two pointers</strong>, left at the beginning of the string (index 0) and right at the end of the string (index s.length() - 1).</p>
+<ul>
+<li>While <code>left &lt; right</code>:
+<ul>
+<li><strong>Step-1:</strong> If <code>s[left]</code> is not equal to <code>s[right]</code>, <em><strong>return false</strong></em>.</li>
+<li><strong>Step-2:</strong> Increment left and decrement right.</li>
 </ul>
-<pre><code class="language-java">      <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isPalindrome</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> {
-
-          <span class="hljs-comment">// if x &lt; 0</span>
-          <span class="hljs-keyword">if</span>(x &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-          <span class="hljs-keyword">if</span>(x != <span class="hljs-number">0</span> &amp;&amp; x % <span class="hljs-number">10</span> == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-
-          <span class="hljs-type">int</span> <span class="hljs-variable">reverse</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
-          <span class="hljs-comment">// Loop till rev is smaller than num</span>
-          <span class="hljs-keyword">while</span>(x &gt; reverse) {
-              <span class="hljs-type">int</span> <span class="hljs-variable">ld</span> <span class="hljs-operator">=</span> x % <span class="hljs-number">10</span>;
-              reverse = (reverse * <span class="hljs-number">10</span>) + ld;
-              x = x / <span class="hljs-number">10</span>;
-          }
-          
-          
-          <span class="hljs-keyword">if</span>(reverse == x) {
-            <span class="hljs-comment">// When n has odd numers of digits</span>
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-          } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(x == (reverse / <span class="hljs-number">10</span>)) {
-            <span class="hljs-comment">// When n has odd numers of digits</span>
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-          } <span class="hljs-keyword">else</span> {
+</li>
+<li>If the loop completes, it means all characters matched, so <em><strong>return true</strong></em>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Time Complexity:</strong></p>
+<ul>
+<li><strong>Converting integer to string:</strong>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mn>10</mn><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log10(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord">10</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span> because the number of digits is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mn>10</mn><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">log10(x)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord">10</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span>.</li>
+</ul>
+</li>
+<li><strong>Comparing string characters:</strong>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mn>10</mn><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log10(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord">10</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span> as we iterate through half the digits.</li>
+</ul>
+</li>
+<li><strong>Overall:</strong>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mn>10</mn><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log10(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord">10</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Space Complexity:</strong></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mn>10</mn><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log10(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord">10</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span> to store the string representation of the integer.</li>
+</ul>
+</li>
+<li>
+<p><strong>Java Implementaion:</strong></p>
+<pre><code class="language-java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isPalindrome</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> {
+      <span class="hljs-comment">// Edge cases</span>
+      <span class="hljs-keyword">if</span> (x &lt; <span class="hljs-number">0</span>) {
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+      }
+      <span class="hljs-comment">// Numbers ending in 0 (except 0 itself) cannot be palindromes</span>
+      <span class="hljs-keyword">if</span> (x % <span class="hljs-number">10</span> == <span class="hljs-number">0</span> &amp;&amp; x != <span class="hljs-number">0</span>) {
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    
+      <span class="hljs-comment">// Create string from integer</span>
+      <span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> String.valueOf(x
+      <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+      <span class="hljs-type">int</span> <span class="hljs-variable">right</span> <span class="hljs-operator">=</span> s.length() - 
+      <span class="hljs-comment">// Compare all characters from both ends.</span>
+      <span class="hljs-keyword">while</span> (left &lt; right) {
+          <span class="hljs-keyword">if</span> (s.charAt(left) != s.charAt(right)) {
               <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
           }
+          left++;
+          right--;
       }
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  }
+}
 </code></pre>
+</li>
+</ul>
+<h3 id="2-optimized-approach-revert-half-the-number">2. Optimized Approach: Revert Half the Number</h3>
+<ul>
+<li>
+<p><strong>Idea:</strong> Instead of converting to a string or reversing the entire number (which could lead to overflow), we can reverse only the second half of the number and then compare it with the first half.</p>
+</li>
+<li>
+<p><strong>Algorithm:</strong></p>
+<ul>
+<li>
+<p><strong>Handle Edge Cases:</strong></p>
+<ul>
+<li>If <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&lt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x &lt; 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>, <em><strong>return false</strong></em>.</li>
+<li>If <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x % 10 == 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo stretchy="false">!</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">x != 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">x</span><span class="mclose">!</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>, <em><strong>return false</strong></em>.
+<ul>
+<li>(This is crucial here to prevent issues with numbers like 10, 100, etc., where reversing half would give 01, 001 which isn't comparable to the first half 1, 1).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Initialize revertedNumber:</strong></p>
+<ul>
+<li>Set <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>e</mi><mi>v</mi><mi>e</mi><mi>r</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>N</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">revertedNumber = 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">re</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal">u</span><span class="mord mathnormal">mb</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>. This will store the reversed second half.</li>
+</ul>
+</li>
+<li>
+<p><strong>Iterate and build revertedNumber:</strong></p>
+<ul>
+<li>Use a while loop that continues as long as <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>&gt;</mo><mi>r</mi><mi>e</mi><mi>v</mi><mi>e</mi><mi>r</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>N</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">x &gt; revertedNumber</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">re</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal">u</span><span class="mord mathnormal">mb</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span></span></span></span>.</li>
+</ul>
+</li>
+<li>
+<p><strong>In each iteration:</strong></p>
+<ul>
+<li><strong>Get the last digit of x:</strong>
+<ul>
+<li>digit = x % 10.</li>
+</ul>
+</li>
+<li><strong>Append this digit to revertedNumber:</strong>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>e</mi><mi>v</mi><mi>e</mi><mi>r</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>N</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mo>=</mo><mi>r</mi><mi>e</mi><mi>v</mi><mi>e</mi><mi>r</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>N</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mo>∗</mo><mn>10</mn><mo>+</mo><mi>d</mi><mi>i</mi><mi>g</mi><mi>i</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">revertedNumber = revertedNumber * 10 + digit</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">re</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal">u</span><span class="mord mathnormal">mb</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">re</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal">u</span><span class="mord mathnormal">mb</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">10</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">i</span><span class="mord mathnormal">t</span></span></span></span>.</li>
+</ul>
+</li>
+<li><strong>Remove the last digit from x:</strong>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mi>x</mi><mi mathvariant="normal">/</mi><mn>10</mn><mo stretchy="false">(</mo><mi>i</mi><mi>n</mi><mi>t</mi><mi>e</mi><mi>g</mi><mi>e</mi><mi>r</mi><mi>d</mi><mi>i</mi><mi>v</mi><mi>i</mi><mi>s</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">x = x / 10 (integer division)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">x</span><span class="mord">/10</span><span class="mopen">(</span><span class="mord mathnormal">in</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord mathnormal">d</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">i</span><span class="mord mathnormal">s</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Comparison:</strong></p>
+<ul>
+<li>When the loop terminates, we have two scenarios:
+<ul>
+<li><strong>Even number of digits:</strong>
+<ul>
+<li>If the original number had an even number of digits (e.g., 1221), x will be equal to revertedNumber (e.g., x becomes 12, revertedNumber becomes 12).</li>
+<li>In this case, x == revertedNumber will be true.</li>
+</ul>
+</li>
+<li><strong>Odd number of digits:</strong>
+<ul>
+<li>If the original number had an odd number of digits (e.g., 121), x will be the middle digit, and revertedNumber will contain the right half (e.g., x becomes 1, revertedNumber becomes 12).</li>
+<li>To compensate for the middle digit, we need to compare x with revertedNumber / 10.</li>
+<li>For example, 1 == 12 / 10 (which is 1).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Final Comparision:</strong>
+<ul>
+<li>Therefore, the final comparison is return the result of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mo>=</mo><mi>r</mi><mi>e</mi><mi>v</mi><mi>e</mi><mi>r</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>N</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi></mrow><annotation encoding="application/x-tex">x == revertedNumber</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">==</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">re</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal">u</span><span class="mord mathnormal">mb</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span></span></span></span> OR <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mo>=</mo><mi>r</mi><mi>e</mi><mi>v</mi><mi>e</mi><mi>r</mi><mi>t</mi><mi>e</mi><mi>d</mi><mi>N</mi><mi>u</mi><mi>m</mi><mi>b</mi><mi>e</mi><mi>r</mi><mi mathvariant="normal">/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">x == revertedNumber / 10</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">==</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">re</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal">u</span><span class="mord mathnormal">mb</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord">/10</span></span></span></span>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Time Complexity:</strong></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><mi>g</mi><mn>10</mn><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log10(x))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord">10</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">))</span></span></span></span> as we essentially process half the digits of the number.</li>
+</ul>
+</li>
+<li>
+<p><strong>Space Complexity:</strong></p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span> as we only use a few variables.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Java implementation:</strong></p>
+<pre><code class="language-java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isPalindrome</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> {
+      <span class="hljs-comment">// Edge cases</span>
+      <span class="hljs-comment">// Negative numbers are not palindromes</span>
+      <span class="hljs-comment">// Numbers ending in 0 (except 0 itself) cannot be palindromes</span>
+      <span class="hljs-keyword">if</span> (x &lt; <span class="hljs-number">0</span> || (x % <span class="hljs-number">10</span> == <span class="hljs-number">0</span> &amp;&amp; x != <span class="hljs-number">0</span>)) {
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    
+      <span class="hljs-type">int</span> <span class="hljs-variable">revertedNumber</span> <span class="hljs-operator">=</span> 
+      <span class="hljs-comment">// Loop until we have reversed half of the digits</span>
+      <span class="hljs-comment">// For an odd number of digits, x will be the middle digit</span>
+      <span class="hljs-comment">// For an even number of digits, x will become equal to revertedNumber</span>
+      <span class="hljs-keyword">while</span> (x &gt; revertedNumber) {
+          <span class="hljs-type">int</span> <span class="hljs-variable">digit</span> <span class="hljs-operator">=</span> x % <span class="hljs-number">10</span>;
+          revertedNumber = revertedNumber * <span class="hljs-number">10</span> + digit;
+          x /= <span class="hljs-number">10</span>; <span class="hljs-comment">// Integer division</span>
+    
+      <span class="hljs-comment">// When the number has an odd number of digits,</span>
+      <span class="hljs-comment">// we can get rid of the middle digit by revertedNumber / 10</span>
+      <span class="hljs-comment">// For example, if x = 121, at the end of loop, x = 1, revertedNumber = 12</span>
+      <span class="hljs-comment">// Then, compare x (1) with revertedNumber / 10 (12 / 10 = 1)</span>
+      <span class="hljs-type">return</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span>= revertedNumber || x == revertedNumber / <span class="hljs-number">10</span>;
+  }
+}
+</code></pre>
+</li>
+</ul>
 <hr>
 <center>
 <h1> ------ End ------ </h1>
@@ -248,7 +446,7 @@ heading {
   font-size: 20px;
   }
 </style>
-            
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
             
         </body>
         </html>
