@@ -2,32 +2,33 @@ package com.srvivek.dsalgo.app.palindrome;
 
 public class LongestPalindromicSubstring {
 
-    String lps = "";
+  String lps = "";
 
-    public int longestPalindromeLength(String s) {
-        return longestPlaindrome(s).length();
-    }
-    public String longestPlaindrome(String s) {
+  public int longestPalindromeLength(String s) {
+    return longestPlaindrome(s).length();
+  }
 
-        if(s == null || s.length() <= 1) return s;
+  public String longestPlaindrome(String s) {
 
-        for(int i = 0; i < s.length(); i++) {
-            expandAroundCenter(s, i, i);
-            expandAroundCenter(s, i, i + 1);
-        }
+    if (s == null || s.length() <= 1) return s;
 
-        return lps;
+    for (int i = 0; i < s.length(); i++) {
+      expandAroundCenter(s, i, i);
+      expandAroundCenter(s, i, i + 1);
     }
 
-    public void expandAroundCenter(String s, int l, int r) {
-        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
-            l--;
-            r++;
-        }
-        l++;
-        r--;
-        if(r - l + 1 > lps.length()) {
-            lps = s.substring(l, r + 1);
-        }
+    return lps;
+  }
+
+  public void expandAroundCenter(String s, int l, int r) {
+    while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
+      l--;
+      r++;
     }
+    l++;
+    r--;
+    if (r - l + 1 > lps.length()) {
+      lps = s.substring(l, r + 1);
+    }
+  }
 }

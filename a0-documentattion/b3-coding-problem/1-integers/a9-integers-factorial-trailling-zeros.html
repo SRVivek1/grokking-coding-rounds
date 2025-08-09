@@ -11,7 +11,9 @@
  *--------------------------------------------------------------------------------------------*/
 
 .vscode-dark img[src$=\#gh-light-mode-only],
-.vscode-light img[src$=\#gh-dark-mode-only] {
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
 	display: none;
 }
 
@@ -140,8 +142,7 @@
             <h1 id="leetcode-factorail-trailling-zeros">LeetCode: Factorail Trailling zeros</h1>
 <h2 id="problem-statements">Problem statements:</h2>
 <ul>
-<li>
-<p><a href="https://leetcode.com/problems/factorial-trailing-zeroes/description/">Leetcode-172</a> [<em>Difficulty: Medium</em>]</p>
+<li><a href="https://leetcode.com/problems/factorial-trailing-zeroes/description/">Leetcode-172</a> [<em>Difficulty: Medium</em>]
 <ul>
 <li>
 <p>Given an integer n, return the number of trailing zeroes in n!.</p>
@@ -175,178 +176,360 @@
 <li>
 <p><strong>Constraints:</strong></p>
 <ul>
-<li><em>0 &lt;= n &lt;= 104</em></li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>&lt;</mo><mo>=</mo><mi>n</mi><mo>&lt;</mo><mo>=</mo><msup><mn>10</mn><mn>4</mn></msup></mrow><annotation encoding="application/x-tex">0 &lt;= n &lt;= 10^4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6835em;vertical-align:-0.0391em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span></span></span></span></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>
-<p><strong>Follow up:</strong> Could you write a solution that works in logarithmic time complexity?</p>
-</li>
 </ul>
-<h2 id="solution">Solution:</h2>
+<h2 id="follow-up-questions">Follow up Questions:</h2>
 <ul>
-<li>
-<p><strong>Problem Explanation:</strong></p>
+<li>Could you write a solution that works in logarithmic time complexity ?</li>
+</ul>
+<h2 id="problem-analysis">Problem Analysis:</h2>
 <ul>
-<li>The problem requires us to find the number of trailing zeros in the factorial of a given integer n. - Trailing zeros in a factorial are produced by the factors of 10, which are the result of multiplying 2 and 5.
+<li>The problem asks us to find the number of trailing zeroes in given number <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>.
 <ul>
-<li>Since there are always more 2s than 5s in the prime factorization of a factorial, the number of trailing zeros is determined by the number of times 5 is a factor in the numbers from 1 to n.</li>
+<li>A trailing zero is formed by a factor of 10.</li>
+<li>Since <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mo>=</mo><mn>2</mn><mo>∗</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">10 = 2 * 5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">10</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span></span></span></span>, we need to count the number of pairs of 2 and 5 in the prime factorization of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>.</li>
+</ul>
+</li>
+<li>For any integer <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span>, the number of factors of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span> will always be greater than or equal to the number of factors of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn></mrow><annotation encoding="application/x-tex">5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span></span></span></span>.
+<ul>
+<li>This is because multiples of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">2</span></span></span></span> appear more frequently than multiples of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn></mrow><annotation encoding="application/x-tex">5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span></span></span></span> (e.g., 2, 4, 6, 8... vs. 5, 10, 15...).</li>
+<li>Therefore, the number of trailing zeroes is limited by the number of factors of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn></mrow><annotation encoding="application/x-tex">5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span></span></span></span>.</li>
+<li>Hence, our task simplifies to counting the total number of factors of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn></mrow><annotation encoding="application/x-tex">5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span></span></span></span> in the prime factorization of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>.</li>
+</ul>
+</li>
+<li>We can calculate this by summing up the number of times 5, 25, 125, etc., are factors in the numbers from 1 to n.
+<ul>
+<li>Numbers that are multiples of <strong>5, <em>contribute one factor of 5</em></strong> (5, 10, 15, 20...).</li>
+<li>Numbers that are multiples of <strong>25, <em>contribute an additional factor of 5</em></strong> (25, 50, 75...).</li>
+<li>Numbers that are multiples of <strong>125, <em>contribute yet another factor of 5</em></strong> (125, 250...).</li>
+</ul>
+</li>
+<li>This pattern suggests an efficient way to count these factors.</li>
+</ul>
+<h2 id="ease-cases-to-consider">Ease cases to consider:</h2>
+<ul>
+<li><strong>Smaller n, <em><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&lt;</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">n &lt; 5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span></span></span></span></em>:</strong>
+<ul>
+<li>For <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo separator="true">,</mo><mn>4</mn></mrow><annotation encoding="application/x-tex">n = 0, 1, 2, 3, 4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">4</span></span></span></span> n will not have a factor of 5, so the number of trailing zeroes is always 0.</li>
+</ul>
+</li>
+<li><strong>Large n:</strong>
+<ul>
+<li>The value of n can become extremely large and exceed the limits of standard integer data types.</li>
+<li>We shouldn't actually calculate n and then count the zeroes.</li>
+<li>The problem is designed to be solved without computing the factorial itself.</li>
 </ul>
 </li>
 </ul>
+<h2 id="this-tabe-represents-the-transition-of-triling-zeros-">This tabe represents the transition of triling zeros .</h2>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th>Zeros in n!</th>
+<th>n</th>
+<th>Zeros in n!</th>
+<th>n</th>
+<th>Zeros in n!</th>
+<th>n</th>
+<th>Zeros in n!</th>
+<th>n</th>
+<th>Zeros in n!</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>11</td>
+<td>2</td>
+<td>21</td>
+<td>4</td>
+<td>31</td>
+<td>7</td>
+<td>41</td>
+<td>9</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>12</td>
+<td>2</td>
+<td>22</td>
+<td>4</td>
+<td>32</td>
+<td>7</td>
+<td>42</td>
+<td>9</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0</td>
+<td>13</td>
+<td>2</td>
+<td>23</td>
+<td>4</td>
+<td>33</td>
+<td>7</td>
+<td>43</td>
+<td>9</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0</td>
+<td>14</td>
+<td>2</td>
+<td>24</td>
+<td>4</td>
+<td>34</td>
+<td>7</td>
+<td>44</td>
+<td>9</td>
+</tr>
+<tr>
+<td>5</td>
+<td>1</td>
+<td>15</td>
+<td>3</td>
+<td>25</td>
+<td>6</td>
+<td>35</td>
+<td>8</td>
+<td>45</td>
+<td>10</td>
+</tr>
+<tr>
+<td>6</td>
+<td>1</td>
+<td>16</td>
+<td>3</td>
+<td>26</td>
+<td>6</td>
+<td>36</td>
+<td>8</td>
+<td>46</td>
+<td>10</td>
+</tr>
+<tr>
+<td>7</td>
+<td>1</td>
+<td>17</td>
+<td>3</td>
+<td>27</td>
+<td>6</td>
+<td>37</td>
+<td>8</td>
+<td>47</td>
+<td>10</td>
+</tr>
+<tr>
+<td>8</td>
+<td>1</td>
+<td>18</td>
+<td>3</td>
+<td>28</td>
+<td>6</td>
+<td>38</td>
+<td>8</td>
+<td>48</td>
+<td>10</td>
+</tr>
+<tr>
+<td>9</td>
+<td>1</td>
+<td>19</td>
+<td>3</td>
+<td>29</td>
+<td>6</td>
+<td>39</td>
+<td>8</td>
+<td>49</td>
+<td>10</td>
+</tr>
+<tr>
+<td>10</td>
+<td>2</td>
+<td>20</td>
+<td>4</td>
+<td>30</td>
+<td>7</td>
+<td>40</td>
+<td>9</td>
+<td>50</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<h2 id="solution-approach">Solution Approach:</h2>
+<h3 id="brute-force-approach-and-why-it-fails">Brute-Force Approach (and why it fails):</h3>
+<ul>
+<li>A &quot;brute-force&quot; approach would be to calculate factorial of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> and then count the trailing zeroes by repeatedly taking the modulo 10 and dividing by 10 until the remainder (right most digit in number) is not <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>.
+<br/></li>
+<li><strong>Algorithm:</strong>
+<ul>
+<li>Calculate n.</li>
+<li>Initialize a counter for zeroes to 0.</li>
+<li>While n</li>
+<li>p mod 10 == 0:
+<ul>
+<li>a. n = n / 10</li>
+<li>b. Increment the counter.</li>
+</ul>
 </li>
-<li>
-<p><strong>Key Insight:</strong></p>
+<li>Return the counter.
+<br/></li>
+</ul>
+</li>
+<li><strong>Why it fails:</strong>
 <ul>
-<li>To count the number of trailing zeros in n!, we need to count the number of times 5 is a factor in all numbers from 1 to n.
-<ul>
-<li>This can be done by dividing n by 5, then by 25, then by 125, and so on, until the division result is less than 1.</li>
-<li>The sum of these divisions gives the total number of trailing zeros.</li>
+<li>As mentioned, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> for even a moderately large n (like n=20) will overflow a 64-bit integer.</li>
+<li>Hence, this approach is not feasible.</li>
 </ul>
 </li>
 </ul>
-</li>
-<li>
-<p><strong>Algorithm:</strong></p>
+<br/>
 <ul>
-<li><em><strong>Step-1:</strong></em> Initialize a variable count to 0.</li>
-<li><em><strong>Step-2:</strong></em> Divide n by 5 and add the result to count.
-<ul>
-<li>Repeat the process with n divided by 25, 125, etc., until the division result is less than 1.</li>
-</ul>
-</li>
-<li><em><strong>Step-3:</strong></em> Return count as the number of trailing zeros.</li>
-</ul>
-</li>
-<li>
-<p><strong>Time/Space Complexity:</strong></p>
-<ul>
-<li>The time complexity of this algorithm is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>5</mn></msub><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log₅ n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>, as we are dividing n by powers of 5 in each step.</li>
-<li>The space complexity is O(1), as we are using a constant amount of extra space.</li>
-</ul>
-</li>
-<li>
-<p><strong>Solution-1: Logrithmic approach</strong></p>
-<ul>
-<li>
-<p><em><strong>Dividing the input by 5.</strong></em></p>
-<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">trailingZeroes</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> {
-        <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">while</span>( n &gt; <span class="hljs-number">0</span>) {
-            n = n / <span class="hljs-number">5</span>;
-            count += n;
-        }
-        <span class="hljs-keyword">return</span> count;
-    }
-</code></pre>
-</li>
-<li>
-<p><em><strong>Increasing a divisor with power of 5.</strong></em></p>
-<pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">trailingZeroes</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> {
-        <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
-        <span class="hljs-type">int</span> <span class="hljs-variable">pof</span> <span class="hljs-operator">=</span> <span class="hljs-number">5</span>;
-        <span class="hljs-keyword">while</span>(n &gt;= pof) {
-            count += n / pof;
-            pof *= <span class="hljs-number">5</span>;
-        }
-        <span class="hljs-keyword">return</span> count;
-    }
-</code></pre>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>Solution-1: Bruteforce approach</strong></p>
-<ul>
-<li>
-<p><strong>Approach:</strong></p>
-<ul>
-<li>Calculate the factorial of given number.</li>
-<li>initialize a counter variable with <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>.</li>
-<li>Extract the digits of number from Last Signifincat Bit(LSB) to MSB.
-<ul>
-<li>Loop till the number becomes non-zero.</li>
-</ul>
-</li>
-<li>Return the counter.</li>
-</ul>
-</li>
-<li>
-<p><strong>Time Complexity:</strong></p>
+<li><strong>Time Complexity:</strong>
 <ul>
 <li>The time complexity of computing the factorial is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>, as we multiply numbers from 1 to n.</li>
 <li>Counting the trailing zeros is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>10</mn></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">!</mo><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log₁₀(n!))</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">10</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">!))</span></span></span></span>, as we divide the factorial by 10 repeatedly.</li>
 </ul>
 </li>
-<li>
-<p><strong>Space Complexity:</strong></p>
+</ul>
+<br/>
+<ul>
+<li><strong>Space Complexity:</strong>
 <ul>
 <li>The space complexity is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span> for counting trailing zeros.</li>
 </ul>
 </li>
-<li>
-<p><strong>Limitations:</strong></p>
+</ul>
+<br/>
+<ul>
+<li><strong>Limitations:</strong>
 <ul>
 <li>
-<p><strong>Integer Overflow:</strong></p>
+<p>Integer Overflow:</p>
 <ul>
 <li>The factorial of even small numbers like 20 is a very large number (2,432,902,008,176,640,000), which cannot be stored in a long variable. This leads to overflow.</li>
 </ul>
 </li>
 <li>
-<p><strong>Inefficiency:</strong></p>
+<p>Inefficiency:</p>
 <ul>
 <li>For large values of n, computing the factorial is computationally expensive and impractical.</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>
-<p><strong>Note:</strong></p>
+</ul>
+<br/>
+<ul>
+<li><strong>Note:</strong>
 <ul>
 <li>Computing the factorial requires storing a very large number, which can lead to integer overflow for large n.</li>
 <li>Overall, the brute force approach is inefficient for large values of n due to the factorial computation.</li>
 </ul>
 </li>
-<li>
-<p><strong>Implementation:</strong></p>
-<pre><code class="language-java">      <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TrailingZerosInFactorialBruteForce</span> {
-          <span class="hljs-comment">// Function to compute the factorial of a number</span>
-          <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">long</span> <span class="hljs-title function_">computeFactorial</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> {
-              <span class="hljs-type">long</span> <span class="hljs-variable">factorial</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;
-              <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span>; i &lt;= n; i++) {
-                  factorial *= i;
-              }
-              <span class="hljs-keyword">return</span> factorial;
-          }
-
-          <span class="hljs-comment">// Function to count trailing zeros in the factorial</span>
-          <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">countTrailingZeros</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> {
-              <span class="hljs-comment">// Compute the factorial of n</span>
-              <span class="hljs-type">long</span> <span class="hljs-variable">factorial</span> <span class="hljs-operator">=</span> computeFactorial(n);
-              
-              <span class="hljs-comment">// Count the number of trailing zeros</span>
-              <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
-              <span class="hljs-keyword">while</span> (factorial &gt; <span class="hljs-number">0</span>) {
-                  <span class="hljs-keyword">if</span> (factorial % <span class="hljs-number">10</span> == <span class="hljs-number">0</span>) {
-                      count++;
-                      factorial /= <span class="hljs-number">10</span>;
-                  } <span class="hljs-keyword">else</span> {
-                      <span class="hljs-keyword">break</span>;
-                  }
-              }
-              <span class="hljs-keyword">return</span> count;
-          }
-      }
+</ul>
+<br/>
+<h3 id="optimal-soluion">Optimal Soluion</h3>
+<ul>
+<li>The optimized approach is based on the insight that the number of trailing zeroes is determined by the number of factors of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn></mrow><annotation encoding="application/x-tex">5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span></span></span></span> in the prime factorization of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>.</li>
+</ul>
+<br/>  
+<ul>
+<li><strong>Algorithm:</strong>
+<ul>
+<li>Initialize a variable <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">count = 0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">co</span><span class="mord mathnormal">u</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>.</li>
+<li>Start with a <em><strong>divisor</strong></em> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">i = 5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span></span></span></span>.</li>
+<li>Loop <em><strong>while</strong></em> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>&lt;</mo><mo>=</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">i &lt;= n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6986em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>.
+<ul>
+<li>In each iteration, add <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi mathvariant="normal">/</mi><mi>i</mi></mrow><annotation encoding="application/x-tex">n / i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mord">/</span><span class="mord mathnormal">i</span></span></span></span> to count.
+<ul>
+<li>This integer division effectively counts the multiples of <em><strong>i up to n</strong></em>.</li>
+</ul>
+</li>
+<li>Update <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi></mrow><annotation encoding="application/x-tex">i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span></span></span></span> to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∗</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">i * 5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span></span></span></span> for the next iteration (e.g., from 5 to 25, then 25 to 125).
+<ul>
+<li>Or alterntively we can divide th <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> as <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">n = n / 5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mord">/5</span></span></span></span>, both will have same impact.</li>
+</ul>
+</li>
+<li><em><strong>Repeat</strong></em> until <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>&gt;</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">i &gt; n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6986em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>.</li>
+</ul>
+</li>
+<li><em><strong>Return</strong></em> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mi>o</mi><mi>u</mi><mi>n</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">count</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">co</span><span class="mord mathnormal">u</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span></span></span></span>.</li>
+</ul>
+</li>
+</ul>
+<br/>
+<ul>
+<li><strong>Time/Space Complexity:</strong>
+<ul>
+<li>The time complexity of this algorithm is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>5</mn></msub><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(log₅ n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">5</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>, as we are dividing n by powers of 5 in each step.</li>
+<li>The space complexity is O(1), as we are using a constant amount of extra space.</li>
+</ul>
+</li>
+</ul>
+<br/>
+<ul>
+<li>This algorithm works because,
+<ul>
+<li>In the first step of the loop, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">n = n/5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mord">/5</span></span></span></span> (integer division) counts all numbers that are multiples of 5.</li>
+<li>The next step, after dividing <em><strong>n by 5</strong></em>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mi>n</mi><mi mathvariant="normal">/</mi><mn>5</mn></mrow><annotation encoding="application/x-tex">n = n/5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mord">/5</span></span></span></span>, will count numbers that are multiples of 25 (e.g. 25, 50, 75...).
+<ul>
+<li>This is a clever way to handle the additional factors of 5.</li>
+</ul>
+</li>
+<li>The process continues until <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&lt;</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">n &lt; 5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span></span></span></span>.</li>
+</ul>
+</li>
+</ul>
+<br/>
+<ul>
+<li><strong>Java program: <em>Dividing the input by 5.</em></strong></li>
+</ul>
+<pre><code class="language-java">  <span class="hljs-comment">/**
+   * Optimal Logarithmic solution log base 5 (n)
+   *
+   * <span class="hljs-doctag">@param</span> n
+   * <span class="hljs-doctag">@return</span>
+   */</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">logrithmicSolution</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> {
+    <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">while</span>(n &gt;= <span class="hljs-number">5</span>) {
+      count += n / <span class="hljs-number">5</span>;
+        n = n / <span class="hljs-number">5</span>;
+    }
+    <span class="hljs-keyword">return</span> count;
+  }
 </code></pre>
-</li>
+<ul>
+<li><strong>Java program: <em>Increasing the divisor with power of 5.</em></strong></li>
 </ul>
-</li>
-</ul>
+<pre><code class="language-java">  <span class="hljs-comment">/**
+   * Optimal Logarithmic solution log base 5 (n)
+   *
+   * <span class="hljs-doctag">@param</span> n
+   * <span class="hljs-doctag">@return</span>
+   */</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">logrithmicSolution</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> {
+      <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+      <span class="hljs-type">int</span> <span class="hljs-variable">pof</span> <span class="hljs-operator">=</span> <span class="hljs-number">5</span>;
+      <span class="hljs-keyword">while</span>(n &gt;= pof) {
+          count += n / pof;
+          pof *= <span class="hljs-number">5</span>;
+      }
+      <span class="hljs-keyword">return</span> count;
+  }
+</code></pre>
 <hr>
 <center>
-<h1> ------ End ------ </h1>
+<h3> ------ End of document------ </h3>
 </center>
 <!-- HTML styling -->
 <style>

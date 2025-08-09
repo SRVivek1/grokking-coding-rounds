@@ -4,66 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.srvivek</groupId>
+    <parent>
+        <groupId>com.srvivek</groupId>
+        <artifactId>a1-coding-interview-leetcode</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
     <artifactId>b1-integers</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
-    <dependencies>
-        <!-- JUnit 5 API and Engine for testing -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.11.4</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.11.4</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- (Optional) Assertions library for more fluent assertions -->
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>3.25.3</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>com.diffplug.spotless</groupId>
-                <artifactId>spotless-maven-plugin</artifactId>
-                <version>2.43.0</version> <!-- Use the latest version -->
-                <configuration>
-                    <java>
-                        <googleJavaFormat>
-                            <version>1.16.0</version> <!-- Use the latest compatible version -->
-                        </googleJavaFormat>
-                        <!-- Or, for Palantir Java Format:
-                        <palantirJavaFormat>
-                            <version>2.3.0</version>
-                        </palantirJavaFormat>
-                        -->
-                    </java>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>apply</goal>
-                        </goals>
-                        <phase>compile</phase> <!-- Or another suitable phase like validate -->
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
