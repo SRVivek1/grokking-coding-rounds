@@ -110,6 +110,42 @@
   - Computing the factorial requires storing a very large number, which can lead to integer overflow for large n.
   - Overall, the brute force approach is inefficient for large values of n due to the factorial computation.
 
+
+<br/>
+
+  - **Java program: *Dividing the input by 5.***
+  ```java 
+      /**
+      * Brueforce solution
+      *
+      * @param n
+      * @return
+      */
+      public int bruteForceSolution(int n) {
+        int f = calculateFactorial(n);
+
+        int count = 0;
+
+        while (f % 10 == 0) {
+          ++count;
+          f /= 10;
+        }
+        return count;
+      }
+
+      /**
+      * Calculate factorial.
+      *
+      * @param n
+      */
+      private int calculateFactorial(int n) {
+        if (n < 1) {
+          return 1;
+        }
+        return n * calculateFactorial(n - 1);
+      }
+  ```
+
 <br/>
 
 ### Optimal Soluion

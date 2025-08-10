@@ -437,6 +437,40 @@
 </li>
 </ul>
 <br/>
+<ul>
+<li><strong>Java program: <em>Dividing the input by 5.</em></strong></li>
+</ul>
+<pre><code class="language-java">    <span class="hljs-comment">/**
+    * Brueforce solution
+    *
+    * <span class="hljs-doctag">@param</span> n
+    * <span class="hljs-doctag">@return</span>
+    */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">bruteForceSolution</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> {
+      <span class="hljs-type">int</span> <span class="hljs-variable">f</span> <span class="hljs-operator">=</span> calculateFactorial(n);
+
+      <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+
+      <span class="hljs-keyword">while</span> (f % <span class="hljs-number">10</span> == <span class="hljs-number">0</span>) {
+        ++count;
+        f /= <span class="hljs-number">10</span>;
+      }
+      <span class="hljs-keyword">return</span> count;
+    }
+
+    <span class="hljs-comment">/**
+    * Calculate factorial.
+    *
+    * <span class="hljs-doctag">@param</span> n
+    */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-title function_">calculateFactorial</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> {
+      <span class="hljs-keyword">if</span> (n &lt; <span class="hljs-number">1</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+      }
+      <span class="hljs-keyword">return</span> n * calculateFactorial(n - <span class="hljs-number">1</span>);
+    }
+</code></pre>
+<br/>
 <h3 id="optimal-soluion">Optimal Soluion</h3>
 <ul>
 <li>The optimized approach is based on the insight that the number of trailing zeroes is determined by the number of factors of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn></mrow><annotation encoding="application/x-tex">5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">5</span></span></span></span> in the prime factorization of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span>.</li>
