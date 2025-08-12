@@ -226,6 +226,20 @@
 </li>
 <li>After iterating through all possible pairs, return max_profit.</li>
 </ul>
+<h4 id="complexity-analysis">Complexity Analysis:</h4>
+<ul>
+<li><strong>Time Complexity:</strong>
+<ul>
+<li>The nested loops result in a time complexity of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>n</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>, where n is the number of days.</li>
+<li>As For each element, we are iterating through the rest of the array.</li>
+</ul>
+</li>
+<li><strong>Space Complexity:</strong>
+<ul>
+<li>We are only using a few variables to store the profit, so the space complexity is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>.</li>
+</ul>
+</li>
+</ul>
 <h4 id="brute-force-java-implementation">Brute-Force: Java implementation</h4>
 <pre><code class="language-java">    <span class="hljs-keyword">class</span> <span class="hljs-title class_">SolutionBruteForce</span> {
         <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">maxProfit</span><span class="hljs-params">(<span class="hljs-type">int</span>[] prices)</span> {
@@ -282,7 +296,8 @@
 </li>
 <li>After iterating through all the days, return max_profit.</li>
 </ul>
-<h4 id="two-poiner--java-implementation">Two poiner : Java implementation</h4>
+<h4 id="two-poiner-java-implementation">Two poiner: Java implementation</h4>
+<h5 id="solution-1">Solution 1:</h5>
 <pre><code class="language-java">    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">maxProfit</span><span class="hljs-params">(<span class="hljs-type">int</span>[] prices)</span> {
         <span class="hljs-type">int</span> <span class="hljs-variable">minPrice</span> <span class="hljs-operator">=</span> Integer.MAX_VALUE;
         <span class="hljs-type">int</span> <span class="hljs-variable">maxProfit</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
@@ -293,25 +308,26 @@
         }
         <span class="hljs-keyword">return</span> maxProfit;
     }
-
-    <span class="hljs-comment">//implementation 2</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">maxProfit</span><span class="hljs-params">(<span class="hljs-type">int</span>[] prices)</span> {
-      
-      <span class="hljs-keyword">if</span>(prices.length &lt;= <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-      
-      <span class="hljs-type">int</span> <span class="hljs-variable">profit</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, l = <span class="hljs-number">0</span>, r = l + <span class="hljs-number">1</span>;
-      <span class="hljs-keyword">while</span>(r &lt; prices.length) {
-          <span class="hljs-keyword">if</span>(prices[l] &lt; prices[r]) {
-              <span class="hljs-type">int</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> prices[r] - prices[l];
-              profit = profit &gt; t ? profit : t;
-              r++;
-          } <span class="hljs-keyword">else</span> {
-              l = r;
-              r++;
-          }
-      }
-      <span class="hljs-keyword">return</span> profit;
-  }
+</code></pre>
+<br/>
+<h5 id="solution-2">Solution 2:</h5>
+<pre><code class="language-java">   <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">maxProfit</span><span class="hljs-params">(<span class="hljs-type">int</span>[] prices)</span> {
+     
+     <span class="hljs-keyword">if</span>(prices.length &lt;= <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+     
+     <span class="hljs-type">int</span> <span class="hljs-variable">profit</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>, l = <span class="hljs-number">0</span>, r = l + <span class="hljs-number">1</span>;
+     <span class="hljs-keyword">while</span>(r &lt; prices.length) {
+         <span class="hljs-keyword">if</span>(prices[l] &lt; prices[r]) {
+             <span class="hljs-type">int</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> prices[r] - prices[l];
+             profit = profit &gt; t ? profit : t;
+             r++;
+         } <span class="hljs-keyword">else</span> {
+             l = r;
+             r++;
+         }
+     }
+     <span class="hljs-keyword">return</span> profit;
+ }
 </code></pre>
 <h4 id="two-poiner--python-implementation">Two poiner : Python implementation</h4>
 <pre><code class="language-python">    <span class="hljs-keyword">def</span> <span class="hljs-title function_">max_profit_optimized</span>(<span class="hljs-params">prices</span>):

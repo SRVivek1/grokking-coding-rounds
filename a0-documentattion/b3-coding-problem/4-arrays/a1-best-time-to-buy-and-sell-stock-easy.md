@@ -51,6 +51,14 @@
     - If profit is greater than max_profit, update max_profit to profit.
   - After iterating through all possible pairs, return max_profit.
 
+#### Complexity Analysis:
+  - **Time Complexity:** 
+    - The nested loops result in a time complexity of $O(n^2)$, where n is the number of days. 
+    - As For each element, we are iterating through the rest of the array.
+  - **Space Complexity:** 
+    - We are only using a few variables to store the profit, so the space complexity is $O(1)$.
+
+
 #### Brute-Force: Java implementation
   ```java 
       class SolutionBruteForce {
@@ -100,7 +108,8 @@
     - Update max_profit to be the maximum of the current max_profit and current_profit.
   - After iterating through all the days, return max_profit.
 
-#### Two poiner : Java implementation
+#### Two poiner: Java implementation
+##### Solution 1: 
   ```java
       public int maxProfit(int[] prices) {
           int minPrice = Integer.MAX_VALUE;
@@ -112,8 +121,12 @@
           }
           return maxProfit;
       }
+  ```
 
-      //implementation 2
+<br/>
+
+##### Solution 2: 
+   ```java
       public int maxProfit(int[] prices) {
         
         if(prices.length <= 1) return 0;
@@ -132,6 +145,7 @@
         return profit;
     }
   ```
+
 
 #### Two poiner : Python implementation
   ```python 
