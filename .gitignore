@@ -1,6 +1,9 @@
 # intellij
 .idea
 
+# other
+nohup.out
+
 # maven
 target/
 
