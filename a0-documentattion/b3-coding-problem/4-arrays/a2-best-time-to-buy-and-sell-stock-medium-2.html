@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&lbrack;Leetcode Q122 &lpar;Medium&rpar;&colon;&rbrack;&lpar;https&colon;&sol;&sol;leetcode&period;com&sol;problems&sol;best-time-to-buy-and-sell-stock-ii&sol;description&sol;&rpar; Best time to buy and sell stocks</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="leetcode-q122-medium-best-time-to-buy-and-sell-stocks"><a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/description/">Leetcode Q122 (Medium):</a> Best time to buy and sell stocks</h1>
+<h2 id="problem-statements">Problem statements:</h2>
+<ul>
+<li>You are given an integer <em><strong>array prices</strong></em> where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>r</mi><mi>i</mi><mi>c</mi><mi>e</mi><mi>s</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">prices[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ces</span><span class="mopen">[</span><span class="mord mathnormal">i</span><span class="mclose">]</span></span></span></span> is the price of a given stock on the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>−</mo><mi>t</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">i-th</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7429em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span></span></span></span> day.
+<ul>
+<li>On each day, you may decide to buy and/or sell the stock.</li>
+<li>You can only hold at most one share of the stock at any time.</li>
+<li>However, you can buy it then immediately sell it on the same day.</li>
+<li>Find and return the maximum profit you can achieve.</li>
+</ul>
+</li>
+</ul>
+<br/>
+<ul>
+<li><strong>Constraints:</strong>
+<ul>
+<li>1 &lt;= prices.length &lt;= 3 * 104</li>
+<li>0 &lt;= prices[i] &lt;= 104</li>
+</ul>
+</li>
+</ul>
+<br/>
+<ul>
+<li>
+<p><strong>Examples:</strong></p>
+<ul>
+<li><strong>Example 1:</strong>
+<ul>
+<li><em><strong>Input:</strong></em> prices = [7,1,5,3,6,4]</li>
+<li><em><strong>Output:</strong></em> 7</li>
+<li><strong>Explanation:</strong>
+<ul>
+<li>Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.</li>
+<li>Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.</li>
+<li>Total profit is 4 + 3 = 7.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br/>
+<ul>
+<li><strong>Example 2:</strong></li>
+<li><em><strong>Input:</strong></em> prices = [1,2,3,4,5]</li>
+<li><em><strong>Output:</strong></em> 4</li>
+<li><strong>Explanation:</strong>
+<ul>
+<li>Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.</li>
+<li>Total profit is 4.</li>
+</ul>
+</li>
+</ul>
+<br/>
+<ul>
+<li><strong>Example 3:</strong>
+<ul>
+<li><em><strong>Input:</strong></em> prices = [7,6,4,3,1]</li>
+<li><em><strong>Output:</strong></em> 0</li>
+<li><strong>Explanation:</strong>
+<ul>
+<li>There is no way to make a positive profit, so we never buy the stock to achieve the maximum profit of 0.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br/>
+<h2 id="problem-analysis">Problem Analysis:</h2>
+<ul>
+<li>The problem asks us to find the maximum profit we can achieve by buying and selling a stock multiple times.</li>
+<li>We are given an array of prices, where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>r</mi><mi>i</mi><mi>c</mi><mi>e</mi><mi>s</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">prices[i]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ces</span><span class="mopen">[</span><span class="mord mathnormal">i</span><span class="mclose">]</span></span></span></span> is the price of the stock on the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>−</mo><mi>t</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">i-th</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7429em;vertical-align:-0.0833em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span></span></span></span> day.</li>
+<li>We can complete as many transactions as we like, but we must sell the stock before we can buy again.</li>
+</ul>
+<h3 id="edge-cases">Edge Cases:</h3>
+<ul>
+<li><strong>Empty or single-element array:</strong>
+<ul>
+<li>If the prices array is empty or has only one element, no profit can be made.</li>
+<li>Hence, the maximum profit should be 0.</li>
+</ul>
+</li>
+<li><strong>Prices are in decreasing order:</strong>
+<ul>
+<li>If the prices are always decreasing, we can never make a profit.</li>
+<li>Hence, the maximum profit will be 0.</li>
+</ul>
+</li>
+<li><strong>Prices are in increasing order:</strong>
+<ul>
+<li>If the prices are always increasing, we can buy on day 1, sell on day 2, buy on day 2, sell on day 3, and so on.</li>
+<li>This is the optimal strategy.</li>
+</ul>
+</li>
+<li><strong>Array with all same values:</strong>
+<ul>
+<li>If all prices are the same, no profit can be made.</li>
+<li>Hence, the maximum profit will be 0.</li>
+</ul>
+</li>
+</ul>
+<br/>
+<h2 id="solutions">Solutions:</h2>
+<h3 id="brute-force-approach-recursion-with-backtracking">Brute-Force Approach (Recursion with Backtracking):</h3>
+<ul>
+<li>
+<p>The brute-force approach involves exploring all possible combinations of buying and selling days. We can use a recursive function to simulate the process.</p>
+</li>
+<li>
+<p>At each day, we have two choices:</p>
+<ul>
+<li><strong>Do nothing:</strong>
+<ul>
+<li>Move to the next day without performing any transaction.</li>
+</ul>
+</li>
+<li><strong>Perform a transaction:</strong>
+<ul>
+<li>If we have a stock, we can sell it. If we don't have a stock, we can buy one.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>We can keep track of our current profit and whether we are holding a stock. The base case for the recursion would be when we reach the end of the prices array.</p>
+</li>
+</ul>
+<br/>
+<ul>
+<li><strong>Algorithm:</strong>
+<ul>
+<li>
+<p>Define a recursive function, say calculate(prices, index, holding_stock).</p>
+<ul>
+<li><strong>The base case:</strong>
+<ul>
+<li>If index is equal to the length of the prices array, return 0.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Inside the function, we'll calculate the maximum profit for two scenarios:</p>
+<ul>
+<li><strong>Skipping the current day:</strong>
+<ul>
+<li>profit_skip = calculate(prices, index + 1, holding_stock)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Performing a transaction:</strong></p>
+<ul>
+<li><strong>If holding_stock is true</strong>, we can sell:
+<ul>
+<li>profit_sell = prices[index] + calculate(prices, index + 1, false)</li>
+</ul>
+</li>
+<li><strong>If holding_stock is false</strong>, we can buy:
+<ul>
+<li>profit_buy = -prices[index] + calculate(prices, index + 1, true)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Return</strong> the maximum of the calculated profits.</p>
+</li>
+<li>
+<p><strong>Time Complexity:</strong></p>
+<ul>
+<li>This approach has a time complexity of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>2</mn><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(2n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">2</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>, where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">n</span></span></span></span> is the number of days, due to the branching nature of the recursion.</li>
+<li><strong>Note:</strong> This is highly inefficient for large inputs.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br/>
+<h3 id="optimized-approach-greedy-algorithm">Optimized Approach (Greedy Algorithm)</h3>
+<ul>
+<li>
+<p>The key insight for the optimized approach is that we want to capture every single profitable transaction.</p>
+</li>
+<li>
+<p>A profitable transaction occurs whenever the price of the stock increases from one day to the next.</p>
+</li>
+<li>
+<p>We can iterate through the prices array and, whenever the price of the current day is greater than the price of the previous day, we add the difference to our total profit.</p>
+</li>
+<li>
+<p>This works because we can think of it as buying on the previous day and selling on the current day.</p>
+</li>
+<li>
+<p>If we have multiple consecutive days of increasing prices, say <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mn>1</mn><mo>&lt;</mo><mi>p</mi><mn>2</mn><mo>&lt;</mo><mi>p</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">p1 &lt; p2 &lt; p3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">p</span><span class="mord">3</span></span></span></span>, we can capture the profit <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>p</mi><mn>2</mn><mo>−</mo><mi>p</mi><mn>1</mn><mo stretchy="false">)</mo><mo>+</mo><mo stretchy="false">(</mo><mi>p</mi><mn>3</mn><mo>−</mo><mi>p</mi><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(p2-p1) + (p3-p2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord">2</span><span class="mclose">)</span></span></span></span> which is equal to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>p</mi><mn>3</mn><mo>−</mo><mi>p</mi><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(p3-p1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>.</p>
+</li>
+<li>
+<p>Our greedy strategy naturally captures this.</p>
+</li>
+<li>
+<p><strong>Algorithm:</strong></p>
+<ul>
+<li>Initialize a variable <em><strong>max_profit</strong></em> to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn></mrow><annotation encoding="application/x-tex">0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">0</span></span></span></span>.</li>
+<li>Iterate through the <em><strong>prices</strong></em> array from the second element (index 1) to the end.</li>
+<li>In each iteration, check if <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>r</mi><mi>i</mi><mi>c</mi><mi>e</mi><mi>s</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo><mo>&gt;</mo><mi>p</mi><mi>r</mi><mi>i</mi><mi>c</mi><mi>e</mi><mi>s</mi><mo stretchy="false">[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">prices[i] &gt; prices[i-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ces</span><span class="mopen">[</span><span class="mord mathnormal">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ces</span><span class="mopen">[</span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span>.
+<ul>
+<li><strong>If the condition is true</strong>, it means we can make a profit by buying on day i-1 and selling on day i.
+<ul>
+<li>Add <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>r</mi><mi>i</mi><mi>c</mi><mi>e</mi><mi>s</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo><mo>−</mo><mi>p</mi><mi>r</mi><mi>i</mi><mi>c</mi><mi>e</mi><mi>s</mi><mo stretchy="false">[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">prices[i] - prices[i-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ces</span><span class="mopen">[</span><span class="mord mathnormal">i</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ces</span><span class="mopen">[</span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span> to <em><strong>max_profit</strong></em>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>After the loop, return the max_profit which holds the total maximum profit.</li>
+</ul>
+</li>
+<li>
+<p><strong>Time Complexity:</strong></p>
+<ul>
+<li>This approach is much more efficient, with a time complexity of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> because we only need to iterate through the array once.</li>
+</ul>
+</li>
+<li>
+<p><strong>Space Complexity:</strong></p>
+<ul>
+<li>The space complexity is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span> as we only use a few variables.</li>
+</ul>
+</li>
+</ul>
+<h4 id="implemention---java">Implemention - Java:</h4>
+<pre><code class="language-java">    <span class="hljs-comment">/**
+     * Calculates the maximum profit by buying and selling a stock multiple times.
+     * This method uses a greedy approach to sum all positive price differences.
+     * <span class="hljs-doctag">@param</span> prices An array of stock prices.
+     * <span class="hljs-doctag">@return</span> The maximum possible profit.
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">maxProfit</span><span class="hljs-params">(<span class="hljs-type">int</span>[] prices)</span> {
+        <span class="hljs-comment">// Handle edge cases where no transaction is possible</span>
+        <span class="hljs-keyword">if</span> (prices == <span class="hljs-literal">null</span> || prices.length &lt; <span class="hljs-number">2</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        }
+
+        <span class="hljs-type">int</span> <span class="hljs-variable">maxProfit</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+        <span class="hljs-comment">// Iterate through the prices and add up all increments</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; prices.length; i++) {
+            <span class="hljs-keyword">if</span> (prices[i] &gt; prices[i-<span class="hljs-number">1</span>]) {
+                maxProfit += prices[i] - prices[i-<span class="hljs-number">1</span>];
+            }
+        }
+        <span class="hljs-keyword">return</span> maxProfit;
+    }
+
+</code></pre>
+<hr>
+<center>
+<h3> ------ End ------ </h3>
+</center>
+<!-- HTML styling -->
+<style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  heading {
+    color: blue;
+    font-size: 20px;
+  }
+</style>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
