@@ -29,109 +29,207 @@
 
 <br/>
 
-## Problem Analysis: -- TODO
-  - The problem asks us to find the maximum profit we can achieve by buying and selling a stock multiple times. 
-  - We are given an array of prices, where $prices[i]$ is the price of the stock on the $i-th$ day. 
-  - We can complete as many transactions as we like, but we must sell the stock before we can buy again.
+## Problem Analysis:
+  - The problem, "Jump Game," asks whether you can reach the last index of an array given a set of jump lengths. 
+    - You start at the first index, and each element nums[i] represents the maximum length of a jump you can make from that position. 
+    - The goal is to determine if it's possible to get to the very last index.
+
+<br/>
+
+- **For example:** $nums = [2, 3, 1, 1, 4]$
+  - From index 0, 
+    - you can jump a maximum of 2 steps, reaching index 1 or 2.
+  - From index 1, 
+    - you can jump a maximum of 3 steps, reaching index 2, 3, or 4.
+  - Since we can reach index 4, which is the last index, the ***answer is true***.
+
+- **Another example:** $nums = [3, 2, 1, 0, 4]$
+  - From index 0, 
+    - you can jump up to 3 steps, reaching index 1, 2, or 3.
+  - From index 1, 
+    - you can jump up to 2 steps.
+  - From index 2, 
+    - you can jump up to 1 step.
+  - From index 3, 
+    - you can only jump 0 steps, ***so you're stuck***.
+  - Since we get stuck at index 3 and cannot reach the last index, ***the answer is false***.
+
+<br/>
 
 ### Edge Cases:
-  - **Empty or single-element array:** 
-    - If the prices array is empty or has only one element, no profit can be made. 
-    - Hence, the maximum profit should be 0.
-  - **Prices are in decreasing order:** 
-    - If the prices are always decreasing, we can never make a profit. 
-    - Hence, the maximum profit will be 0.
-  - **Prices are in increasing order:** 
-    - If the prices are always increasing, we can buy on day 1, sell on day 2, buy on day 2, sell on day 3, and so on. 
-    - This is the optimal strategy.
-  - **Array with all same values:** 
-    - If all prices are the same, no profit can be made. 
-    - Hence, the maximum profit will be 0.
+  - **Empty or Single-Element Array:** 
+    - If the array is empty or has only one element, you're already at the end. ***The answer is true***. 
+    - The problem statement typically specifies a non-empty array, but it's good to consider this.
+
+  - **Zero at the Beginning:** 
+    - If $nums[0] == 0$ and the array has more than one element, you can't move at all. The ***answer is false***.
+
+  - **Zeroes in the Middle:** 
+    - A zero can be a major hurdle. The key is whether you can jump over a zero. 
+      - If you reach an index i where nums[i] == 0, you must have been able to jump to i from an earlier position j such that j + nums[j] > i.
+
+  - **Array with all ones:** 
+    - If all element values are $1$, that is $nums = [1, 1, 1, ..., 1]$. You can always make a single step jump to the end. Hence, The ***answer is true***.
 
 <br/>
 
 ## Solutions:
 
 ### Brute-Force Approach (Recursion with Backtracking):
-  - The brute-force approach involves exploring all possible combinations of buying and selling days. We can use a recursive function to simulate the process. 
-  - At each day, we have two choices:
-    - **Do nothing:** 
-      - Move to the next day without performing any transaction.
-    - **Perform a transaction:**
-      - If we have a stock, we can sell it. If we don't have a stock, we can buy one.
-
-  - We can keep track of our current profit and whether we are holding a stock. The base case for the recursion would be when we reach the end of the prices array.
+  - The most intuitive way to solve this is to explore all possible jump paths. 
+    - We can use a recursive function that starts at index 0 and tries every possible jump from the current position. 
+    - If a jump leads to the last index, we've found a solution and can return true. 
+    - If we try all jumps from a position and none lead to a solution, we backtrack.
 
 <br/>
 
 - **Algorithm:**
-  - Define a recursive function, say calculate(prices, index, holding_stock).
-    - **The base case:** 
-      - If index is equal to the length of the prices array, return 0.
-  - Inside the function, we'll calculate the maximum profit for two scenarios:
-    - **Skipping the current day:** 
-      - profit_skip = calculate(prices, index + 1, holding_stock)
-  - **Performing a transaction:**
-    - **If holding_stock is true**, we can sell: 
-      - profit_sell = prices[index] + calculate(prices, index + 1, false)
-    - **If holding_stock is false**, we can buy: 
-      - profit_buy = -prices[index] + calculate(prices, index + 1, true)
-  - **Return** the maximum of the calculated profits.
+  - **Recursive Function:**
+    - Define a recursive function, let's say canJump(index).
 
-  - **Time Complexity:**
-    - This approach has a time complexity of $O(2n)$, where $n$ is the number of days, due to the branching nature of the recursion. 
-    - **Note:** This is highly inefficient for large inputs.
+  - **Base case:** 
+    - If $index >= len(nums) - 1$, we've reached or passed the end. 
+    - Hence ***return true***.
+
+- **Recursive step:**
+  - Get the maximum jump length from the current index, $maxJump = nums[index]$.
+  - Loop from 1 to max_jump. For each step s:
+    - Recursively call canJump(index + s).
+    - If the recursive call returns true, then we've found a valid path, ***return true immediately***.
+  - If the loop finishes without finding a valid path, ***return false***.
+
+<br/>
+
+- **Complexity:**
+  - **Time Complexity:** 
+    - The time complexity is **exponential**, as we are exploring a tree of possibilities. 
+    - Many subproblems are re-evaluated, like checking if we can reach index 3 from both index 1 and index 2. This can be optimized with memoization. $O(2^{\mathrm{n}})$.
+
+  - **Space Complexity:** 
+    - $O(n)$ due to the recursion depth.
 
 <br/>
 
 ### Optimized Approach (Greedy Algorithm)
-  - The key insight for the optimized approach is that we want to capture every single profitable transaction. 
-  - A profitable transaction occurs whenever the price of the stock increases from one day to the next.
+  - A much more efficient approach is to use a greedy algorithm. Instead of trying to find a path to the end, let's think about the problem in reverse. What's the "safest" or "last reachable" position we need to be in to reach the end?
 
-  - We can iterate through the prices array and, whenever the price of the current day is greater than the price of the previous day, we add the difference to our total profit. 
-  - This works because we can think of it as buying on the previous day and selling on the current day. 
-  - If we have multiple consecutive days of increasing prices, say $p1 < p2 < p3$, we can capture the profit $(p2-p1) + (p3-p2)$ which is equal to $(p3-p1)$. 
-  - Our greedy strategy naturally captures this.
+  - Let's maintain a variable, goal, representing the target position we need to reach. Initially, this is the last index of the array, n - 1. We then iterate backward from the second-to-last element to the beginning.
+
+  - For each index i, we check if it's possible to reach our goal from i. 
+    - A jump from i can reach goal if i + nums[i] >= goal. If this condition is met, it means we can now consider i as our new, closer goal, because we've proven that we can reach the original goal from i. 
+    - We then update goal = i. We continue this process until we reach the beginning of the array.
+
+  - If, after checking all positions, our goal has been updated to 0, it means we've found a path from the starting index (0) to the original goal. 
+    - Otherwise, it's not possible.
+
+
+<br/>
 
   - **Algorithm:**
-    - Initialize a variable ***max_profit*** to $0$.
-    - Iterate through the ***prices*** array from the second element (index 1) to the end.
-    - In each iteration, check if $prices[i] > prices[i-1]$.
-      - **If the condition is true**, it means we can make a profit by buying on day i-1 and selling on day i. 
-        - Add $prices[i] - prices[i-1]$ to ***max_profit***.
-    - After the loop, return the max_profit which holds the total maximum profit.
+    - Initialize a variable goal to the index of the last element: $goal = nums.length - 1$.
+    - Iterate backward through the array from $len(nums) - 2$ down to $0$.
 
-  - **Time Complexity:**
-    - This approach is much more efficient, with a time complexity of $O(n)$ because we only need to iterate through the array once. 
+    - **For each index i**:
+      - Check if $i + nums[i]$ is greater than or equal to goal.
+        - If it is, this means we can reach the current goal from this position i. 
+        - We now have a new, closer goal. So update $goal = i$.
+    - After the loop, check if $goal == 0$.
+      - If it is, return ***true***.
+      - Otherwise, return ***false***.
+
+
+<br/>
+
+  - **Complexity:**
+    - **Time Complexity:**
+      - We perform a single pass through the array. This is a linear operation $O(n)$. 
   - **Space Complexity:** 
-    - The space complexity is $O(1)$ as we only use a few variables.
+    - We use a constant amount of extra space for the goal variable. $O(1)$.
 
-#### Implemention - Java:
+#### Java Implemention 1 - Reverse tracking:
 
 ```java
     /**
-     * Calculates the maximum profit by buying and selling a stock multiple times.
-     * This method uses a greedy approach to sum all positive price differences.
-     * @param prices An array of stock prices.
-     * @return The maximum possible profit.
+     * This algo starts from last index and checks if we can there's any index + value combination >= target index value.
+     * If yes change target index to current index and now resolve the same problem from current index.
+     * @param arr
+     * @return
      */
-    public int maxProfit(int[] prices) {
-        // Handle edge cases where no transaction is possible
-        if (prices == null || prices.length < 2) {
-            return 0;
-        }
+    public boolean canJumpSol2(int[] arr) {
 
-        int maxProfit = 0;
-        // Iterate through the prices and add up all increments
-        for (int i = 1; i < prices.length; i++) {
-            if (prices[i] > prices[i-1]) {
-                maxProfit += prices[i] - prices[i-1];
+        // we can not iterate null or empty array
+        if(arr == null || arr.length == 0) return false;
+
+        int goal = arr.length - 1;
+
+        // check if we can reach to last index from 2nd last index to 0th index
+        for(int i = arr.length - 2; i >= 0; i--) {
+            
+            // calculate maximum jump possible from 2nd last index
+            int jump = i + arr[i];
+            
+            if(jump >= goal) {
+                // Greedy algo - now consider current index as goal and check if it's reachable
+                goal = i;
             }
         }
-        return maxProfit;
+
+        // if goal is 0 means we reach 0th index and hence true.
+        return goal == 0;
     }
 
 ```
+
+<br/>
+
+#### Java Implemention 2 - Checking from index 0:
+```java
+    /**
+     * Determines if it's possible to reach the last index of the array by jumping.
+     *
+     * This greedy algorithm iterates forward from the start of the array,
+     * tracking the farthest index that can be reached at any given point.
+     *
+     * @param arr The array where each element represents the maximum jump length.
+     * @return {@code true} if the last index is reachable, {@code false} otherwise.
+     */
+    public boolean canJumpSol1(int[] arr) {
+        // Edge case: A null or empty array is considered un-jumpable.
+        // Note:, a single-element array is always reachable.
+        if (arr == null || arr.length == 0) {
+            return false;
+        }
+
+        // `maxReachable` stores the farthest index we can currently reach.
+        int maxReachable = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            // If the current index `i` is beyond what we can reach,
+            // it means we're stuck and cannot proceed.
+            if (i > maxReachable) {
+                return false;
+            }
+
+            // Update the farthest reachable index. We take the maximum
+            // of the current `maxReachable` and the new potential reach
+            // from our current position (`i + arr[i]`).
+            maxReachable = Math.max(maxReachable, i + arr[i]);
+
+            // If the farthest reachable index is at or past the end of the array,
+            // we've found a valid path.
+            if (maxReachable >= arr.length - 1) {
+                return true;
+            }
+        }
+
+        // If the loop completes without reaching the last index,
+        // it means a path does not exist.
+        return false;
+    }
+
+```
+
+
 
 ---
 <center>

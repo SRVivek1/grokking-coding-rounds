@@ -33,24 +33,45 @@ public class JumpGame {
 
 
     /**
-     * This implementation starts from 0 index and checks we we cna reach to last index which is array length - 1.
+     * Determines if it's possible to reach the last index of the array by jumping.
+     * <br/>
+     * This greedy algorithm iterates forward from the start of the array,
+     * tracking the farthest index that can be reached at any given point.
      *
-     * @param arr
-     * @return
+     * @param arr The array where each element represents the maximum jump length.
+     * @return {@code true} if the last index is reachable, {@code false} otherwise.
      */
     public boolean canJumpSol1(int[] arr) {
-        if(arr == null || arr.length == 0) return false;
-
-        int maxReachable = 0;
-
-        for(int i = 0 ; i < arr.length; i++) {
-            if(i > maxReachable) return false;
-
-            maxReachable = Math.max(maxReachable, i + arr[i]);
-
-            if(maxReachable >= arr.length - 1) return true;
+        // Edge case: A null or empty array is considered un-jumpable.
+        // Note:, a single-element array is always reachable.
+        if (arr == null || arr.length == 0) {
+            return false;
         }
 
-        return true;
+        // `maxReachable` stores the farthest index we can currently reach.
+        int maxReachable = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            // If the current index `i` is beyond what we can reach,
+            // it means we're stuck and cannot proceed.
+            if (i > maxReachable) {
+                return false;
+            }
+
+            // Update the farthest reachable index. We take the maximum
+            // of the current `maxReachable` and the new potential reach
+            // from our current position (`i + arr[i]`).
+            maxReachable = Math.max(maxReachable, i + arr[i]);
+
+            // If the farthest reachable index is at or past the end of the array,
+            // we've found a valid path.
+            if (maxReachable >= arr.length - 1) {
+                return true;
+            }
+        }
+
+        // If the loop completes without reaching the last index,
+        // it means a path does not exist.
+        return false;
     }
 }
