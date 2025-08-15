@@ -32,109 +32,204 @@
 
 <br/>
 
-## Problem Analysis: -- TODO
-  - The problem asks us to find the maximum profit we can achieve by buying and selling a stock multiple times. 
-  - We are given an array of prices, where $prices[i]$ is the price of the stock on the $i-th$ day. 
-  - We can complete as many transactions as we like, but we must sell the stock before we can buy again.
+## Problem Analysis:
+  - The problem, commonly known as Rotate Array, asks us to rotate a given integer array nums to the right by $k$ steps. 
+  - The rotation should be done in-place, meaning we should modify the original array without creating a new one. 
+  - $k$ is a non-negative integer.
+
+<br/>
+
+ - **Let's consider an example:**
+    - nums = [1, 2, 3, 4, 5, 6, 7] and k = 3.
+      - After $1^{\mathrm{st}}$ rotaion: $[7, 1, 2, 3, 4, 5, 6]$
+      - After $2^{\mathrm{nd}}$ rotaion: $[6, 7, 1, 2, 3, 4, 5]$
+      - After $3^{\mathrm{rd}}$ rotaion: $[5, 6, 7, 1, 2, 3, 4]$
+    - The final result should be $[5, 6, 7, 1, 2, 3, 4]$.
+
+<br/>
 
 ### Edge Cases:
-  - **Empty or single-element array:** 
-    - If the prices array is empty or has only one element, no profit can be made. 
-    - Hence, the maximum profit should be 0.
-  - **Prices are in decreasing order:** 
-    - If the prices are always decreasing, we can never make a profit. 
-    - Hence, the maximum profit will be 0.
-  - **Prices are in increasing order:** 
-    - If the prices are always increasing, we can buy on day 1, sell on day 2, buy on day 2, sell on day 3, and so on. 
-    - This is the optimal strategy.
-  - **Array with all same values:** 
-    - If all prices are the same, no profit can be made. 
-    - Hence, the maximum profit will be 0.
+  - **Empty array or single-element array:** 
+    - If nums is empty or has only one element, ***no rotation is needed***.
+
+  - **k is a multiple of the array length:** 
+    - If k is a multiple of n (the length of nums), the array will return to its original state. 
+      - **For example,** if $n=7$ and $k=7$, the array remains unchanged. 
+    - We can handle this by using ***k = k % n*** to find the ***effective number of rotations***.
+
+  - **Large k value:** 
+    - The value of $k$ can be larger than the array size. 
+      - **For example**, $n=3$, $k=5$. Rotating by 5 is the same as rotating by 2 (5 % 3 = 2). 
+    - The ***modulo operator*** (%) is crucial here.
+
+  - **k is 0:** 
+    - If $k$ is $0$, no rotation is needed. 
+    - The ***modulo operation k % n*** will handle this correctly as well.
 
 <br/>
 
 ## Solutions:
 
-### Brute-Force Approach (Recursion with Backtracking):
-  - The brute-force approach involves exploring all possible combinations of buying and selling days. We can use a recursive function to simulate the process. 
-  - At each day, we have two choices:
-    - **Do nothing:** 
-      - Move to the next day without performing any transaction.
-    - **Perform a transaction:**
-      - If we have a stock, we can sell it. If we don't have a stock, we can buy one.
+### Brute-Force Approach (Iterative Rotation):
 
-  - We can keep track of our current profit and whether we are holding a stock. The base case for the recursion would be when we reach the end of the prices array.
+- **Concept:**
+  - The most straight forward way is to rotate the array one step at a time, k times. 
+  - In each step, we move the last element to the front and shift all other elements one position to the right.
 
 <br/>
 
 - **Algorithm:**
-  - Define a recursive function, say calculate(prices, index, holding_stock).
-    - **The base case:** 
-      - If index is equal to the length of the prices array, return 0.
-  - Inside the function, we'll calculate the maximum profit for two scenarios:
-    - **Skipping the current day:** 
-      - profit_skip = calculate(prices, index + 1, holding_stock)
-  - **Performing a transaction:**
-    - **If holding_stock is true**, we can sell: 
-      - profit_sell = prices[index] + calculate(prices, index + 1, false)
-    - **If holding_stock is false**, we can buy: 
-      - profit_buy = -prices[index] + calculate(prices, index + 1, true)
-  - **Return** the maximum of the calculated profits.
+  - **Effective Number of Rotation:**
+    - Calculate the effective number of rotations by ***k = k % n***, where $n$ is the length of input array.
 
-  - **Time Complexity:**
-    - This approach has a time complexity of $O(2n)$, where $n$ is the number of days, due to the branching nature of the recursion. 
-    - **Note:** This is highly inefficient for large inputs.
+  - **Repeat k times:**
+    - **Step-1:** 
+      - Store the last element of the array in a temporary variable, let's call it lastElement.
+    - **Step-2:** 
+      - Shift all elements from index $n-2$ down to $0$ one position to the right. 
+      - That is, $nums[j+1] = nums[j]$ for $j$ from $n-2$ down to $0$.
+    - **Step-3:** 
+      - Place last_element at the beginning of the array, $nums[0] = lastElement$.
 
 <br/>
 
-### Optimized Approach (Greedy Algorithm)
-  - The key insight for the optimized approach is that we want to capture every single profitable transaction. 
-  - A profitable transaction occurs whenever the price of the stock increases from one day to the next.
-
-  - We can iterate through the prices array and, whenever the price of the current day is greater than the price of the previous day, we add the difference to our total profit. 
-  - This works because we can think of it as buying on the previous day and selling on the current day. 
-  - If we have multiple consecutive days of increasing prices, say $p1 < p2 < p3$, we can capture the profit $(p2-p1) + (p3-p2)$ which is equal to $(p3-p1)$. 
-  - Our greedy strategy naturally captures this.
-
-  - **Algorithm:**
-    - Initialize a variable ***max_profit*** to $0$.
-    - Iterate through the ***prices*** array from the second element (index 1) to the end.
-    - In each iteration, check if $prices[i] > prices[i-1]$.
-      - **If the condition is true**, it means we can make a profit by buying on day i-1 and selling on day i. 
-        - Add $prices[i] - prices[i-1]$ to ***max_profit***.
-    - After the loop, return the max_profit which holds the total maximum profit.
-
+- **Complexity Analysis:**
   - **Time Complexity:**
-    - This approach is much more efficient, with a time complexity of $O(n)$ because we only need to iterate through the array once. 
+    - We perform an $O**(n)$ operation** 
+    (shifting elements) $k$ times. 
+    - Hence, the time complexity is $O(k * n)$. This can be ***inefficient*** if $k$ and $n$ are large.
+
   - **Space Complexity:** 
-    - The space complexity is $O(1)$ as we only use a few variables.
+    - We only use a single temporary variable to store the last element, so the space complexity is $O(1)$.
+
+<br/>
+
+### Optimized Approach (The Three-Reversal Method)
+
+- **Concept:**
+  - This is a clever and ***efficient in-place method***. 
+  - The key insight is that rotating an array can be achieved by reversing specific segments of the array. 
+  - **The algorithm works in three steps:**
+    - Reverse the entire array.
+    - Reverse the first k elements.
+    - Reverse the remaining n-k elements.
+  - **Example:**
+    - Let's trace this with nums = [1, 2, 3, 4, 5, 6, 7] and k = 3.
+      - Reverse the whole array: [7, 6, 5, 4, 3, 2, 1]
+      - Reverse the first k elements (first 3): [5, 6, 7, 4, 3, 2, 1]
+      - Reverse the rest (n-k elements, from index 3 to 6): [5, 6, 7, 1, 2, 3, 4]
+    - The result matches the required output. 
+  - **This method works because,**
+    - Reversing the whole array brings the last k elements to the front in reverse order. 
+    - Reversing the first k elements corrects their order. 
+    - Finally, reversing the remaining elements restores their original relative order.
+
+<br/>
+
+- **Algorithm:**
+  - **Effective Number of Rotation:** 
+    - Calculate the effective number of rotations: k = k % n.
+  - **Reverse array function:**
+    - Define a helper function, say reverse(arr, start, end), that reverses the elements of the array arr from provided start to end indexes (inclusive).
+  - **Reverse complete array:**
+    - Call *reverse(nums, 0, n-1)* to reverse the entire array.
+  - **Reerse first k Elements:**
+    - Call *reverse(nums, 0, k-1)* to reverse the first k elements.
+  - **Reverse remaining n-k elements:**
+    - Call *reverse(nums, k, n-1)* to reverse the remaining n-k elements.
+
+<br/>
+
+- **Complexity Anlysis:**
+  - **Time Complexity:**
+    - Each reversal operation takes $O(n)$ time. 
+    - Since we perform 3 such operations, the total time complexity is $O(3n)$, which is equal to $O(n)$. 
+    - This is much better than the brute-force approach, especially for large k. 
+  - **Space Complexity:** 
+    - The reversal is done in-place, so the space complexity is $O(1)$.
 
 #### Implemention - Java:
 
 ```java
     /**
-     * Calculates the maximum profit by buying and selling a stock multiple times.
-     * This method uses a greedy approach to sum all positive price differences.
-     * @param prices An array of stock prices.
-     * @return The maximum possible profit.
+     * Rotates an array to the right by k steps.
+     * The rotation is performed in-place.
+     *
+     * @param nums The array of integers to be rotated.
+     * @param k The number of steps to rotate the array to the right.
      */
-    public int maxProfit(int[] prices) {
-        // Handle edge cases where no transaction is possible
-        if (prices == null || prices.length < 2) {
-            return 0;
+    public void rotate(int[] nums, int k) {
+        int n = nums.length;
+        if (n == 0) {
+            return;
         }
 
-        int maxProfit = 0;
-        // Iterate through the prices and add up all increments
-        for (int i = 1; i < prices.length; i++) {
-            if (prices[i] > prices[i-1]) {
-                maxProfit += prices[i] - prices[i-1];
-            }
+        // Use the modulo operator to handle cases where k is greater than the array length.
+        // This ensures k is always within the range [0, n-1].
+        k %= n;
+
+        // Step 1: Reverse the entire array.
+        // For example, [1, 2, 3, 4, 5, 6, 7] becomes [7, 6, 5, 4, 3, 2, 1].
+        reverse(nums, 0, n - 1);
+        
+        // Step 2: Reverse the first k elements.
+        // For k=3, [7, 6, 5, 4, 3, 2, 1] becomes [5, 6, 7, 4, 3, 2, 1].
+        reverse(nums, 0, k - 1);
+        
+        // Step 3: Reverse the remaining n-k elements.
+        // [5, 6, 7, 4, 3, 2, 1] becomes [5, 6, 7, 1, 2, 3, 4].
+        reverse(nums, k, n - 1);
+    }
+
+
+    /**
+     * A helper method to reverse a portion of an array.
+     *
+     * @param nums The array.
+     * @param start The starting index of the portion to reverse.
+     * @param end The ending index of the portion to reverse.
+     */
+    private void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
         }
-        return maxProfit;
     }
 
 ```
+
+<br/>
+
+#### Implementtion: Python
+```python
+    class Solution:
+      def rotate(self, nums: list[int], k: int) -> None:
+          """
+          Do not return anything, modify nums in-place instead.
+          """
+          n = len(nums)
+          if n == 0:
+              return
+
+          k %= n
+
+          def reverse(arr, start, end):
+              while start < end:
+                  arr[start], arr[end] = arr[end], arr[start]
+                  start += 1
+                  end -= 1
+
+          # Step 1: Reverse the entire array
+          reverse(nums, 0, n - 1)
+          # Step 2: Reverse the first k elements
+          reverse(nums, 0, k - 1)
+          # Step 3: Reverse the remaining n-k elements
+          reverse(nums, k, n - 1)
+```
+
 
 ---
 <center>
