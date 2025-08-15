@@ -41,14 +41,14 @@ public class JumpGame {
     public boolean canJumpSol1(int[] arr) {
         if(arr == null || arr.length == 0) return false;
 
-        int maxIndex = 0;
+        int maxReachable = 0;
 
         for(int i = 0 ; i < arr.length; i++) {
-            if(i > maxIndex) return false;
+            if(i > maxReachable) return false;
 
-            maxIndex = Math.max(maxIndex, i + arr[i]);
+            maxReachable = Math.max(maxReachable, i + arr[i]);
 
-            if(maxIndex >= arr.length - 1) return true;
+            if(maxReachable >= arr.length - 1) return true;
         }
 
         return true;
