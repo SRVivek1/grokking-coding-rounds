@@ -32,8 +32,15 @@
 
 ---
 
+<ul class="flex-list">
+    <li>
+        <a href="https://srvivek1.github.io/">Go to Home</a>
+    </li>
+    <li><a href="https://github.com/SRVivek1/">Author: Vivek K Singh</a></li>
+</ul>
+
 <center>
-<h1> ------ End ------ </h1>
+<p> ------ </p>
 </center>
 
 <!-- HTML styling -->
@@ -45,5 +52,19 @@ table, th, td {
 heading {
   color: blue;
   font-size: 20px;
-  }
+}
+
+.flex-list {
+    display: flex; /* Makes the <ul> a flex container */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    justify-content: space-between;
+}
+
+.flex-list li {
+    /* No display change needed, flex items are already inline */
+    margin-right: 20px;
+}
+
 </style>
