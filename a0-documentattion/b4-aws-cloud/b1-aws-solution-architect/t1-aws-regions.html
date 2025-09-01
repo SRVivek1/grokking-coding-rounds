@@ -151,6 +151,16 @@
 <h3 id="2-detailed-explanation">2. Detailed Explanation</h3>
 <ul>
 <li>An AWS Region is a collection of one or more <strong>Availability Zones (AZs)</strong>.</li>
+<li>Each region has many availability zones <em><strong>(usually 3, Minimum 3 and max is 6)</strong></em>.
+<ul>
+<li>AZs are named after region name with alphabet suffix.</li>
+<li><strong>Examples:</strong>
+<ul>
+<li><em><strong>us-east-1</strong></em> has 3 Azs - <em><strong>us-east-1a, us-east-1b &amp; us-east-1c</strong></em>.</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>An <strong>AZ</strong> is one or more discrete data centers with redundant power, networking, and connectivity.
 <ul>
 <li>This means that an AZ is not a single building, but rather a collection of one or more separate data centers.</li>
@@ -219,6 +229,97 @@
 <ul>
 <li>Each AWS Region has a unique code, such as <em><strong>us-east-1</strong></em> (N. Virginia), <em><strong>eu-west-2</strong></em> (London), or <em><strong>ap-south-1</strong></em> (Mumbai).</li>
 <li>This code is used in the AWS CLI, SDKs, and console to specify where you want to create your resources.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="aws-points-of-presence-edge-locltions">AWS Points of Presence (Edge Locltions)</h3>
+<ul>
+<li>
+<p>More commonly known as <strong>Edge Locations</strong>, are a key part of AWS's global network infrastructure.</p>
+<ul>
+<li>Amazon has 400+ Points Of Presence (400+ Edge Locations &amp; 10+ regional caches) in 90+ cities cross 40+ cities.</li>
+</ul>
+</li>
+<li>
+<p>They are a worldwide network of data centers strategically placed in major metropolitan areas to be as close as possible to end users.</p>
+</li>
+<li>
+<p>Unlike AWS Regions and Availability Zones, which host core services like EC2 and S3, Edge Locations are primarily designed for one purpose:</p>
+<ul>
+<li>To <strong>reduce latency</strong> and speed up content delivery.</li>
+<li>They achieve this by <em><strong>caching frequently accessed content</strong></em>, such as static files (images, videos, CSS, and JavaScript), closer to the user.</li>
+</ul>
+</li>
+</ul>
+<h4 id="how-they-work">How They Work</h4>
+<ul>
+<li>
+<p>Content is delivered to end user with lower latency (Lowest latency possible).</p>
+</li>
+<li>
+<p>When a user requests content that is served through a service like <strong>Amazon CloudFront</strong> <em>(AWS's Content Delivery Network)</em>, the request is automatically routed to the nearest Edge Location.</p>
+<ul>
+<li>
+<p><strong>Check Cache</strong>:</p>
+<ul>
+<li>The Edge Location first checks if it has a cached copy of the requested content.</li>
+</ul>
+</li>
+<li>
+<p><strong>Serve from Cache</strong>:</p>
+<ul>
+<li>If the content is in the cache, it's served directly to the user. This is extremely fast because the data has very little distance to travel.</li>
+</ul>
+</li>
+<li>
+<p><strong>Fetch from Origin</strong>:</p>
+<ul>
+<li>If the content is not in the cache, the Edge Location retrieves it from the origin server (e.g., an S3 bucket or an EC2 instance in an AWS Region).</li>
+<li>It then delivers the content to the user and stores a copy in its cache for future requests.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="key-services-that-use-edge-locations">Key Services that Use Edge Locations</h4>
+<ul>
+<li>
+<p>Edge Locations are essential for several AWS services that require low latency and high performance:</p>
+<ul>
+<li>
+<p><strong>Amazon CloudFront</strong>:</p>
+<ul>
+<li>This is the primary service that uses Edge Locations as a CDN to cache and deliver content globally.</li>
+</ul>
+</li>
+<li>
+<p><strong>AWS Global Accelerator</strong>:</p>
+<ul>
+<li>This service improves the availability and performance of applications by directing user traffic to the optimal AWS endpoint over the AWS global network backbone, bypassing the public internet.</li>
+</ul>
+</li>
+<li>
+<p><strong>Amazon Route 53</strong>:</p>
+<ul>
+<li>As a managed DNS service, Route 53 uses Edge Locations to provide fast DNS resolution, directing users to the closest available resource.</li>
+</ul>
+</li>
+<li>
+<p><strong>AWS WAF &amp; AWS Shield</strong>:</p>
+<ul>
+<li>These security services also operate at the Edge Locations, inspecting traffic and providing protection against threats like DDoS attacks before they reach your main application servers.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>In short, while Regions and AZs are where you build your core application, Edge Locations are how you get your content to your users quickly and securely, no matter where they are in the world.</p>
+</li>
+<li>
+<p>Here is an explanation of the AWS Global Infrastructure, including Edge Locations and CloudFront.</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=9eS9XPhPsdU">AWS Global Infrastructure: Understanding Edge Locations and CloudFront</a></li>
 </ul>
 </li>
 </ul>
