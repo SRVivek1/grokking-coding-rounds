@@ -19,7 +19,7 @@ AWS offers various ways to pay for EC2 instances, moving beyond the simple pay-a
 
 This is the most flexible option. You pay for compute capacity by the hour or second (with a 60-second minimum) with no long-term commitments.
 * Pay for what you use:
-  * Linux or Windows - Billing per secon, after the first minute.
+  * Linux or Windows - Billing per second, after the first minute.
   * All other operating systems - billing per hour.
 * Has the highest cost but no upfront payment.
 * No long-term commitment.
@@ -29,7 +29,7 @@ This is the most flexible option. You pay for compute capacity by the hour or se
   * **Why it's used:** 
     * It offers maximum flexibility and requires no upfront payment. You simply pay for what you use.
 
-* **Recommended for** short-term and un-interrupted woorloads, where you can't predict how the application will behave. 
+* **Recommended for** short-term and un-interrupted workloads, where you can't predict how the application will behave. 
 
 -----
 
@@ -45,7 +45,7 @@ Reserved Instances are a **billing discount** applied to your On-Demand usage. T
   * **Convertible RI:** 
     * Provides a lower discount but allows you to change the instance family, OS, and tenancy during the term. 
     * This is great for evolving applications.
-      * Under this category up to **66% discount** available.
+      * Up to **66% discount** available.
   * **Payment Options:** 
     * You can choose to pay **All Upfront** (largest discount), **Partial Upfront** (less discount), or **No Upfront** (smallest discount).
 
@@ -56,47 +56,166 @@ Reserved Instances are a **billing discount** applied to your On-Demand usage. T
 
 -----
 
-### Savings Plans [TODO]
+### Savings Plans
 
-This is a more flexible and modern alternative to Reserved Instances. You commit to a consistent amount of compute usage per hour, measured in dollars ($/hr) for a 1- or 3-year term.
+This is a more flexible and modern alternative to Reserved Instances that offer low prices on Amazon EC2, AWS Lambda, and AWS Fargate usage. You commit to a consistent amount of compute usage per hour, measured in dollars ($/hr) for a 1 or 3 year term.
+* Usages beyond EC2 Savings Plans us billed at the On-Demand price.
+* Flexibile acreoss:
+  * Instance Size (e.g. m5.xlarge, m5.2xlarge)
+  * OS (e.g.Linux, Windows)
+  * Tenancy (Host, Dedicated, Default)
 
-  * **Compute Savings Plans:** 
+####  AWS offers two types of Savings Plans:
+  1. **Compute Savings Plans:** 
     * The most flexible. 
     * The discount automatically applies to any EC2 instance usage, regardless of instance family, size, region, OS, or tenancy. 
     * It also applies to AWS Fargate and AWS Lambda.
-  * **EC2 Instance Savings Plans:** 
-    * Offers higher savings than Compute Savings Plans but is less flexible. 
-    * The commitment is to a specific EC2 instance family in a region, but you can change instance size, OS, and tenancy.
+    * Reduce your costs by up to 66%.
+    * **For example,** with Compute Savings Plans, 
+      * You can change from C4 to M5 instances, 
+      * Shift a workload from EU (Ireland) to EU (London), or 
+      * Move a workload from EC2 to Fargate or Lambda at any time and automatically continue to pay the Savings Plans price.
+  2. **EC2 Instance Savings Plans:** 
+    * Offers higher savings than Compute Savings Plans but is less flexible and locked to a specific instance family and AWS region (e.g. M5 in us-east-1).
+    * The commitment is to a specific EC2 instance family in a region (e.g. M5 usage in N. Virginia). 
+    * But you can change instance size, OS, and tenancy.
+      * **For example,** you can move from c5.xlarge running Windows to c5.2xlarge running Linux.
 
 -----
 
-#### Spot Instances
+### Spot Instances
 
-These are unused EC2 instances available at a steep discount (up to 90% off the On-Demand price). The catch? AWS can terminate them with a two-minute warning if the capacity is needed for On-Demand or Reserved Instance users.
+These are unused EC2 instances available at a steep discount (up to 90% off the On-Demand price). Spot Instance prices are set by Amazon EC2 and adjust gradually based on long-term trends in supply and demand for Spot Instance capacity.
+* Most cost-efficient instances, Useful for workloads that are resilient to failure.
+  * Batch jobs
+  * Data Analysis
+  * Image processing
+  * Any distributed workloads
+  * Workloads with flexible start and end time.
+* **Not suitable** for critical jobs or databases.
+* You can loose these instances any point of time if your max prices is less than the current spot price.
+* The catch? AWS can terminate them with a 2-minute warning if the capacity is needed for On-Demand or Reserved Instance users.
+* You can only cancel Spot Instance requests that are open, active or disabled.
+  * Cancelling a Spot Request does not terminated instances, you must first cancel a Spot Request, and then terminate the associated Spot Instances. 
+* Advisor: https://aws.amazon.com/ec2/spot/instance-advisor/
+
+* **Note:** 
+  * T4g and T3 instances launch as unlimited by default. The unlimited mode is a credit configuration option for burstable performance instances.
+    * If you launch T4g or T3 Spot Instances as unlimited and plan to use them immediately and for a short duration, with no idle time for accruing CPU credits, **you will incur charges for surplus credits**. 
+    * If the average CPU usage over a 24-hour period exceeds the baseline, you will also incur charges for surplus credits. 
+      * We recommend that you launch your T4g or T3 Spot Instances in standard mode to avoid paying higher costs.
 
   * **When to use:** For fault-tolerant, stateless, or flexible workloads like big data processing, CI/CD, batch jobs, or rendering farms.
   * **Why it's used:** Tremendous cost savings. The key is that the application must be designed to handle interruptions gracefully.
 
-#### Dedicated Hosts
+#### EC2 Spot Instance Requests
+* Can get a discount f up to 90% compared to On-Demand/
+* Define **Max sport price** and get the instance while **current sport price < max**
+  * The hourly sport price varies based on offer and capacity/
+  * If the current spot price > your max price you can choose to stop or terminate your instance with a 2-minute grace period.
+* Other strategy: Spot Block
+  * "block" sport instance during a specified time frame (1 to 6 hours) without interruption.
+  * **Note:**
+    * Spot Blocks are no longer availale to new AWS customers since July 1st 2021 and won't be supported after December 31st, 2022.
+    * Still, they might appear in the exam, so keep a note of it.
 
-A physical EC2 server dedicated for your use. You have full control and visibility over the underlying hardware, including the number of sockets and physical cores.
+-----
 
-  * **When to use:** Primarily for bringing your own software licenses (**BYOL**) that require per-socket, per-core, or per-VM licensing. Also used for strict regulatory or compliance requirements.
+### Dedicated Hosts
+
+A physical server with EC2 instance capacity fully dedicated to your use. You have full control and visibility over the underlying hardware, including the number of sockets and physical cores.
+  * **When to use:** 
+    * Primarily for bringing your own software licenses (**BYOL**) that require per-socket, per-core, or per-VM licensing. 
+    * Also used for strict regulatory or compliance requirements.
   * **Billing:** You are billed for the entire physical host, not per instance, so it's a fixed cost.
+  * **Purchasing Options:**
+    * **On-Demand -** Pay per second for active Dedicated Host.
+    * **Reserved:** 1 or 3 years (No Upfront, Partial Upfront, All Upfront).
+* **Note:** The most expensive option.
 
-#### Dedicated Instances
+-----
 
-Instances that run on hardware dedicated to a single customer account, physically isolated from other accounts. Unlike Dedicated Hosts, you don't have visibility or control over the host hardware and can't use your own licenses that are tied to physical cores/sockets.
+### Dedicated Instances
+
+Instances that run on hardware dedicated to a single customer account, physically isolated from other accounts. It may share hardware with other instances in same account.
+* Unlike Dedicated Hosts, you don't have visibility or control over the host hardware and can't use your own licenses that are tied to physical cores/sockets.
 
   * **When to use:** For compliance or security requirements that mandate physical isolation from other customers.
   * **Billing:** You are charged at a premium over On-Demand rates.
 
-#### On-Demand Capacity Reservations
+<br/>
 
-This is not a pricing model but a way to reserve capacity. You reserve a specific number of instances in a particular Availability Zone for any duration.
+#### Dedicated Instances vs Dedicated Hosts
+
+| Characteristic | Dedicated Instances | Dedicated Hosts |
+| -------------- | ------------------- | --------------- |
+| Enables the use of dedicated Physhical server |  X  | X |
+| For instance billing (Subject to a $2 per region fee) | X |  |
+| Per host billing | | X |
+| visibility of socket, cores, Host ID | | X |
+| Affinity between a host and instance | | X |
+| Targated instance placement |  | X |
+| Automate Instance placement | X | X |
+| Add capacity using an allocation request |  | X |
+
+
+-----
+
+### On-Demand EC2 Capacity Reservations
+
+* This is not a pricing model and has no billing discount but a way to reserve capacity. 
+* Allows you to reserve compute capacity for your Amazon EC2 instances in a specific Availability Zone (AZ) for any duration. 
 
   * **When to use:** For mission-critical workloads that require guaranteed capacity, especially in regions with high demand.
-  * **Key Note:** You pay the On-Demand rate for the reserved capacity whether you use it or not. It's often combined with Savings Plans or Reserved Instances to get a billing discount on top of the reserved capacity.
+    * **Suitable for** short-term, uninterrupted workloads that needs to be in a specific AZ.
+    * **Capacity Reservation for immediate use:** No term commitment required for immediate use.
+    * **Future-Dated Capacity Reservation:** You specify the future date at which you need the Capacity Reservation to become available for use & also specify a commitment duration to keeping the requested capacity in your account after the specified date. 
+    * At the requested date and time, the Capacity Reservation becomes available for use and the commitment duration starts.
+      * During the commitment duration, **you can't decrease the instance count** or **commitment duration below your initial commitment**, or **cancel the Capacity Reservation**. 
+      * After the commitment duration elapses, you can modify the Capacity Reservation in any way or cancel it if you no longer need it.
+<br/>
+
+* **Key Note:** 
+    * Capacity Reservations can only be used by instances that match their attributes.
+      * By default, Capacity Reservations automatically match new instances and running instances that have matching attributes (instance type, platform, Availability Zone, and tenancy).
+    * You pay the On-Demand rate for the reserved capacity whether you use it or not. 
+      * It's often combined with Savings Plans or Reserved Instances to get a billing discount on top of the reserved capacity.
+    * Future-dated Capacity Reservations are for helping you launch and cover incremental instances, and not to cover existing running instances. 
+      * If you need to cover existing running instances, use Capacity Reservations that start immediately instead.
+
+-----
+
+### Spot Fleets
+
+* A Spot Fleet is a **collection of Spot Instances**, and optionally On-Demand Instances, that are launched and managed automatically to meet a specific target capacity. 
+  * **Spot Fleets = *set of Spot Instances + (optional) On-Demand Instances***
+* You create a single request for a fleet of instances, specifying multiple instance types, Availability Zones, and a maximum price. AWS will then fulfill the request by launching instances from the pools that offer the lowest prices or best capacity at that moment.
+
+  * **Key Concept:** Spot Fleets simplify the management of a large number of diverse Spot Instances. Instead of managing individual Spot requests, you manage a single fleet request.
+  * **When to use:** For large-scale, distributed, and stateless applications that can tolerate interruptions, such as big data processing (Hadoop, Spark), containerized workloads (ECS, EKS), or rendering farms. It's the go-to service for orchestrating Spot capacity at scale.
+  * **Why it's used:** It automates the process of finding and using the cheapest available Spot capacity. By diversifying across multiple instance types and Availability Zones, it significantly increases the chance of the fleet maintaining its target capacity, even if a particular pool becomes unavailable.
+
+* The Spot Fleet will try to meet the target capacity with price constraints
+  * Define possible launch pools: instance type (m5.large), OS, Availability Zone.
+  * Can have multiple launch pools, so that the fleet can choose.
+  * Spot Fleet stops launching instanes when reaching capacity or max cost.
+
+#### Allocation Strategies
+
+Spot Fleets are highly configurable and offer different allocation strategies to meet your specific needs:
+  * **`lowest-price`:** 
+    * Launches instances from the Spot pool (instance type in an Availability Zone) that has the lowest price at the time of the request. 
+    * Ideal for short-lived, extremely cost-sensitive workloads.
+  * **`diversified`:** 
+    * Distributes instances across all the specified Spot pools. 
+    * This minimizes the impact of a single pool's interruption, making it suitable for longer-running, resilient workloads.
+  * **`capacity-optimized`:** 
+    * Launches instances from the pools with the most available capacity. 
+    * This is the recommended strategy for most use cases as it reduces the likelihood of interruptions by choosing pools that are less likely to have sudden price spikes or be reclaimed.
+  * **Price Capacity Optimized (recommended):**
+    * Pools with highest capacity aailable, then select the pool with the lowest price (best choice for most workloads).
+
+* **Note:** Allows us to automatically request Spot Instaces with the lowest price.
 
 -----
 
@@ -110,7 +229,7 @@ N/A - This topic is about billing and provisioning, not code implementation.
 
 **EC2 Purchasing Options - Cost vs. Flexibility**
 
-**Mermaid.js Diagram: Decision Flow**
+**Diagram: Decision Flow**
 
 ```mermaid
 graph TD
@@ -129,6 +248,21 @@ graph TD
     L -- No --> N[Use Dedicated Instances];
 ```
 
+-----
+
+**Spot Fleet: Decision Flow**
+```mermaid
+graph TD
+    A[Start: I need to run a large-scale, fault-tolerant workload.] --> B{Should I manage individual Spot Instances?};
+    B -- No --> C[Use a Spot Fleet];
+    B -- Yes --> D[Use individual Spot Instance requests];
+    C --> E{What's my primary goal: lowest price or high availability?};
+    E -- Lowest Price --> F[Choose 'lowest-price' allocation strategy];
+    E -- High Availability --> G[Choose 'capacity-optimized' or 'diversified' allocation strategy];
+    C --> H{Do I need a baseline of guaranteed capacity?};
+    H -- Yes --> I[Include On-Demand instances in the Spot Fleet request];
+    H -- No --> J[Only use Spot Instances];
+```
 -----
 
 ### 5\. Real-World Applications
@@ -157,7 +291,9 @@ graph TD
   * **Capacity Reservations:**
       * **Pros:** Guaranteed capacity, crucial for mission-critical apps.
       * **Cons:** No discount, you pay even if not used.
-
+  * **Spot Fleets:**
+      * **Pros:** Automates the management of Spot Instances, significantly increases reliability by diversifying across pools, and can include On-Demand instances for guaranteed baseline capacity.
+      * **Cons:** Not suitable for non-interruptible workloads. Can be complex to configure initially due to the various options.
 -----
 
 ### 7\. Trade-offs
@@ -182,17 +318,22 @@ The decision is about finding the right equilibrium for your specific applicatio
 
 -----
 
-### 9\. Interview Angle
+### 9\. Interview Topics
 
   * **"What are the different EC2 purchasing options?"**
-      * *Answer:* Start by listing them (On-Demand, RIs, SPs, Spot, Dedicated) and then provide a one-sentence summary for each. Frame the discussion around the core trade-off: cost vs. flexibility.
+      * ***Answer:*** Start by listing them (On-Demand, RIs, SPs, Spot, Dedicated) and then provide a one-sentence summary for each. Frame the discussion around the core trade-off: cost vs. flexibility.
   * **"Explain the difference between Reserved Instances and Savings Plans."**
-      * *Answer:* Highlight that SPs are a more flexible, dollar-based commitment that applies across instance types and services (Compute SPs), while RIs are tied to a specific instance configuration. Mention that AWS now recommends SPs for most use cases.
+      * ***Answer:*** Highlight that SPs are a more flexible, dollar-based commitment that applies across instance types and services (Compute SPs), while RIs are tied to a specific instance configuration. Mention that AWS now recommends SPs for most use cases.
   * **"When would you use Spot Instances?"**
-      * *Answer:* Use the keywords "fault-tolerant," "stateless," "non-critical," and "interruptible." Give concrete examples like big data processing (Spark, Hadoop), video rendering, and CI/CD pipelines.
+      * ***Answer:*** Use the keywords "fault-tolerant," "stateless," "non-critical," and "interruptible." Give concrete examples like big data processing (Spark, Hadoop), video rendering, and CI/CD pipelines.
   * **"How would you optimize EC2 costs for a new application?"**
-      * *Answer:* Start with On-Demand for development. Once the application is in production and you have a stable baseline of usage (e.g., a database and a web server), purchase a Savings Plan for that base load. Use Auto Scaling with a mix of On-Demand and Spot instances to handle the variable traffic.
-
+      * ***Answer:*** Start with On-Demand for development. Once the application is in production and you have a stable baseline of usage (e.g., a database and a web server), purchase a Savings Plan for that base load. Use Auto Scaling with a mix of On-Demand and Spot instances to handle the variable traffic.
+  * **"What is the difference between a Spot Instance and a Spot Fleet?"**
+      * ***Answer:*** A Spot Instance is a single EC2 instance launched with the Spot pricing model. 
+      * A Spot Fleet is a managed service that automatically launches and maintains a *collection* of Spot Instances (and optionally On-Demand) based on your target capacity, diversified across different instance types and Availability Zones to increase reliability and availability.
+  * **"How would you use a Spot Fleet to run a large data processing job?"**
+      * ***Answer:*** I would create a Spot Fleet request and specify multiple instance types (e.g., m5.xlarge, m5.2xlarge, c5.xlarge) to diversify the capacity pools. 
+      * I would choose the `capacity-optimized` allocation strategy to reduce the chance of interruptions. If the job requires a minimum baseline of capacity to avoid a complete stall, I would set a small portion of the target capacity to be fulfilled by On-Demand instances.
 -----
 
 ### 10\. Online References
